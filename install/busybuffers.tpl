@@ -11,6 +11,12 @@
   a buffer in the buffer cache, lock it and read the block into the buffer.
   The other process is locked until the block is read. This wait is refered to
   as <CODE>buffer busy wait</CODE>.</P>
+ <P><CODE>Buffer busy waits</CODE> may also have caused <CODE>latch free</CODE>
+  waits. This is a side effect of multiple simultan insert tries into the same
+  block. So instead of trying to decrease the <CODE>latch free</CODE> waits
+  (which are only symptomatic in these cases) by increasing the
+  <CODE>SPINCOUNT</CODE> you should change the concerned object in a way that
+  multiple objects are able to insert into free blocks.</P>
  <P>The type of buffer that causes the wait can be queried with
   <CODE>v$waitstat</CODE>, which lists the waits per buffer type for
   <CODE>buffer busy waits</CODE> only.</P>
@@ -18,13 +24,26 @@
  <H3>What types of buffers is waited for?</H3>
  <TABLE ALIGN="center" BORDER="1" WIDTH="90%">
   <TR><TH>Block</TH><TH>Description</TH></TR>
-  <TR><TD>segment header</TD><TD>The problem is probably a freelist contention.</TD></TR>
-  <TR><TD>data block</TD><TD>Increasing the size of the <CODE>database buffer
-      cache</CODE> can help to reduce these waits; but this can also point
-      to freelist contention.</TD></TR>
-  <TR><TD>undo header</TD><TD ROWSPAN="2">If you don't use Undo TableSpaces,
-      you probably have too few rollback segments.</TD></TR>
-  <TR><TD>undo block</TD></TR>
+  <TR><TD>segment header</TD><TD>The problem is probably a freelist contention.
+      Use freelists or increase the amount of freelists. Use freelist groups
+      (this may have markable effects even in single instances).</TD></TR>
+  <TR><TD>data block</TD><TD>Change <CODE>PCTFREE</CODE> and/or <CODE>PCTUSED</CODE>:
+      Check, whether there are indices where many processes insert into the same
+      point. Increase <A HREF="initrans.html"><CODE>INITRANS</CODE></A>. Define
+      less lines per block.<BR> Increasing the size of the <CODE>database buffer
+      cache</CODE> can help to reduce these waits as well; but this can also
+      point to freelist contention.</TD></TR>
+  <TR><TD>undo header</TD><TD>If you don't use Undo TableSpaces,
+      you probably have too few rollback segments. In this case, add more
+      rollback segments and/or increase the number of transactions per rollback
+      segment.</TD></TR>
+  <TR><TD>undo block</TD><TD>This may also point to to few rollback segments
+      (see "undo header" above), but as well to their size: you may want to
+      increase the size of the rollback segments. For "Parallel Server", you
+      can also define more PCM locks in &lt;Parameter:GC_ROLLBACK_LOCKS&gt;</TD></TR>
+  <TR><TD>free list</TD><TD>Add more freelists or increase the number of
+      free lists. For "Parallel Server", make sure that each instance has its
+      own freelist group(s).</TD></TR>
  </TABLE>
 
  <H3>What can I do about FreeList contention?</H3>

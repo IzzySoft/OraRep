@@ -15,6 +15,11 @@
   cleaning out buffers for server processes, or the buffer cache is so big that
   one DBWR process is not enough to free enough buffers in the cache to
   satisfy requests.</P>
+ <P>If you changed the state of a tablespace from "read only" to "read write",
+  all buffers are reset. In this case, you may also encounter <CODE>free
+  buffer waits</CODE> - which of course will not be subject to tuning actions.
+  So if this event just occured occasionally, check whether this may have
+  been the reason before being worried about the performance of your instance.</P>
  <H3>What actions can be taken?</H3>
   <P>If this event occurs frequently, then examine the session waits for DBWR
    to see whether there is anything delaying DBWR:</P>
