@@ -160,3 +160,10 @@ v0.2.6 (04.02.2004)
   cursor_sharing
 + write enabled data files that have not AUTOEXTENT ON set and filled more than
   85% / 95% are now also highlighted with Go4Colors
+
+v0.2.7
+-------------------
++ in the TS Quotas block we now highlight rows (quotas) with non-existing
+  tablespaces: these emerge when dropping a tablespace where quotas where
+  explicitely given by the "ALTER USER...QUOTA..." command, and the quotas
+  would automatically activated if a tablespace with that name would be created
