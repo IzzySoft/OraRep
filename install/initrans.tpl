@@ -19,7 +19,7 @@
   adjustment.</P>
  <TABLE WIDTH="95%" ALIGN="center" BORDER="1">
    <TR><TD CLASS="td_name" ROWSPAN="2">Recommended values:</TD>
-       <TD>[# of CPUs] &lt;= <code>INI_TRANS</code> &gt; 100</TD></TR>
+       <TD>[# of CPUs] &lt;= <code>INI_TRANS</code> &lt; 100</TD></TR>
    <TR><TD><code>MAX_TRANS</code> &lt; 100</TD>
    <TR><TD CLASS="td_name">Side-Effects:</TD>
        <TD>If the value for either of these parameters is too high, Oracle will

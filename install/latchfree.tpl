@@ -41,12 +41,14 @@
  <P>In the <CODE>V$SESSION_WAIT</CODE> view, you find the address of the latch
   in column P1, the latch number in P2 and the number of times process has
   already slept in waiting for the latch in P3:
+  <TABLE ALIGN="center"><TR><TD>
   <DIV CLASS="code" STYLE="width:23em">
   SELECT n.name, SUM(w.p3 Sleeps<BR>
   &nbsp;&nbsp;FROM v$session_wait w, v$latchname n<BR>
   &nbsp;WHERE w.event = 'latch free'<BR>
   &nbsp;&nbsp;&nbsp;AND w.p2    = n.latch#<BR>
   &nbsp;GROUP BY n.name;</DIV>
+  </TD></TR></TABLE>
  <P>Following table lists up some latches with additional information:</P>
  <TABLE WIDTH="95%" BORDER="1" ALIGN="center">
   <TR><TH CLASS="th_sub2">Latch</TH><TH CLASS="th_sub2">SGA Area</TH>
@@ -94,26 +96,34 @@
   This method identifies similar SQL statements that could be shared if
   literals were replaced with bind variables. The idea is to either:<UL>
   <LI>Manually inspect SQL statements that have only one execution to see
-      whether they are similar:<DIV CLASS="code" STYLE="width:13em">
+      whether they are similar:
+      <TABLE ALIGN="center"><TR><TD>
+      <DIV CLASS="code" STYLE="width:13em">
       SELECT sqltext<BR>
       &nbsp;&nbsp;FROM v$sqlarea<BR>
       &nbsp;WHERE executions = 1<BR>
-      &nbsp;ORDER BY sql_text;</DIV></LI>
+      &nbsp;ORDER BY sql_text;</DIV></TD></TR></TABLE></LI>
   <LI>Or, automate this process by grouping together what may be similar
       statements. Do this by estimating the number of bytes of a SQL statement
       which will likely be the same, and group the SQL statements by that many
       bytes. For example, the example below groups together statements that
-      differ only after the first 60 bytes.<DIV CLASS="code" STYLE="width:23em">
+      differ only after the first 60 bytes.
+      <TABLE ALIGN="center"><TR><TD>
+      <DIV CLASS="code" STYLE="width:23em">
       SELECT SUBSTR(sql_text,1, 60), COUNT(*)<BR>
       &nbsp;&nbsp;FROM V$SQLAREA<BR>
       &nbsp;WHERE executions = 1<BR>
       &nbsp;GROUP BY SUBSTR(sql_text, 1, 60)<BR>
-      HAVING COUNT(*) > 1;</CODE></LI></UL></P>
+      HAVING COUNT(*) > 1;</DIV>
+      </TD></TR></TABLE></LI></UL></P>
  <P><B>Reparsed Sharable SQL</B><BR>
-  Check the V$SQLAREA view. Enter the following query:<DIV CLASS="code" STYLE="width:25em">
+  Check the V$SQLAREA view. Enter the following query:
+  <TABLE ALIGN="center"><TR><TD>
+  <DIV CLASS="code" STYLE="width:25em">
   SELECT sql_text, parse_calls, executions<BR>
   &nbsp;&nbsp;FROM v$sqlarea<BR>
   &nbsp;ORDER BY parse_calls;</DIV>
+  </TD></TR></TABLE>
   When the <CODE>PARSE_CALLS</CODE> value is close to the <CODE>EXECUTIONS<CODE>
   value for a given statement, you might be continually reparsing that
   statement. Tune the statements with the higher numbers of parse calls.</P>
@@ -121,6 +131,7 @@
   Identify unnecessary parse calls by identifying the session in which they
   occur. It might be that particular batch programs or certain types of
   applications do most of the reparsing. To do this, run the following query:
+  <TABLE ALIGN="center"><TR><TD>
   <DIV CLASS="code" STYLE="width:32em">
   column sid format 99999<BR>
   column name format a20<BR>
@@ -130,6 +141,7 @@
   &nbsp;&nbsp;&nbsp;AND ss.statistic# = sn.statistic#<BR>
   &nbsp;&nbsp;&nbsp;AND ss.value > 0<BR>
   &nbsp;ORDER BY value, sid;</DIV>
+  </TD></TR></TABLE>
   The result is a list of all sessions and the amount of reparsing they do. For
   each system identifier (SID), go to V$SESSION to find the name of the program
   that causes the reparsing.</P>
@@ -160,10 +172,13 @@
   value in the ADDR column joined with the <CODE>V$BH</CODE> view to identify
   the blocks protected by this latch. For example, given the address
   (<CODE>V$LATCH_CHILDREN.ADDR</CODE>) of a heavily contended latch, this
-  queries the file and block numbers:<DIV CLASS="code" STYLE="width:22em">
+  queries the file and block numbers:
+  <TABLE ALIGN="center"><TR><TD>
+  <DIV CLASS="code" STYLE="width:22em">
   SELECT file#, dbablk, class, state<BR>
   &nbsp;&nbsp;FROM X$BH<BR>
   &nbsp;WHERE HLADDR='address of latch';</DIV>
+  </TD></TR></TABLE>
   There are many blocks protected by each latch. One of these buffers will
   likely be the hot block. Perform this query a number of times, and identify
   the block that consistently appears in the output, using the combination of

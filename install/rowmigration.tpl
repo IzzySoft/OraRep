@@ -27,8 +27,11 @@
   described above: the updated row may have to be migrated.</P>
  <H3>So how to fix this?</H3>
   <P>For this, you first have to analyse your tables:
-  <DIV CLASS="code">ANALYZE TABLE tablename COMPUTE STATISTICS;<BR>
-  SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='tablename';</DIV>
+  <TABLE ALIGN="center"><TR><TD>
+  <DIV CLASS="code" STYLE="width:42em">
+  ANALYZE TABLE tablename COMPUTE STATISTICS;<BR>
+  SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='tablename';
+  </DIV></TD></TR></TABLE>
   <I>utlchain.sql</I> then may help you to automatically eliminate migration.
   Make sure to correct PCTFREE before running this script - otherwise it is
   very likely that this problem will re-occur soon.</P>
