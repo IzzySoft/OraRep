@@ -173,6 +173,13 @@
        <td class="text">The "Enqueue Waits" block may be useful for closer
            investigation if other results indicate problems concerning enqueues,
            but may not be needed for the daily reports in most cases.</td></tr>
+   <tr><td class="td_name"><code>MK_INVOBJ</code></td>
+       <td class="text">Database objects, such as Views, Stored Procedures,
+           Packages etc.pp., can become invalid under certain conditions. While
+           this should be no problem for views in most cases (they may recompile
+           without problems if the underlying objects are fine), it can be a
+           security issue for triggers. This segment lists up all invalid objects
+           together with some additional details on them.</td></tr>
   </table>
  </td></tr>
 </table>

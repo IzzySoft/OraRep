@@ -82,4 +82,6 @@ MK_WTEVT=1
 MK_FLC=0
 # Include Enqueue Waits (Oracle 9i and higher only)? [0|1]
 MK_ENQ=1
+# Include the Invalid Objects segment? [0|1]
+MK_INVOBJ=1
 # ===================================================================[ EOF ]===

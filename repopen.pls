@@ -23,8 +23,8 @@ BEGIN
   MK_WTEVT     := :MK_WTEVT;
   MK_FLC       := :MK_FLC;
   MK_ENQ       := :MK_ENQ;
+  MK_INVOBJ    := :MK_INVOBJ;
   MK_WAITOBJ  := have_waits();
-  MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
   MK_EXTNEED  := have_extentneed();
   MK_BUFFP    := have_buffp_stats();
@@ -145,9 +145,13 @@ BEGIN
     print(L_LINE);
   END IF;
 
-  IF MK_INVALIDS THEN
-    L_LINE := ' [ <A HREF="#invobj">Invalid Objects</A> ]';
-  ELSE
+  IF MK_INVOBJ = 1 THEN
+    MK_INVALIDS := have_invalids();
+    IF MK_INVALIDS THEN
+      L_LINE := ' [ <A HREF="#invobj">Invalid Objects</A> ]';
+    ELSE
+      L_LINE := '';
+  END IF;
     L_LINE := '';
   END IF;
   L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>'||TABLE_CLOSE;

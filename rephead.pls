@@ -29,6 +29,7 @@ DECLARE
   MK_WTEVT NUMBER;
   MK_FLC NUMBER;
   MK_ENQ NUMBER;
+  MK_INVOBJ NUMBER;
   TPH_NOLOG NUMBER;
   WPH_NOLOG NUMBER;
   WR_BUFF NUMBER;
@@ -58,12 +59,6 @@ DECLARE
               WHERE 0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)
               ORDER BY empty_blocks/(blocks+empty_blocks) )
      WHERE rownum <= TOP_N_TABLES;
-  CURSOR C_INVOBJ IS
-    SELECT owner,object_name,object_type,to_char(created,'dd.mm.yyyy hh:mi') created,
-           to_char(last_ddl_time,'dd.mm.yyyy hh:mi') last_ddl_time
-      FROM dba_objects
-     WHERE status='INVALID'
-     ORDER BY owner;
 
   PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, alert IN NUMBER, warn IN NUMBER, rval OUT VARCHAR2, tdclass OUT VARCHAR2) IS
     BEGIN

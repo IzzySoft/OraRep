@@ -1,24 +1,3 @@
-  -- Invalid Objects
-  IF have_invalids() THEN
-    L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="invobj">Invalid Objects</A></TH></TR>'||CHR(10)||
-              ' <TR><TD COLSPAN="5">The following objects may need your investigation. These are not';
-    print(L_LINE);
-    L_LINE := ' necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>';
-    print(L_LINE);
-    L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Typ</TH>'||
-              '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>';
-    print(L_LINE);
-    FOR Rec_INVOBJ IN C_INVOBJ LOOP
-      L_LINE := ' <TR><TD>'||Rec_INVOBJ.owner||'</TD><TD>'||Rec_INVOBJ.object_name||
-                '</TD><TD>'||Rec_INVOBJ.object_type||'</TD><TD>'||Rec_INVOBJ.created||
- 	        '</TD><TD>'||Rec_INVOBJ.last_ddl_time||'</TD></TR>';
-      print(L_LINE);
-    END LOOP;
-    L_LINE := TABLE_CLOSE;
-    print(L_LINE);
-    print('<HR>');
-  END IF;
-
   -- Miscellaneous
   IF MK_TABSCAN OR MK_EXTNEED
   THEN
