@@ -559,8 +559,10 @@ BEGIN
   S1 := to_char(I1,'999,999,990.99');
   L_LINE := ' <TR><TD>table fetch continued row</TD><TD ALIGN="right">'||S1||
             '</TD><TD>How many migrated rows did we encounter during this '||
-            'instances life time? If the number is markable, you may have to '||
-            'analyse your tables:';
+            'instances life time? Since these can cause acute performance ';
+  print(L_LINE);
+  L_LINE := 'degration, they should be corrected immediately if they are being '||
+            'reported. For this, you may have to analyse your tables:';
   print(L_LINE);
   L_LINE := '<PRE>ANALYZE TABLE tablename COMPUTE STATISTICS;'||CHR(10)||
             'SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='||
