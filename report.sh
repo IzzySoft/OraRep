@@ -19,7 +19,7 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.2.2'
+version='0.2.3'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -77,12 +77,13 @@ fi
 if [ $DBVER -gt 89 ]; then
   ENQHEAD=$BINDIR/plugins/90enq_head.pls
   ENQBODY=$BINDIR/plugins/90enq_body.pls
+  RSRCHEAD=$BINDIR/plugins/90resource_head.pls
 else
+  RSRCHEAD=$BINDIR/plugins/81resource_head.pls
   ENQHEAD=$BINDIR/plugins/dummy.pls
   ENQBODY=$BINDIR/plugins/dummy.pls
 fi
-  RSRCHEAD=$BINDIR/plugins/81resource_head.pls
-  RSRCBODY=$BINDIR/plugins/81resource_body.pls
+RSRCBODY=$BINDIR/plugins/81resource_body.pls
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$1
