@@ -61,7 +61,7 @@
            bytes_processed bytes,
 	   estd_extra_bytes_rw extra_bytes,
 	   TO_CHAR(estd_pga_cache_hit_percentage,'9,990.0') pct_hits,
-	   TO_CHAR(estd_overalloc_count,'99,999') over
+	   TO_CHAR(estd_overalloc_count,'999,999,999') over
       FROM v$pga_target_advice;
   FUNCTION have_advice RETURN BOOLEAN IS
     LS NUMBER; LO NUMBER; LT NUMBER; OH NUMBER;
