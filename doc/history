@@ -55,3 +55,4 @@ v0.1.6
 + added "buffer busy waits" plus more description
 + made the disksort stats (in SYSSTAT Info) more precise
 + made description on migrated rows more precise
++ updated desc for free buffer waits
