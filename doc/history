@@ -184,3 +184,8 @@ v0.2.9 (23.03.2004)
 * Modularization: Wait Events (v$system_event), SYSSTAT Info, User Info,
   DBLinks, Invalid Objects, Miscellaneous segment
 + added alternative StyleSheet: iceage.css
+
+v0.3.0
+-------------------
+! report was broken again for Oracle < v9 due to use of CASE (introduced
+  with Oracle v9)
