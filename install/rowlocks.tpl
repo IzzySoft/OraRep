@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Row Locks</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What are Row Locks?</H3>
  <P>Row locks (also referred to as transaction (TX) locks) indicate multiple
   users try modifying the same row of a table (row-level-lock) or a row that is

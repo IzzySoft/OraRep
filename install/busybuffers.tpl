@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Buffer Busy Waits</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What are <CODE>buffer busy waits</CODE>?</H3>
  <P>If two processes try (almost) simultaneously the same block and the block
   is not resident in the <CODE>buffer cache</CODE>, one process will allocate
@@ -25,12 +25,12 @@
  <H3>What types of buffers is waited for?</H3>
  <TABLE ALIGN="center" BORDER="1" WIDTH="90%">
   <TR><TH>Block</TH><TH>Description</TH></TR>
-  <TR><TD>segment header</TD><TD>The problem is probably a freelist contention.
-      Use freelists or increase the amount of freelists. Use freelist groups
-      (this may have markable effects even in single instances).</TD></TR>
-  <TR><TD>data block</TD><TD>Increasing the size of the <CODE>database buffer
-      cache</CODE> can help to reduce these waits; but this can also
-      point to freelist contention:<BR>Change <CODE>PCTFREE</CODE> and/or
+  <TR><TD>segment header</TD><TD CLASS="text">The problem is probably a freelist
+      contention. Use freelists or increase the amount of freelists. Use
+      freelist groups (this may have markable effects even in single instances).</TD></TR>
+  <TR><TD>data block</TD><TD CLASS="text">Increasing the size of the
+      <CODE>db_buffer_cache</CODE> can help to reduce these waits; but this can
+      also point to freelist contention:<BR>Change <CODE>PCTFREE</CODE> and/or
       <CODE>PCTUSED</CODE>: Check, whether there are indices where many
       processes insert into the same point. Increase
       <A HREF="initrans.html"><CODE>INITRANS</CODE></A>. Define less lines per
@@ -39,17 +39,17 @@
       <CODE>PCT_USED</CODE>, turn the <I>MK_FLC</I> option on in your
       <CODE>config</CODE> file and then refer to the <A HREF="flc.html">FreeList
       Contention</A> block of the report.</TD></TR>
-  <TR><TD>undo header</TD><TD>If you don't use Undo TableSpaces,
+  <TR><TD>undo header</TD><TD CLASS="text">If you don't use Undo TableSpaces,
       you probably have too few rollback segments. In this case, add more
       rollback segments and/or increase the number of transactions per rollback
       segment.</TD></TR>
-  <TR><TD>undo block</TD><TD>This may also point to to few rollback segments
-      (see "undo header" above), but as well to their size: you may want to
-      increase the size of the rollback segments. For "Parallel Server", you
-      can also define more PCM locks in &lt;Parameter:GC_ROLLBACK_LOCKS&gt;</TD></TR>
-  <TR><TD>free list</TD><TD>Add more freelists or increase the number of
-      free lists. For "Parallel Server", make sure that each instance has its
-      own freelist group(s).</TD></TR>
+  <TR><TD>undo block</TD><TD CLASS="text">This may also point to to few rollback
+      segments (see "undo header" above), but as well to their size: you may
+      want to increase the size of the rollback segments. For "Parallel Server",
+      you can also define more PCM locks in &lt;Parameter:GC_ROLLBACK_LOCKS&gt;</TD></TR>
+  <TR><TD>free list</TD><TD CLASS="text">Add more freelists or increase the
+      number of free lists. For "Parallel Server", make sure that each instance
+      has its own freelist group(s).</TD></TR>
  </TABLE>
 
  <H3>What can I do about FreeList contention?</H3>

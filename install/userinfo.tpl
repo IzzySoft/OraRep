@@ -4,7 +4,7 @@
  <TITLE>OraHelp: User Information</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>User Information</H3>
  <P>This table gives you an overview on all users (schemata) existing within
   your database. Even if there is no much statistical data, you should check

@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Log File Switch</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What does this event mean?</H3>
  <P>In both events, <I>log file switch (archiving needed)</I> and
     <I>log file switch (checkpoint incomplete)</I>, the LGWR is unable

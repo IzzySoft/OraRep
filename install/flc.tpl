@@ -4,7 +4,7 @@
  <TITLE>OraHelp: FreeList Contention</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
 <H3>What is that "FreeList Contention" and what effects does it have?</H3>
 <P>This is best explained using an example. Imagine you are going to insert a
  large amount of rows into a table which is already frequently used. For this

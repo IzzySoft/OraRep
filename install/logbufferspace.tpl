@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Log buffer space</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What is this?</H3>
  <P>The <I>log buffer space</I> wait event occurs when server processes
     are waiting for free space in the log buffer, because you are writing redo

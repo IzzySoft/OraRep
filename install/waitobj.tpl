@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Objects causing Wait Events</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>Wait objects: IO</H3>
  <P>If you had many <CODE>db file * reads</CODE> and find some entries with
   segment type = table in the <I>Top_N IO objects</I>, these may need

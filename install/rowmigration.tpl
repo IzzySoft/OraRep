@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Row Migration</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What is row migration?</H3>
  <P>If an <CODE>UPDATE</CODE> statement increases the amount of data in a row
   so that the row no longer fits into its data block, Oracle tries to find

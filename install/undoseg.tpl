@@ -4,7 +4,7 @@
  <TITLE>OraHelp: Undo Segment Extension</TITLE>
 </HEAD><BODY>
 
-<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <P>Whenever the database must extend or shrink a rollback segment, the
   <CODE>undo segment extension</CODE> wait event occurs while the rollback
   segment is being manipulated. High wait times here could indicate a problem
