@@ -137,3 +137,4 @@ v0.2.4
   Rollback Segment Stats, Data Files, Memory Values, common Pool information,
   Enqueue Waits
 + new command line parameter "-c" to specify alternative config file
+* some code cleanup
