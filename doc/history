@@ -138,3 +138,10 @@ v0.2.4 (23.01.2004)
   Enqueue Waits
 + new command line parameter "-c" to specify alternative config file
 * some code cleanup
+
+v0.2.5
+-------------------
++ added documentation (HTML)
+* sometimes the "Wait Objects" table was created empty (Oracle removed the
+  entries between the first check [for the link in the header] and creation
+  of the table). Put a note in instead in these cases ;)
