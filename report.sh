@@ -132,7 +132,9 @@ DECLARE
       FROM v\$buffer_pool_statistics
      WHERE consistent_gets+db_block_gets>0;
   CURSOR C_SCAN IS
-    SELECT name,value FROM v\$sysstat WHERE name like '%table scans%';
+    SELECT name,TO_CHAR(value,'9,999,999,990') value
+      FROM v\$sysstat
+     WHERE name like '%table scans%';
   CURSOR C_EXT IS
     SELECT owner,table_name,
            to_char(100*empty_blocks/(blocks+empty_blocks),'990.00') freepct
