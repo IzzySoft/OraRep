@@ -148,3 +148,4 @@ v0.2.5
 + added some more details on the buffer waits, plus the optional buffer waits
   block
 + added "Chained-Fetch-Ratio" to "Sysstat Info" block
++ added block on "FreeList Contention"

@@ -12,6 +12,7 @@ BEGIN
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
   MK_BUFFRAT   := :MK_BUFFRAT;
+  MK_FLC       := :MK_FLC;
   MK_ENQ       := :MK_ENQ;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
@@ -93,6 +94,9 @@ BEGIN
   L_LINE := ' [ <A HREF="#events">Events</A> ]';
   IF MK_BUFFRAT = 1 THEN 
     L_LINE := L_LINE||' [ <A HREF="#buffwait">Buffer Waits</A> ]';
+  END IF;
+  IF MK_FLC = 1 THEN 
+    L_LINE := L_LINE||' [ <A HREF="#freelist">FreeList Contention</A> ]';
   END IF;
   IF MK_WAITOBJ THEN 
     L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';

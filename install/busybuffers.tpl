@@ -19,7 +19,8 @@
   multiple objects are able to insert into free blocks.</P>
  <P>The type of buffer that causes the wait can be queried with
   <CODE>v$waitstat</CODE>, which lists the waits per buffer type for
-  <CODE>buffer busy waits</CODE> only.</P>
+  <CODE>buffer busy waits</CODE> only (see the "Buffer Waits" block of this
+  report, if you enabled it in the config with <CODE>MK_BUFFRAT=1</CODE>).</P>
 
  <H3>What types of buffers is waited for?</H3>
  <TABLE ALIGN="center" BORDER="1" WIDTH="90%">
@@ -27,12 +28,17 @@
   <TR><TD>segment header</TD><TD>The problem is probably a freelist contention.
       Use freelists or increase the amount of freelists. Use freelist groups
       (this may have markable effects even in single instances).</TD></TR>
-  <TR><TD>data block</TD><TD>Change <CODE>PCTFREE</CODE> and/or <CODE>PCTUSED</CODE>:
-      Check, whether there are indices where many processes insert into the same
-      point. Increase <A HREF="initrans.html"><CODE>INITRANS</CODE></A>. Define
-      less lines per block.<BR> Increasing the size of the <CODE>database buffer
-      cache</CODE> can help to reduce these waits as well; but this can also
-      point to freelist contention.</TD></TR>
+  <TR><TD>data block</TD><TD>Increasing the size of the <CODE>database buffer
+      cache</CODE> can help to reduce these waits; but this can also
+      point to freelist contention:<BR>Change <CODE>PCTFREE</CODE> and/or
+      <CODE>PCTUSED</CODE>: Check, whether there are indices where many
+      processes insert into the same point. Increase
+      <A HREF="initrans.html"><CODE>INITRANS</CODE></A>. Define less lines per
+      block.<BR>
+      To find out what tables may need changes to <CODE>PCT_FREE</CODE> and/or
+      <CODE>PCT_USED</CODE>, turn the <I>MK_FLC</I> option on in your
+      <CODE>config</CODE> file and then refer to the <A HREF="flc.html">FreeList
+      Contention</A> block of the report.</TD></TR>
   <TR><TD>undo header</TD><TD>If you don't use Undo TableSpaces,
       you probably have too few rollback segments. In this case, add more
       rollback segments and/or increase the number of transactions per rollback
