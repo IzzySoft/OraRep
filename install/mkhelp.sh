@@ -16,7 +16,7 @@
 HCSS=`echo $CSS|sed 's/\.\./\\\.\\\./g'|sed 's/\//\\\\\//g'`
 SEDC="s/{css}/$HCSS/g"
 for i in *.tpl; do
-  TARGET=../help/${i%%.*}.html
+  TARGET=$REPDIR/help/${i%%.*}.html
   sed $SEDC $i >$TARGET
   chmod o+r $TARGET
 done

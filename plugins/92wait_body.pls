@@ -3,24 +3,14 @@
   THEN
     L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="waitobj">Objects causing Wait Events</A></TH></TR>';
     print(L_LINE);
-    L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one of the '||
-              'events <I>buffer busy waits</I>, <I>db file sequential read</I>, '||
-  	      '<I>db file scattered read</I> or <I>free buffer waits</I> at the '||
-	      'time the report was generated.';
+    L_LINE := ' <TR><TD COLSPAN="2"><A HREF="JavaScript:popup('||CHR(39)||
+              'waitobj'||CHR(39)||')"><IMG SRC="/icons/unknown.gif" '||
+  	      'BORDER="0" HEIGTH="12" VALIGN="middle" STYLE="margin-right:5"></A>'||
+	      '</TD><TD>On the following segments we noticed one of the events ';
     print(L_LINE);
-    L_LINE := 'If you had many <I>db file scattered reads</I> above and now find '||
-              'some entries with segment type = table in here, these may need ';
-    print(L_LINE);
-    L_LINE := 'some|more|better|other indices. Use <I>Statspack</I> or <I>'||
- 	      'Oracle Enterprise Manager Diagnostics Pack</I> to find out more. '||
-	      'Other things that may help to avoid some of the <I>db file * read</I> ';
-    print(L_LINE);
-    L_LINE := 'wait events are:<UL STYLE="margin-top:0;margin-bottom:0">'||
-              '<LI>Tune the SQL statements used by your applications and users (most important!)</LI>'||
-              '<LI>Re-Analyze the schema to help the optimizer with accurate data e.g. with <I>dbms_stats</I></LI>';
-    print(L_LINE);
-    L_LINE := '<LI>Stripe objects over multiple disk volumes</LI>'||
-              '<LI>Pin frequently used objects</LI><LI>Increase the buffer caches</LI></UL></TD></TR>';
+    L_LINE := '<I>buffer busy waits</I>, <I>db file sequential read</I>, '||
+              '<I>db file scattered read</I> or <I>free buffer waits</I> at '||
+              'the time the report was generated.</TD></TR>';
     print(L_LINE);
     L_LINE := TABLE_CLOSE;
     print(L_LINE);
