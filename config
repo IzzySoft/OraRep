@@ -33,6 +33,12 @@ REPDIR=/var/www/html/oracle/reports
 # StyleSheet to use
 CSS=../main.css
 
+# --------------------------------------------------------------[ Warnings ]---
+# At what treshholds we should issue warnings (yellow background). TPH_* stands
+# for Timeouts Per Hour
+# No logfile available to switch to
+TPH_NOLOG=1
+
 # -------------------------------------------------------------------[ SQL ]---
 # Top settings: Display Top N Statements
 TOP_N_WAITS=10

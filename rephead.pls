@@ -24,6 +24,8 @@ DECLARE
   MK_BUFFRAT NUMBER;
   MK_FLC NUMBER;
   MK_ENQ NUMBER;
+  TPH_NOLOG NUMBER;
+  UTH NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(500);
   S3 VARCHAR(200);
@@ -199,5 +201,23 @@ DECLARE
   FUNCTION have_advice RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
+    END;
+
+  FUNCTION str_gt(str IN VARCHAR2, num IN NUMBER) RETURN BOOLEAN IS
+    BEGIN
+      RETURN NVL(TO_NUMBER(str,'999,999,999,999,999.99'),0) > num;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN FALSE;
+    END;
+
+  FUNCTION notify_gt(str IN VARCHAR2, num IN NUMBER, level IN STRING) RETURN VARCHAR2 IS
+    BEGIN
+      IF str_gt(str,num) THEN
+        RETURN ' CLASS="'||level||'"';
+      ELSE
+        RETURN '';
+      END IF;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN '';
     END;
 

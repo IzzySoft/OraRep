@@ -20,6 +20,7 @@ BEGIN
   MK_EXTNEED  := have_extentneed();
   MK_BUFFP    := have_buffp_stats();
   MK_ADVICE   := have_advice();
+  TPH_NOLOG   := :TPH_NOLOG;
   IF MK_ENQ = 1 THEN
     MK_ENQS := have_enqs();
   ELSE
@@ -129,8 +130,9 @@ BEGIN
   SELECT SUM(bytes) INTO I2 from v$datafile;
   I3 := (I1+I2)/1048576;
   S1 := to_char(I3,'999,999,999.99');
-  SELECT to_char(startup_time,'DD.MM.YYYY HH24:MI'),to_char(sysdate - startup_time,'9990.00')
-    INTO S2,S3 FROM v$instance;
+  SELECT to_char(startup_time,'DD.MM.YYYY HH24:MI'),to_char(sysdate - startup_time,'9990.00'),
+         (sysdate - startup_time)*24
+    INTO S2,S3,UTH FROM v$instance;
   L_LINE := ' <TR><TD class="td_name">FileSize (Data+Log)</TD><TD>'||S1||' MB</TD></TR>'||CHR(10)||
             ' <TR><TD class="td_name">Startup / Uptime</TD><TD>'||S2||' / '||S3||' d</TD></TR>';
   print(L_LINE);

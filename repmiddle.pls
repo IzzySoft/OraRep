@@ -180,9 +180,10 @@
             'it intends to write.</TD></TR>';
   print(L_LINE);
   get_wait('log file switch (checkpoint incomplete)',S4,S1,S2,S3);
+  S5 := notify_gt(S3,TPH_NOLOG,'warn');
   L_LINE := ' <TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
-	    '<TD ALIGN="right">'||S3||'</TD><TD ROWSPAN="2">';
+	    '<TD ALIGN="right"'||S5||'>'||S3||'</TD><TD ROWSPAN="2">';
   print(L_LINE);
   L_LINE := 'Higher values for one of <A HREF="JavaScript:popup('||CHR(39)||
             'logfileswitch'||CHR(39)||')">these events</A> indicate that '||
@@ -190,9 +191,10 @@
 	    'file groups</TD></TR>';
   print(L_LINE);
   get_wait('log file switch (archiving needed)',S4,S1,S2,S3);
+  S5 := notify_gt(S3,TPH_NOLOG,'warn');
   L_LINE := ' <TR><TD>log file switch (archiving needed)</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
-	    '<TD ALIGN="right">'||S3||'</TD></TR>';
+	    '<TD ALIGN="right"'||S5||'>'||S3||'</TD></TR>';
   print(L_LINE);
   get_wait('log file switch completion',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch completion</TD><TD ALIGN="right">'||S1||
