@@ -71,10 +71,9 @@ BEGIN
   print(L_LINE);
 
   -- Navigation
+  L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small" ALIGN="center">';
   IF MK_USER = 1 THEN
-    L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ] ';
-  ELSE
-    L_LINE := '';
+    L_LINE := L_LINE||'[ <A HREF="#users">Users</A> ] ';
   END IF;
   IF MK_DBLINK = 1 THEN
     DBLINK_EXIST := have_dblinks();
@@ -88,9 +87,7 @@ BEGIN
   IF MK_DBAPROF = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#profiles">Profiles</A> ] ';
   END IF;
-  IF LENGTH(L_LINE) > 0 THEN
-    print(L_LINE);
-  END IF;
+  print(L_LINE);
 
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';

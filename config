@@ -60,10 +60,10 @@ MK_USER=1
 MK_DBLINK=1
 # Include Resource Plan Report? [0|1]
 MK_RSRC=0
-# Include TableSpace Quotas? [0|1]
-MK_TSQUOT=1
 # Include DBA Profiles? [0|1]
 MK_DBAPROF=0
+# Include TableSpace Quotas? [0|1]
+MK_TSQUOT=1
 # Include DataFile Stats? [0|1]
 MK_FILES=1
 # Include Rollback Segment Stats (maybe unnecessary w/ Auto Undo)? [0|1]
