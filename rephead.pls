@@ -51,9 +51,9 @@ DECLARE
            (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
      WHERE v$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
   CURSOR C_RBS IS
-    SELECT d.segment_name,d.status,to_char(r.rssize/1024,'99,999,999.00') rssize,
-           to_char(nvl(r.optsize/1024,'0'),'99,999,999.00') optsize,
-           to_char(r.hwmsize/1024,'99,999,999.00') hwmsize,r.xacts,
+    SELECT d.segment_name,d.status,to_char(r.rssize/1024,'99,999,990.00') rssize,
+           to_char(nvl(r.optsize/1024,'0'),'99,999,990.00') optsize,
+           to_char(r.hwmsize/1024,'99,999,990.00') hwmsize,r.xacts,
            to_char(r.waits,'9,999,990') waits,
 	   to_char(r.shrinks,'9,999,990') shrinks,
 	   to_char(r.wraps,'9,999,990') wraps,
