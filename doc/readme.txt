@@ -17,10 +17,11 @@ v0.1.1 (28.10.2003)  small fixes:
 ! in datafile statistics, when a datafile was filled more than 99.99%, the
   pctused column got the value '######' for this row
 
-v0.1.2 (xx.xx.2003)  small enhancements:
+v0.1.2 (31.10.2003)  small enhancements:
 + in the "Data Files" block, statistics are now grouped by data files instead
   of listing up each segment separately
 + some comments/recommendations are now more precise
 + for the wait events, objects that caused them (at the time the report was
   generated) are listed
 + added more hints/comments
++ added version info to the syntax header

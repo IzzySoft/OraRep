@@ -16,11 +16,12 @@
 #                                                              Itzchak Rehberg
 #
 #
+version='0.1.2'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
   echo ============================================================================
-  echo "report.sh       (c) 2003 by Itzchak Rehberg & IzzySoft (devel@izzysoft.de)"
+  echo "OraRap v$version                (c) 2003 by Itzchak Rehberg (devel@izzysoft.de)"
   echo ----------------------------------------------------------------------------
   echo This script is intended to generate a HTML report for a given instance. Look
   echo inside the script header for closer details, and check for the configuration
@@ -40,8 +41,8 @@ REPDIR=/var/www/html/reports
 # StyleSheet to use
 CSS=main.css
 # login information
-user=sys
-password="pyha#"
+user=internal
+password="oracle"
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -50,7 +51,6 @@ if [ -n "$2" ]; then
 fi
 
 # ====================================================[ Script starts here ]===
-version='0.1.2'
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 $ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
