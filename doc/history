@@ -185,7 +185,8 @@ v0.2.9 (23.03.2004)
   DBLinks, Invalid Objects, Miscellaneous segment
 + added alternative StyleSheet: iceage.css
 
-v0.3.0
+v0.3.0 (30.04.2004)
 -------------------
 ! report was broken again for Oracle < v9 due to use of CASE (introduced
   with Oracle v9)
+* some formatting updates (numbers not displayed correctly when value to high)
