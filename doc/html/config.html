@@ -79,11 +79,15 @@
    <tr><td class="td_name" align="center" COLSPAN="2">Warnings</td></tr>
    <tr><td class="td_name"><code>TPH_NOLOG</code></td>
        <td class="text">OraRep will issue a warning (yellow table cell background)
-           when there was no log file available ("<code>log file switch(*)</code>"
+           when there was no log file available (e.g. the "<code>log file switch(*)</code>"
            event) more often per hour than specified by this value. The value
            specified here should be low, since on the specified events all
            <code>COMMIT</code>s wait until the event is done. See online help
            on these events for details.</td></tr>
+   <tr><td class="td_name"><code>WPH_NOLOG</code></td>
+       <td class="text">Similiar to the idea of <code>TPH_NOLOG</code> above,
+           this value is not used for timeouts but for the total waits. I.e.,
+           the value specified here should be higher than the one above.</td></tr>
    <tr><td class="td_name" align="center" COLSPAN="2">SQL</td></tr>
    <tr><td class="td_name"><code>TOP_N_WAITS</code></td>
        <td class="text" rowspan="2">How many items to list up in the "Top N"
