@@ -66,9 +66,13 @@ DBVER=`cat $TMPOUT`
 if [ $DBVER -gt 91 ]; then
   WAITHEAD=$BINDIR/plugins/92wait_head.pls
   WAITBODY=$BINDIR/plugins/92wait_body.pls
+  SPADVHEAD=$BINDIR/plugins/92spadv_head.pls
+  SPADVBODY=$BINDIR/plugins/92spadv_body.pls
 else
   WAITHEAD=$BINDIR/plugins/81wait_head.pls
   WAITBODY=$BINDIR/plugins/81wait_body.pls
+  SPADVHEAD=$BINDIR/plugins/dummy.pls
+  SPADVBODY=$BINDIR/plugins/dummy.pls
 fi
 
 cat >$SQLSET<<ENDSQL
@@ -96,7 +100,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $BINDIR/repopen.pls $WAITBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $BINDIR/repopen.pls $WAITBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT
