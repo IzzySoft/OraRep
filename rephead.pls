@@ -18,6 +18,7 @@ DECLARE
   MK_TSQUOT NUMBER;
   MK_FILES NUMBER;
   MK_RBS NUMBER;
+  MK_MEMVAL NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -50,13 +51,6 @@ DECLARE
 	   to_char(getmisses,'9,999,999,990') getmisses,
 	   to_char((getmisses/gets)*100,'990.00') ratio
       FROM v$rowcache WHERE gets>0;
-  CURSOR C_MEM IS
-    SELECT name,to_char(nvl(value,0)/1024,'999,999,990.00') value FROM v$sga;
-  CURSOR C_MEMPOOL IS
-    SELECT name,DECODE(
-            SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-            0,to_char(nvl(value,0)/1024,'999,999,990.00')||' kB',1,value,'0 kB') value
-      FROM v$parameter WHERE name LIKE '%pool%';
   CURSOR C_POOL IS
     SELECT pool,to_char(bytes/1024,'99,999,999.00') kbytes
       FROM v$sgastat WHERE name='free memory';

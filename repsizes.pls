@@ -1,21 +1,4 @@
 
-  -- Memory
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="memory">Memory Values</A></TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Size</TH></TR>';
-  print(L_LINE);
-  FOR Rec_MEM IN C_MEM LOOP
-    L_LINE := ' <TR><TD>'||Rec_MEM.name||'</TD><TD ALIGN="right">'||Rec_MEM.value||' kB</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  FOR Rec_MEMPOOL IN C_MEMPOOL LOOP
-    L_LINE := ' <TR><TD>'||Rec_MEMPOOL.name||'</TD><TD ALIGN="right">'||
-              Rec_MEMPOOL.value||'</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
-  print('<HR>');
-
   -- Pool Sizes
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="poolsize">Pool Sizes</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Space</TH></TR>';

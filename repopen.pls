@@ -9,6 +9,7 @@ BEGIN
   MK_TSQUOT    := :MK_TSQUOT;
   MK_FILES     := :MK_FILES;
   MK_RBS       := :MK_RBS;
+  MK_MEMVAL    := :MK_MEMVAL;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
@@ -52,6 +53,8 @@ BEGIN
   print(L_LINE);
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
+  ELSE
+    L_LINE := '';
   END IF;
   IF MK_FILES = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ]';
@@ -59,7 +62,9 @@ BEGIN
   IF MK_RBS = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#rbs">Rollback</A> ]';
   END IF;
-  L_LINE := L_LINE||' [ <A HREF="#memory">Memory</A> ]';
+  IF MK_MEMVAL = 1 THEN
+    L_LINE := L_LINE||' [ <A HREF="#memory">Memory</A> ]';
+  END IF;
   print(L_LINE);
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
   IF MK_BUFFP THEN
