@@ -93,7 +93,7 @@ v0.2.0 (05.01.2004)
 + adding external help file on user information
 * some cosmetical changes (text formatting)
 
-v0.2.1
+v0.2.1 (13.01.2004)
 + added hints on ASSM to avoid freelist contention (buffer busy waits)
 * some formatting issues
 + added (external) help on row locks
