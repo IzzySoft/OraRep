@@ -19,6 +19,14 @@
     is the bottleneck. If the I/O system is not a problem, then the redo log
     buffer could be too small. Increase the size of the redo log buffer until
     this event is no longer significant.</P>
+  <H3>What are reasonable values for the log buffer size?</H3>
+  <P>A common <CODE>LOG_BUFFER</CODE> size for a system generating numerous
+   logs is 3 MB to 5 MB. If the number of retries is still high after
+   increasing <CODE>LOG_BUFFER</CODE> size, a problem might exist with the disk
+   on which the log files reside. In that case, tune the I/O subsystem to
+   increase the I/O rates for redo. One way of doing this is to use
+   fine-grained striping across multiple disks. For example, use a stripe size
+   of 16 KB. A simpler approach is to isolate redo logs on their own disk.</P>
 </TD></TR></TABLE>
 
 </BODY></HTML>

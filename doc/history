@@ -88,3 +88,4 @@ v0.1.9
 v0.2.0
 + more detailed hints on the enqueue wait event
 * some cosmetical changes to some of the external help files (formating issues)
++ more details on the log buffer size

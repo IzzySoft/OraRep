@@ -43,7 +43,7 @@
   already slept in waiting for the latch in P3:
   <TABLE ALIGN="center"><TR><TD>
   <DIV CLASS="code" STYLE="width:23em">
-  SELECT n.name, SUM(w.p3 Sleeps<BR>
+  SELECT n.name, SUM(w.p3) Sleeps<BR>
   &nbsp;&nbsp;FROM v$session_wait w, v$latchname n<BR>
   &nbsp;WHERE w.event = 'latch free'<BR>
   &nbsp;&nbsp;&nbsp;AND w.p2    = n.latch#<BR>
