@@ -1,31 +1,64 @@
-Report generator for Oracle 8i databases. For details see head of report.sh
-P.S.: put the main.css file into your web directory, adjust it to your needs.
-(c) 2003 by Itzchak Rehberg & IzzySoft
+# =============================================================================
+# Oracle Basis Report 2 HTML           (c) 2003 by IzzySoft (devel@izzysoft.de)
+# -----------------------------------------------------------------------------
+# $Id$
+# -----------------------------------------------------------------------------
+# Create an Oracle (Basis) Report in HTML format
+# =============================================================================
 
-History:
-========
+Contents
+--------
 
-v0.1.0 (19.01.2003)  initial version (first release)
+1) Copyright and warranty
+2) Requirements
+3) Limitations
+4) Installation
 
-v0.1.1 (28.10.2003)  small fixes:
-! fixed a "division by zero" error rarely occuring on freepct check for tables
-+ added progInfo footer with link to web site of IzzySoft (e.g. for retrieving
-  updates of this little tool ;)
-+ added instance startup time and uptime to Common Instance Information
-! fixed "invalid number error" occuring when sizes in the DB haven't been
-  declared in bytes but as e.g. "5M"
-! in datafile statistics, when a datafile was filled more than 99.99%, the
-  pctused column got the value '######' for this row
+===============================================================================
 
-v0.1.2 (31.10.2003)  small enhancements:
-+ in the "Data Files" block, statistics are now grouped by data files instead
-  of listing up each segment separately
-+ some comments/recommendations are now more precise
-+ for the wait events, objects that caused them (at the time the report was
-  generated) are listed
-+ added more hints/comments
-+ added version info to the syntax header
+1) Copyright and Warranty
+-------------------------
 
-v0.1.3 (06.11.2003) small enhancements:
-+ Selected Wait Events block now contains more detailed stats like AvgWaitTime
-+ Added "Invalid Objects" block
+This little program is (c)opyrighted by Andreas Itzchak Rehberg
+(devel@izzysoft.de) and protected by the GNU Public License Version 2 (GPL).
+For details on the License see the file LICENSE in this directory. The
+contents of this archive may only be distributed all together.
+
+===============================================================================
+
+2) Requirements
+---------------
+
+Since this is a report generator for Oracle Databases, it implies one simple
+requirement: an Oracle Database to report on. Additionally, you must have a
+shell available - what implies that you run a *NIX operating system. Tested
+on RedHat Linux with the bash shell v2.
+
+===============================================================================
+
+3) Limitations
+--------------
+
+I tested the script successfully with Oracle v8.1.7, v9.0.1 and v9.2. Basically,
+it should work with any version - but I cannot promise this (reports are
+welcome). So far, no limitations are know - except that it does report no more
+than it does report :-)
+
+===============================================================================
+
+4) Installation
+---------------
+
+Just copy all files from the root directory of this archive to a suitable
+place and adjust the configuration in the head of the script to reflect your
+settings. Place the main.css file from the reports/ sub directory in your web
+tree at the location you configured within the script.
+To run the script, start report.sh - calling it with no parameters tells
+you its syntax. It will run with just giving it the ORACLE_SID of the database
+to report on as only parameter - provided, your Oracle environment is set up
+correctly. The optional second parameter is a directory to change to at the
+start of the script - this may be useful if you used relative path names in
+your configuration and/or run the script from a wrapper.
+
+Have fun!
+Izzy.
