@@ -154,18 +154,19 @@ DECLARE
      WHERE status='INVALID'
      ORDER BY owner;
 
-  PROCEDURE get_wait(eventname IN VARCHAR2, I01 OUT INTEGER, S01 OUT VARCHAR2,
+  PROCEDURE get_wait(eventname IN VARCHAR2, S04 OUT VARCHAR, S01 OUT VARCHAR2,
                      S02 OUT VARCHAR2, S03 OUT VARCHAR2) IS
     BEGIN
        SELECT TO_CHAR(total_waits,'9,999,999,990') totals,
-               TO_CHAR(time_waited,'9,999,999,990') timew,
-	      average_wait,
-	      TO_CHAR(total_timeouts,'99,999,990') timeouts
-	 INTO S01,S02,I01,S03
+              TO_CHAR(time_waited,'9,999,999,990') timew,
+	      TO_CHAR(DECODE(NVL(total_waits,0),0,0,time_waited/total_waits),
+	              '9,999,990.000') average,
+	      TO_CHAR(total_timeouts,'9,999,999,990') timeouts
+	 INTO S01,S02,S04,S03
          FROM v\$system_event WHERE event=eventname;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-       I01 := 0; S01 := '0'; S02 := '0'; S03 := '0';
+       S04 := '0.000'; S01 := '0'; S02 := '0'; S03 := '0';
     END;
 
   PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, rval OUT VARCHAR2) IS
@@ -499,12 +500,12 @@ BEGIN
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events (from v'||CHR(36)||'system_event)</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>';
   print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">Total WaitTime</TH><TH CLASS="th_sub">Avg Waited</TH>'||
+  L_LINE := '<TH CLASS="th_sub">Total WaitTime (s)</TH><TH CLASS="th_sub">Avg Waited (s)</TH>'||
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
-  get_wait('free buffer waits',I1,S1,S2,S3);
+  get_wait('free buffer waits',S4,S1,S2,S3);
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">free buffer waits</DIV></TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>This wait event occurs when the database attemts to locate '||
@@ -517,26 +518,26 @@ BEGIN
   print(L_LINE);
   L_LINE := 'and you simply don''t have enough block buffers to go around.</TD></TR>';
   print(L_LINE);
-  get_wait('db file sequential read',I1,S1,S2,S3);
+  get_wait('db file sequential read',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>db file sequential read</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Indicator for I/O problems on index accesses<BR><DIV CLASS="small">'||
 	    '(Consider increasing the buffer cache when value is high)</DIV></TD></TR>';
   print(L_LINE);
-  get_wait('db file scattered read',I1,S1,S2,S3);
+  get_wait('db file scattered read',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>db file scattered read</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Indicator for I/O problems on full table scans<BR><DIV CLASS="small">'||
             '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
             'is high see the first block of Miscellaneous below)</DIV></TD></TR>';
   print(L_LINE);
-  get_wait('undo segment extension',I1,S1,S2,S3);
+  get_wait('undo segment extension',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>undo segment extension</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Whenever the database must extend or shrink a rollback '||
@@ -546,9 +547,9 @@ BEGIN
   L_LINE := 'High wait times here could indicate a problem with the extent size, '||
             'the value of MINEXTENTS, or possibly IO related problems.</TD></TR>';
   print(L_LINE);
-  get_wait('enqueue',I1,S1,S2,S3);
+  get_wait('enqueue',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>enqueue</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>This type of event may be an indication that something is '||
@@ -559,9 +560,9 @@ BEGIN
             'with unindexed foreign keys, inadequate INITRANS or MAXTRANS '||
 	    'values, etc.</TD></TR>';
   print(L_LINE);
-  get_wait('latch free',I1,S1,S2,S3);
+  get_wait('latch free',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>latch free</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>This event occurs whenever one Oracle process is requesting '||
@@ -574,9 +575,9 @@ BEGIN
   print(L_LINE);
   L_LINE := '(processes being put to sleep by the OS, etc.), and so on.</TD></TR>';
   print(L_LINE);
-  get_wait('LGWR wait for redo copy',I1,S1,S2,S3);
+  get_wait('LGWR wait for redo copy',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>LGWR wait for redo copy</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>This only needs your attention when many timeouts occur. '||
@@ -586,32 +587,32 @@ BEGIN
   L_LINE := 'that LGWR waited for incomplete copies into the Redo buffers that '||
             'it intends to write.</TD></TR>';
   print(L_LINE);
-  get_wait('log file switch (checkpoint incomplete)',I1,S1,S2,S3);
+  get_wait('log file switch (checkpoint incomplete)',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
   print(L_LINE);
-  get_wait('log file switch completion',I1,S1,S2,S3);
+  get_wait('log file switch completion',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch completion</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>';
   print(L_LINE);
-  get_wait('log buffer wait',I1,S1,S2,S3);
+  get_wait('log buffer wait',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log buffer wait</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>If this value is too high, log buffers are filling faster '||
             'than being emptied. You then have to consider to increase the '||
             'number of logfile groups or to use larger log files.</TD></TR>';
   print(L_LINE);
-  get_wait('log buffer space',I1,S1,S2,S3);
+  get_wait('log buffer space',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log buffer space</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>This event frequently occurs when the log buffers are '||
@@ -621,9 +622,9 @@ BEGIN
   L_LINE := 'increase the amount of log buffers or to change your Redo log '||
             'layout and/or IO strategy.</TD></TR>';
   print(L_LINE);
-  get_wait('log file parallel write',I1,S1,S2,S3);
+  get_wait('log file parallel write',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file parallel write</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD ROWSPAN="2">Indicator for Redo log layout and/or IO strategy<BR>'||
@@ -633,14 +634,14 @@ BEGIN
   L_LINE := '<I>log buffer space</I>, <I>log file switch (archiving needed)</I>, '||
             'etc.</TD></TR>';
   print(L_LINE);
-  get_wait('log file single write',I1,S1,S2,S3);
+  get_wait('log file single write',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file single write</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3||'</TD></TR>';
   print(L_LINE);
-  get_wait('SQL*Net message to client',I1,S1,S2,S3);
+  get_wait('SQL*Net message to client',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>SQL*Net message to client</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD ROWSPAN="2">These wait events occur when the Database'||
@@ -650,9 +651,9 @@ BEGIN
   L_LINE := 'Frequent occurences of these events could indicate a networking '||
             'issue.</TD></TR>';
   print(L_LINE);
-  get_wait('SQL*Net message to dblink',I1,S1,S2,S3);
+  get_wait('SQL*Net message to dblink',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>SQL*Net message to dblink</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3||'</TD></TR>';
   print(L_LINE);
   L_LINE := TABLE_CLOSE;
