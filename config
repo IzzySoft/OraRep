@@ -22,8 +22,8 @@
 # SID of the database to analyse
 export ORACLE_SID=$1
 # login information
-user=sys
-password="pyha#"
+user=internal
+password="oracle"
 
 # -------------------------------------------------[ Files and Directories ]---
 # directory for temporary files

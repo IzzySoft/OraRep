@@ -61,3 +61,5 @@ v0.1.6 (27.11.2003)
 v0.1.7
 + make use of the much more detailed information on objects causing waits
   in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg
++ added DB Cache advice (needs "db_cache_advice=ready" in the init.ora to
+  show results)

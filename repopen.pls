@@ -269,6 +269,7 @@ BEGIN
   END LOOP;
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
+  get_dbc_advice();
   print('<HR>');
 
   -- V$SYSSTAT: extracted informations
@@ -520,7 +521,7 @@ BEGIN
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3||'</TD></TR>';
   print(L_LINE);
-  L_LINE := TABLE_CLOSE;
+  L_LINE := TABLE_CLOSE||'<HR>';
   print(L_LINE);
 
   -- Who caused the wait events?

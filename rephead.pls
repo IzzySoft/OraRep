@@ -166,3 +166,43 @@ DECLARE
         dbms_output.put_line('*!* Problem in print() *!*');
     END;
 
+  PROCEDURE get_dbc_advice IS
+    CI NUMBER;
+    CURSOR C_A IS
+      SELECT name,
+             TO_CHAR(size_for_estimate,'999,990') estsize,
+             TO_CHAR(buffers_for_estimate,'999,999,990') estbuff,
+             TO_CHAR(100*estd_physical_read_factor,'990.0') estrf,
+             TO_CHAR(estd_physical_reads,'999,999,999,990') estread
+        FROM v$db_cache_advice
+       WHERE estd_physical_reads IS NOT NULL
+         AND estd_physical_read_factor IS NOT NULL;
+    BEGIN
+      SELECT COUNT(name) INTO CI FROM v$db_cache_advice
+       WHERE estd_physical_reads IS NOT NULL
+         AND estd_physical_read_factor IS NOT NULL;
+      IF CI > 0
+      THEN
+        L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="5">DB Cache Advice</TH></TR>';
+	print(L_LINE);
+        L_LINE := ' <TR><TD COLSPAN="5"><DIV ALIGN="justify">The following values '||
+                  'are an estimation how changing the size of a given buffer would '||
+                  'affect the amount of physical reads.</DIV></TD>';
+	print(L_LINE);
+	L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Size</TH>'||
+	          '<TH CLASS="th_sub">Buffers</TH><TH CLASS="th_sub">Estd.PhyRd '||
+		  'Factor</TH><TH CLASS="th_sub">Estd.PhyRds</TH></TR>';
+	print(L_LINE);
+        FOR rec IN C_A LOOP
+          L_LINE := ' <TR><TD CLASS="td_name">'||rec.name||'</TD><TD ALIGN="right">'||
+                    rec.estsize||' M</TD><TD ALIGN="right">'||rec.estbuff||'</TD>';
+          print(L_LINE);
+          L_LINE := '<TD ALIGN="right">'||rec.estrf||'%</TD><TD ALIGN="right">'||
+                    rec.estread||'</TD></TR>';
+          print(L_LINE);
+        END LOOP;
+	print(TABLE_CLOSE);
+      END IF;
+    EXCEPTION
+      WHEN OTHERS THEN NULL;
+    END;
