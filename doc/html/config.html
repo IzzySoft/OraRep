@@ -180,6 +180,15 @@
            without problems if the underlying objects are fine), it can be a
            security issue for triggers. This segment lists up all invalid objects
            together with some additional details on them.</td></tr>
+   <tr><td class="td_name"><code>MK_TSCAN</code></td>
+       <td class="text">In the Miscellaneous segment of the report, we list up
+           a summary for the table scans. You may suppress this by setting this
+           variable to 0.</td></tr>
+   <tr><td class="td_name"><code>MK_NEXT</code></td>
+       <td class="text">Also in the Miscellaneous block, we display the Top N
+           tables that have less than 10% free blocks left and will need a new
+           extent shortly (if there are any). Disable this by setting this variable
+           to 0.</td></tr>
   </table>
  </td></tr>
 </table>

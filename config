@@ -84,4 +84,8 @@ MK_FLC=0
 MK_ENQ=1
 # Include the Invalid Objects segment? [0|1]
 MK_INVOBJ=1
+# Include the TableScan stats? [0|1]
+MK_TSCAN=1
+# Include the list of TOP_N tables that need more extents? [0|1]
+MK_NEXT=1
 # ===================================================================[ EOF ]===

@@ -24,9 +24,13 @@ BEGIN
   MK_FLC       := :MK_FLC;
   MK_ENQ       := :MK_ENQ;
   MK_INVOBJ    := :MK_INVOBJ;
+  IF :MK_TSCAN = 1 THEN
+    MK_TABSCAN  := have_tablescans();
+  END IF;
+  IF :MK_NEXT = 1 THEN
+    MK_EXTNEED  := have_extentneed();
+  END IF;
   MK_WAITOBJ  := have_waits();
-  MK_TABSCAN  := have_tablescans();
-  MK_EXTNEED  := have_extentneed();
   MK_BUFFP    := have_buffp_stats();
   MK_ADVICE   := have_advice();
   TPH_NOLOG   := :TPH_NOLOG;
@@ -151,7 +155,8 @@ BEGIN
       L_LINE := ' [ <A HREF="#invobj">Invalid Objects</A> ]';
     ELSE
       L_LINE := '';
-  END IF;
+    END IF;
+  ELSE
     L_LINE := '';
   END IF;
   L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>'||TABLE_CLOSE;

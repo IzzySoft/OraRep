@@ -47,19 +47,6 @@ DECLARE
   I2 NUMBER;
   I3 NUMBER;
 
-  CURSOR C_SCAN IS
-    SELECT name,TO_CHAR(value,'9,999,999,990') value
-      FROM v$sysstat
-     WHERE name like '%table scans%';
-  CURSOR C_EXT IS
-    SELECT owner,table_name,freepct
-      FROM ( SELECT owner,table_name,
-                    to_char(100*empty_blocks/(blocks+empty_blocks),'990.00') freepct
-               FROM dba_tables
-              WHERE 0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)
-              ORDER BY empty_blocks/(blocks+empty_blocks) )
-     WHERE rownum <= TOP_N_TABLES;
-
   PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, alert IN NUMBER, warn IN NUMBER, rval OUT VARCHAR2, tdclass OUT VARCHAR2) IS
     BEGIN
       SELECT value INTO I1 FROM v$sysstat WHERE name=aval;
