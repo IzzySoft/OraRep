@@ -84,8 +84,12 @@ BEGIN
   print('<HR>');
 
   -- User Information
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="7"><A NAME="users">User Information</A></TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account'||
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="7"><A NAME="users">User Information</A>'||
+            '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'userinfo'||CHR(39)||
+	    ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
+	    'VALIGN="middle"></A></TH></TR>';
+  print(L_LINE);
+  L_LINE := ' <TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account'||
             ' Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">';
   print(L_LINE);
   L_LINE := 'Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">'||
