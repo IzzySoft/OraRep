@@ -2,7 +2,8 @@ BEGIN
   -- Configuration
   CSS := :CSS;
   SCRIPTVER := :SCRIPTVER;
-  TOP_N_WAITS := :TOP_N_WAITS;
+  TOP_N_WAITS  := :TOP_N_WAITS;
+  TOP_N_TABLES := :TOP_N_TABLES;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();

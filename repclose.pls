@@ -49,8 +49,8 @@
                 'will for sure need more extents shortly, we can reduce I/O overhead '||
                 'allocating some extents for them in advance, using ';
       print(L_LINE);
-      L_LINE := '"ALTER TABLE tablename ALLOCATE EXTENT". Here are some '||
-                'candidates, having less than 10 percent free blocks left:</TD></TR>';
+      L_LINE := '"ALTER TABLE tablename ALLOCATE EXTENT". Here are the max. Top '||
+                TOP_N_TABLES||' candidates, having less than 10 percent free blocks left:</TD></TR>';
       print(L_LINE);
       FOR Rec_EXT IN C_EXT LOOP
         L_LINE := ' <TR><TD>'||Rec_EXT.owner||'.'||Rec_EXT.table_name||

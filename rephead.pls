@@ -2,6 +2,7 @@ DECLARE
   CSS VARCHAR2(255);
   SCRIPTVER VARCHAR2(20);
   TOP_N_WAITS NUMBER;
+  TOP_N_TABLES NUMBER;
   L_LINE VARCHAR(4000);
   R_TITLE VARCHAR(200);
   TABLE_OPEN VARCHAR(100); -- Table Attributes
@@ -98,10 +99,13 @@ DECLARE
       FROM v$sysstat
      WHERE name like '%table scans%';
   CURSOR C_EXT IS
-    SELECT owner,table_name,
-           to_char(100*empty_blocks/(blocks+empty_blocks),'990.00') freepct
-      FROM dba_tables
-     WHERE 0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1);
+    SELECT owner,table_name,freepct
+      FROM ( SELECT owner,table_name,
+                    to_char(100*empty_blocks/(blocks+empty_blocks),'990.00') freepct
+               FROM dba_tables
+              WHERE 0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)
+              ORDER BY empty_blocks/(blocks+empty_blocks) )
+     WHERE rownum <= TOP_N_TABLES;
   CURSOR C_INVOBJ IS
     SELECT owner,object_name,object_type,to_char(created,'dd.mm.yyyy hh:mi') created,
            to_char(last_ddl_time,'dd.mm.yyyy hh:mi') last_ddl_time

@@ -19,7 +19,7 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.1.7'
+version='0.1.8'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -87,10 +87,12 @@ Set Echo Off
 variable CSS VARCHAR2(255);
 variable SCRIPTVER VARCHAR2(20);
 variable TOP_N_WAITS NUMBER;
+variable TOP_N_TABLES NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
   :TOP_N_WAITS := $TOP_N_WAITS;
+  :TOP_N_TABLES := $TOP_N_TABLES;
 END;
 /
 SPOOL $REPDIR/${ORACLE_SID}.html
