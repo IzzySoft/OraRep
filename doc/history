@@ -106,3 +106,7 @@ v0.2.2 (15.01.2004)
 + added PctWait and PctFailed to enqueue waits (Oracle 9+)
 + added profile and initial resource group to user info
 + added reports on resource management
+
+v0.2.3
++ added extended resource plan report for Oracle 9i
+* made resource plan report an optional element (see the "config" file)
