@@ -45,18 +45,21 @@ BINDIR=${0%/*}
 . $BINDIR/config $*
 
 # ------------------------------------------[ process command line options ]---
-while [ "$1" != "" ] ; do
+while [ -n "$1" ] ; do
   case "$1" in
-    -s) shift; ORACLE_SID=$1;;
+    -s) shift; ORACLE_CONNECT=$1;;
     -u) shift; user=$1;;
     -p) shift; password=$1;;
     -d) shift; startdir=$1;;
   esac
   shift
 done
+if [ -z "$ORACLE_CONNECT" ]; then
+  ORACLE_CONNECT=$ORACLE_SID
+fi
 
-SQLSET=$TMPDIR/orarep_sqlset_$1.$$
-TMPOUT=$TMPDIR/orarep_tmpout_$1.$$
+SQLSET=$TMPDIR/orarep_sqlset_$ORACLE_SID.$$
+TMPOUT=$TMPDIR/orarep_tmpout_$ORACLE_SID.$$
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -66,7 +69,7 @@ fi
 
 # --------------------------------[ Get the Oracle version of the DataBase ]---
 cat >$SQLSET<<ENDSQL
-CONNECT $user/$password@$ORACLE_SID
+CONNECT $user/$password@$ORACLE_CONNECT
 Set TERMOUT OFF
 Set SCAN OFF
 Set SERVEROUTPUT On Size 1000000
@@ -117,7 +120,7 @@ if [ $MK_DBAPROF -eq 1 ]; then
 fi
 
 cat >$SQLSET<<ENDSQL
-CONNECT $user/$password@$ORACLE_SID
+CONNECT $user/$password@$ORACLE_CONNECT
 Set TERMOUT OFF
 Set SCAN OFF
 Set SERVEROUTPUT On Size 1000000
