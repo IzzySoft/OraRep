@@ -468,14 +468,15 @@ BEGIN
   dbms_output.put_line(L_LINE);
   SELECT total_waits INTO I1 FROM v\$system_event WHERE event='db file sequential read';
   L_LINE := ' <TR><TD WIDTH="300">v'||CHR(36)||'system_event: db file sequential read</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Indicator for I/O problems on index accesses</TD></TR>';
+            '</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">'||
+	    '(Consider increasing the buffer cache when value is high)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
   SELECT total_waits INTO I1 FROM v\$system_event WHERE event='db file scattered read';
   L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: db file scattered read</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Indicator for I/O problems on full table scans<BR>(on increasing ';
+            '</TD><TD>Indicator for I/O problems on full table scans<BR><FONT SIZE="-2">';
   dbms_output.put_line(L_LINE);
-  L_LINE := '<I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value is high see the first '||
-	    'block of Miscellaneous below)</TD></TR>';
+  L_LINE := '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
+            'is high see the first block of Miscellaneous below)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
   I1 := 0;
   BEGIN
@@ -502,7 +503,7 @@ BEGIN
     WHEN NO_DATA_FOUND THEN NULL;
   END;
   L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
+            '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
   dbms_output.put_line(L_LINE);
   I1 := 0;
   BEGIN
@@ -536,8 +537,18 @@ BEGIN
 	    'time the report was generated.';
   dbms_output.put_line(L_LINE);
   L_LINE := 'If you had many <I>db file scattered reads</I> above and now find '||
-            'some entries with segment type = table in here, these may need '||
-	    'some|more|better|other indices. </TD></TR>';
+            'some entries with segment type = table in here, these may need ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'some|more|better|other indices. Use <I>Statspack</I> or <I>'||
+	    'Oracle Enterprise Manager Diagnostics Pack</I> to find out more. '||
+	    'Other things that may help to avoid some of the <I>db file * read</I> ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'wait events are:<UL STYLE="margin-top:0;margin-bottom:0">'||
+            '<LI>Tune the SQL statements used by your applications and users (most important!)</LI>'||
+            '<LI>Re-Analyze the schema to help the optimizer with accurate data e.g. with <I>dbms_stats</I></LI>';
+  dbms_output.put_line(L_LINE);
+  L_LINE := '<LI>Stripe objects over multiple disk volumes</LI>'||
+            '<LI>Pin frequently used objects</LI><LI>Increase the buffer caches</LI></UL></TD></TR>';
   dbms_output.put_line(L_LINE);
   L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">'||
             'Segment Name</TH><TH CLASS="th_sub">Segment Type</TH></TR>';
