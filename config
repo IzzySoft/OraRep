@@ -54,6 +54,10 @@ TOP_N_WAITS=10
 TOP_N_TABLES=10
 
 # --------------------------------------------------------------[ Features ]---
+# Include User Information segment? [0|1]
+MK_USER=1
+# Include DBLink Information table? [0|1]
+MK_DBLINK=1
 # Include Resource Plan Report? [0|1]
 MK_RSRC=0
 # Include TableSpace Quotas? [0|1]

@@ -7,6 +7,9 @@ DECLARE
   R_TITLE VARCHAR(200);
   TABLE_OPEN VARCHAR(100); -- Table Attributes
   TABLE_CLOSE VARCHAR(100);
+  MK_USER NUMBER;
+  MK_DBLINK NUMBER;
+  DBLINK_EXIST BOOLEAN;
   MK_WAITOBJ BOOLEAN;
   MK_INVALIDS BOOLEAN;
   MK_TABSCAN BOOLEAN;
@@ -43,15 +46,6 @@ DECLARE
   I2 NUMBER;
   I3 NUMBER;
 
-  CURSOR C_USER IS
-    SELECT username,account_status,NVL(to_char(lock_date,'DD.MM.YYYY'),'-')
-           locked,NVL(to_char(expiry_date,'DD.MM.YYYY'),'-') expires,
-           default_tablespace dts,temporary_tablespace tts,
-           to_char(created,'DD.MM.YYYY') created,profile,
-           initial_rsrc_consumer_group resource_group
-      FROM dba_users;
-  CURSOR C_ADM IS
-    SELECT grantee,admin_option FROM dba_role_privs WHERE granted_role='DBA';
   CURSOR C_SCAN IS
     SELECT name,TO_CHAR(value,'9,999,999,990') value
       FROM v$sysstat
@@ -70,10 +64,6 @@ DECLARE
       FROM dba_objects
      WHERE status='INVALID'
      ORDER BY owner;
-  CURSOR C_DBLinks IS
-    SELECT owner,db_link,username,host,to_char(created,'DD.MM.YYYY') created
-      FROM dba_db_links
-     ORDER BY owner,db_link;
 
   PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, alert IN NUMBER, warn IN NUMBER, rval OUT VARCHAR2, tdclass OUT VARCHAR2) IS
     BEGIN
@@ -96,15 +86,6 @@ DECLARE
       END IF;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
-    END;
-
-  PROCEDURE check_dblink(db_link IN VARCHAR2, rval OUT VARCHAR2) IS
-    BEGIN
-      ROLLBACK;
-      S1 := 'SELECT ''>ACTIVE'' FROM DUAL@'||db_link;
-      EXECUTE IMMEDIATE S1 INTO rval;
-    EXCEPTION
-      WHEN OTHERS THEN rval := ' CLASS="alert">INACTIVE';
     END;
 
   PROCEDURE print(line IN VARCHAR2) IS
@@ -171,11 +152,6 @@ DECLARE
       RETURN have_xxx ('dba_objects','owner','status=''INVALID''');
     END;
 
-  FUNCTION have_dblinks RETURN BOOLEAN IS
-    BEGIN
-      RETURN have_xxx ('dba_db_links','db_link','1=1');
-    END;
-
   FUNCTION have_tablescans RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx ('v$sysstat','name','name LIKE ''%table scans%''');
@@ -194,6 +170,11 @@ DECLARE
   FUNCTION have_advice RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
+    END;
+
+  FUNCTION have_dblinks RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx ('dba_db_links','db_link','1=1');
     END;
 
   FUNCTION have_quotas RETURN BOOLEAN IS

@@ -4,6 +4,8 @@ BEGIN
   SCRIPTVER := :SCRIPTVER;
   TOP_N_WAITS  := :TOP_N_WAITS;
   TOP_N_TABLES := :TOP_N_TABLES;
+  MK_USER      := :MK_USER;
+  MK_DBLINK    := :MK_DBLINK;
   MK_RSRC      := :MK_RSRC;
   MK_DBAPROF   := :MK_DBAPROF;
   MK_TSQUOT    := :MK_TSQUOT;
@@ -65,14 +67,26 @@ BEGIN
   print(L_LINE);
 
   -- Navigation
-  L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ] ';
+  IF MK_USER = 1 THEN
+    L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ] ';
+  ELSE
+    L_LINE := '';
+  END IF;
+  IF MK_DBLINK = 1 THEN
+    DBLINK_EXIST := have_dblinks();
+    IF DBLINK_EXIST THEN
+      L_LINE := L_LINE||'[ <A HREF="#dblink">DBLinks</A> ] ';
+    END IF;
+  END IF;
   IF MK_RSRC = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#resource_groups">Resource Mgmnt</A> ] ';
   END IF;
   IF MK_DBAPROF = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#profiles">Profiles</A> ] ';
   END IF;
-  print(L_LINE);
+  IF LENGTH(L_LINE) > 0 THEN
+    print(L_LINE);
+  END IF;
 
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
@@ -88,7 +102,9 @@ BEGIN
   IF MK_MEMVAL = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#memory">Memory</A> ]';
   END IF;
-  print(L_LINE);
+  IF LENGTH(L_LINE) > 0 THEN
+    print(L_LINE);
+  END IF;
 
   IF MK_POOL = 1 THEN
     L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
@@ -125,10 +141,14 @@ BEGIN
   IF MK_ENQS THEN
     L_LINE := L_LINE||' [ <A HREF="#enqwaits">Enqueue Waits</A> ]';
   END IF;
-  print(L_LINE);
+  IF LENGTH(L_LINE) > 0 THEN
+    print(L_LINE);
+  END IF;
 
   IF MK_INVALIDS THEN
     L_LINE := ' [ <A HREF="#invobj">Invalid Objects</A> ]';
+  ELSE
+    L_LINE := '';
   END IF;
   L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>'||TABLE_CLOSE;
   print(L_LINE);
@@ -159,64 +179,5 @@ BEGIN
   L_LINE := ' <TR><TD class="td_name">Report generated:</TD><TD>'||S5||'</TD></TR>'||CHR(10)||
             TABLE_CLOSE;
   print(L_LINE);
-  print('<HR>');
-
-  -- User Information
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="9"><A NAME="users">User Information</A>'||
-            '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'userinfo'||CHR(39)||
-	    ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-	    'VALIGN="middle"></A></TH></TR>';
-  print(L_LINE);
-  L_LINE := ' <TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account'||
-            ' Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">';
-  print(L_LINE);
-  L_LINE := 'Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">'||
-            'Temporary TS</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">'||
-            'Profile</TH><TH CLASS="th_sub">Init.ResourceGroup</TH></TR>';
-  print(L_LINE);
-  FOR Rec_USER IN C_USER LOOP
-    L_LINE := ' <TR><TD>'||Rec_USER.username||'</TD><TD>'||Rec_USER.account_status||
-              '</TD><TD>'||Rec_USER.locked||'</TD><TD>'||Rec_USER.expires||
-              '</TD><TD>'||Rec_USER.dts||'</TD><TD>'||Rec_USER.tts||'</TD><TD>'||
-              Rec_USER.created;
-    print(L_LINE);
-    L_LINE := '</TD><TD>'||Rec_USER.profile||'</TD><TD>'||Rec_USER.resource_group||
-              '</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
-
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2">Admins</TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">User</TH><TH CLASS="th_sub">Admin '||
-            'Option</TH></TR>';
-  print(L_LINE);
-  FOR Rec_ADM IN C_ADM LOOP
-    L_LINE := ' <TR><TD>'||Rec_ADM.grantee||'</TD><TD ALIGN="center">'||
-              Rec_ADM.admin_option||'</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
-
-  IF have_dblinks()
-  THEN
-    L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6">DB Links</TH></TR>'||CHR(10)||
-              ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">DB Link</TH>';
-    print(L_LINE);
-    L_LINE := '<TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Host</TH>'||
-              '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Status</TH></TR>';
-    print(L_LINE);
-    FOR R_Link IN C_DBLinks LOOP
-      check_dblink(R_Link.db_link,S1);
-      L_LINE := ' <TR><TD>'||R_Link.owner||'</TD><TD>'||R_Link.db_link||
-                '</TD><TD>'||R_Link.username||'</TD><TD>'||R_Link.host||
- 	        '</TD><TD>';
-      print(L_LINE);
-      L_LINE := R_Link.created||'</TD><TD ALIGN="center"'||S1||'</TD></TR>';
-      print(L_LINE);
-    END LOOP;
-    print(TABLE_CLOSE);
-  END IF;
   print('<HR>');
 
