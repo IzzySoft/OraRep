@@ -99,3 +99,6 @@ v0.2.1 (13.01.2004)
 + added (external) help on row locks
 * buffer pool stats table is now only drawn if data exist for it
 + added link to advices to page head (if exists)
+
+v0.2.2
++ more details on row locks and I/O wait objects
