@@ -145,7 +145,10 @@ DECLARE
     SELECT pool,to_char(bytes/1024,'99,999,999.00') kbytes
       FROM v\$sgastat WHERE name='free memory';
   CURSOR C_BUF IS
-    SELECT name,physical_reads,consistent_gets,db_block_gets,
+    SELECT name,
+           to_char(physical_reads,'9,999,999,990') physical_reads,
+	   to_char(consistent_gets,'9,999,999,990') consistent_gets,
+	   to_char(db_block_gets,'9,999,999,990') db_block_gets,
            to_char(physical_reads/(consistent_gets+db_block_gets),'990.00') ratio
       FROM v\$buffer_pool_statistics
      WHERE consistent_gets+db_block_gets>0;
@@ -455,7 +458,7 @@ BEGIN
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="bufferpool">Buffer Pool Statistics</A></TH></TR>';
   print(L_LINE);
   L_LINE := ' <TR><TD COLSPAN="5">Ratio = physical_reads/(consistent_gets+db_block_gets)'||
-            ' should be > 0.9:';
+            ' should be &lt; 0.9:';
   print(L_LINE);
   L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">'||
             'physical_reads</TH><TH CLASS="th_sub">consistent_gets</TH>'||
@@ -484,7 +487,7 @@ BEGIN
   print(L_LINE);
   sysstat_per('summed dirty queue length','write requests',S1);
   L_LINE := ' <TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">'||S1||
-            '</TD><TD>If this value is > 100, the LGWR is too lazy -- so you may'||
+            '</TD><TD>If this value is &gt; 100, the LGWR is too lazy -- so you may '||
             'want to decrease <I>DB_BLOCK_MAX_DIRTY_TARGET</I></TD></TR>';
   print(L_LINE);
   sysstat_per('free buffer inspected','free buffer requested',S1);
