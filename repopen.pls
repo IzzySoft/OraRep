@@ -9,6 +9,7 @@ BEGIN
   MK_TABSCAN  := have_tablescans();
   MK_EXTNEED  := have_extentneed();
   MK_BUFFP    := have_buffp_stats();
+  MK_ADVICE   := have_advice();
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
@@ -43,6 +44,9 @@ BEGIN
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
   IF MK_BUFFP THEN
     L_LINE := L_LINE||' [ <A HREF="#bufferpool">Buffer Pool</A> ]';
+  END IF;
+  IF MK_ADVICE THEN
+    L_LINE := L_LINE||' [ <A HREF="#advices">Advices</A> ]';
   END IF;
   L_LINE := L_LINE||' [ <A HREF="#sysstat">SysStat</A> ]';
   print(L_LINE);
@@ -309,4 +313,7 @@ BEGIN
     L_LINE := TABLE_CLOSE;
     print(L_LINE);
   END IF;
-  get_dbc_advice();
+
+  IF MK_ADVICE THEN
+    get_dbc_advice();
+  END IF;

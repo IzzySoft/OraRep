@@ -12,6 +12,7 @@ DECLARE
   MK_TABSCAN BOOLEAN;
   MK_EXTNEED BOOLEAN;
   MK_BUFFP BOOLEAN;
+  MK_ADVICE BOOLEAN;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -187,31 +188,25 @@ DECLARE
        WHERE estd_physical_reads IS NOT NULL
          AND estd_physical_read_factor IS NOT NULL;
     BEGIN
-      SELECT COUNT(name) INTO CI FROM v$db_cache_advice
-       WHERE estd_physical_reads IS NOT NULL
-         AND estd_physical_read_factor IS NOT NULL;
-      IF CI > 0
-      THEN
-        L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="5">DB Cache Advice</TH></TR>';
-	print(L_LINE);
-        L_LINE := ' <TR><TD COLSPAN="5"><DIV ALIGN="justify">The following values '||
-                  'are an estimation how changing the size of a given buffer would '||
-                  'affect the amount of physical reads.</DIV></TD>';
-	print(L_LINE);
-	L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Size</TH>'||
-	          '<TH CLASS="th_sub">Buffers</TH><TH CLASS="th_sub">Estd.PhyRd '||
-		  'Factor</TH><TH CLASS="th_sub">Estd.PhyRds</TH></TR>';
-	print(L_LINE);
-        FOR rec IN C_A LOOP
-          L_LINE := ' <TR><TD CLASS="td_name">'||rec.name||'</TD><TD ALIGN="right">'||
-                    rec.estsize||' M</TD><TD ALIGN="right">'||rec.estbuff||'</TD>';
-          print(L_LINE);
-          L_LINE := '<TD ALIGN="right">'||rec.estrf||'%</TD><TD ALIGN="right">'||
-                    rec.estread||'</TD></TR>';
-          print(L_LINE);
-        END LOOP;
-	print(TABLE_CLOSE);
-      END IF;
+      L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="5"><A NAME="advices">DB Cache Advice</A></TH></TR>';
+      print(L_LINE);
+      L_LINE := ' <TR><TD COLSPAN="5"><DIV ALIGN="justify">The following values '||
+                'are an estimation how changing the size of a given buffer would '||
+                'affect the amount of physical reads.</DIV></TD>';
+      print(L_LINE);
+      L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Size</TH>'||
+                '<TH CLASS="th_sub">Buffers</TH><TH CLASS="th_sub">Estd.PhyRd '||
+	        'Factor</TH><TH CLASS="th_sub">Estd.PhyRds</TH></TR>';
+      print(L_LINE);
+      FOR rec IN C_A LOOP
+        L_LINE := ' <TR><TD CLASS="td_name">'||rec.name||'</TD><TD ALIGN="right">'||
+                  rec.estsize||' M</TD><TD ALIGN="right">'||rec.estbuff||'</TD>';
+        print(L_LINE);
+        L_LINE := '<TD ALIGN="right">'||rec.estrf||'%</TD><TD ALIGN="right">'||
+                  rec.estread||'</TD></TR>';
+        print(L_LINE);
+      END LOOP;
+      print(TABLE_CLOSE);
     EXCEPTION
       WHEN OTHERS THEN NULL;
     END;
@@ -255,6 +250,11 @@ DECLARE
   FUNCTION have_buffp_stats RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx('v$buffer_pool_statistics','name','consistent_gets+db_block_gets>0');
+    END;
+
+  FUNCTION have_advice RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
     END;
 
   -- recommend more rollback segments?

@@ -98,3 +98,4 @@ v0.2.1
 * some formatting issues
 + added (external) help on row locks
 * buffer pool stats table is now only drawn if data exist for it
++ added link to advices to page head (if exists)
