@@ -161,7 +161,7 @@ v0.2.6 (04.02.2004)
 + write enabled data files that have not AUTOEXTENT ON set and filled more than
   85% / 95% are now also highlighted with Go4Colors
 
-v0.2.7
+v0.2.7 (10.02.2004)
 -------------------
 + in the TS Quotas block we now highlight rows (quotas) with non-existing
   tablespaces: these emerge when dropping a tablespace where quotas where
