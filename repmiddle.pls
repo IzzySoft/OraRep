@@ -1,6 +1,4 @@
 
-  print('<HR>');
-
   -- V$SYSSTAT: extracted informations
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="sysstat">SYSSTAT Info</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH>'||

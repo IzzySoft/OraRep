@@ -51,4 +51,6 @@ MK_FILES=1
 MK_RBS=0
 # Include the "Memory Values" block? [0|1]
 MK_MEMVAL=0
+# Include Common Pool Stats block? [0|1]
+MK_POOL=0
 # ===================================================================[ EOF ]===

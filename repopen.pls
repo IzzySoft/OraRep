@@ -10,6 +10,7 @@ BEGIN
   MK_FILES     := :MK_FILES;
   MK_RBS       := :MK_RBS;
   MK_MEMVAL    := :MK_MEMVAL;
+  MK_POOL      := :MK_POOL;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
@@ -66,9 +67,13 @@ BEGIN
     L_LINE := L_LINE||' [ <A HREF="#memory">Memory</A> ]';
   END IF;
   print(L_LINE);
-  L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
-  IF MK_BUFFP THEN
-    L_LINE := L_LINE||' [ <A HREF="#bufferpool">Buffer Pool</A> ]';
+  IF MK_POOL = 1 THEN
+    L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
+    IF MK_BUFFP THEN
+      L_LINE := L_LINE||' [ <A HREF="#bufferpool">Buffer Pool</A> ]';
+    END IF;
+  ELSE
+    L_LINE := '';
   END IF;
   IF MK_ADVICE THEN
     L_LINE := L_LINE||' [ <A HREF="#advices">Advices</A> ]';

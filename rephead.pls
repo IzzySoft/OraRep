@@ -19,6 +19,7 @@ DECLARE
   MK_FILES NUMBER;
   MK_RBS NUMBER;
   MK_MEMVAL NUMBER;
+  MK_POOL NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -37,31 +38,6 @@ DECLARE
       FROM dba_users;
   CURSOR C_ADM IS
     SELECT grantee,admin_option FROM dba_role_privs WHERE granted_role='DBA';
-  CURSOR C_LIB IS
-    SELECT namespace,
-           to_char(gets,'9,999,999,990') gets,
-	   to_char(pins,'9,999,999,990') pins,
-	   to_char(reloads,'9,999,999,990') reloads,
-           to_char(gethitratio*100,'990.00') ratio,
-	   to_char(DECODE(NVL(pins,0),0,0,100*reloads/pins),'990.00') rratio
-      FROM v$librarycache;
-  CURSOR C_ROW IS
-    SELECT parameter,
-           to_char(gets,'9,999,999,990') gets,
-	   to_char(getmisses,'9,999,999,990') getmisses,
-	   to_char((getmisses/gets)*100,'990.00') ratio
-      FROM v$rowcache WHERE gets>0;
-  CURSOR C_POOL IS
-    SELECT pool,to_char(bytes/1024,'99,999,999.00') kbytes
-      FROM v$sgastat WHERE name='free memory';
-  CURSOR C_BUF IS
-    SELECT name,
-           to_char(physical_reads,'9,999,999,990') physical_reads,
-	   to_char(consistent_gets,'9,999,999,990') consistent_gets,
-	   to_char(db_block_gets,'9,999,999,990') db_block_gets,
-           to_char(physical_reads/(consistent_gets+db_block_gets),'990.00') ratio
-      FROM v$buffer_pool_statistics
-     WHERE consistent_gets+db_block_gets>0;
   CURSOR C_SCAN IS
     SELECT name,TO_CHAR(value,'9,999,999,990') value
       FROM v$sysstat
@@ -110,17 +86,6 @@ DECLARE
       ELSE
         rval := TO_CHAR(I1/I2,'999,999,990.99');
       END IF;
-    EXCEPTION
-      WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
-    END;
-
-  PROCEDURE poolsize(aval IN VARCHAR2, rval OUT VARCHAR2) IS
-    BEGIN
-      SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-             0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-        INTO rval
-	FROM v$parameter
-       WHERE name=aval;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
     END;
