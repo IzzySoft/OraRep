@@ -5,6 +5,7 @@ BEGIN
   TOP_N_WAITS  := :TOP_N_WAITS;
   TOP_N_TABLES := :TOP_N_TABLES;
   MK_RSRC      := :MK_RSRC;
+  MK_DBAPROF   := :MK_DBAPROF;
   MK_TSQUOT    := :MK_TSQUOT;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
@@ -43,10 +44,13 @@ BEGIN
   IF MK_RSRC = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#resource_groups">Resource Mgmnt</A> ] ';
   END IF;
-  IF MK_TSQUOT = 1 THEN
-    L_LINE := L_LINE||'[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
+  IF MK_DBAPROF = 1 THEN
+    L_LINE := L_LINE||'[ <A HREF="#profiles">Profiles</A> ] ';
   END IF;
   print(L_LINE);
+  IF MK_TSQUOT = 1 THEN
+    L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
+  END IF;
   L_LINE := '[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
             '] [ <A HREF="#memory">Memory</A> ]';
   print(L_LINE);

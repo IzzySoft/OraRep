@@ -94,6 +94,10 @@ if [ $MK_TSQUOT -eq 1 ]; then
   TSQUOTHEAD=$BINDIR/plugins/tsquot_head.pls
   TSQUOTBODY=$BINDIR/plugins/tsquot_body.pls
 fi
+if [ $MK_DBAPROF -eq 1 ]; then
+  PROFHEAD=$BINDIR/plugins/prof_head.pls
+  PROFBODY=$BINDIR/plugins/prof_body.pls
+fi
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$1
@@ -110,12 +114,14 @@ variable TOP_N_WAITS NUMBER;
 variable TOP_N_TABLES NUMBER;
 variable MK_RSRC NUMBER;
 variable MK_TSQUOT NUMBER;
+variable MK_DBAPROF NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
   :TOP_N_WAITS := $TOP_N_WAITS;
   :TOP_N_TABLES := $TOP_N_TABLES;
   :MK_RSRC     := $MK_RSRC;
+  :MK_DBAPROF  := $MK_DBAPROF;
   :MK_TSQUOT   := $MK_TSQUOT;
 END;
 /
@@ -126,7 +132,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT
