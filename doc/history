@@ -3,9 +3,12 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
-v0.1.0 (19.01.2003)  initial version (first release)
+v0.1.0 (19.01.2003)
+-------------------
+* initial version (first release)
 
 v0.1.1 (28.10.2003)  small fixes:
+-------------------
 ! fixed a "division by zero" error rarely occuring on freepct check for tables
 + added progInfo footer with link to web site of IzzySoft (e.g. for retrieving
   updates of this little tool ;)
@@ -16,6 +19,7 @@ v0.1.1 (28.10.2003)  small fixes:
   pctused column got the value '######' for this row
 
 v0.1.2 (31.10.2003)  small enhancements:
+-------------------
 + in the "Data Files" block, statistics are now grouped by data files instead
   of listing up each segment separately
 + some comments/recommendations are now more precise
@@ -25,10 +29,12 @@ v0.1.2 (31.10.2003)  small enhancements:
 + added version info to the syntax header
 
 v0.1.3 (06.11.2003) small enhancements:
+-------------------
 + Selected Wait Events block now contains more detailed stats like AvgWaitTime
 + Added "Invalid Objects" block
 
 v0.1.4 (13.11.2003)
+-------------------
 + added some more comments
 + added wait event "enqueue"
 + optimization: created procedure to retrieve the wait event stats
@@ -44,6 +50,7 @@ v0.1.4 (13.11.2003)
 * moved some hardcoded font formatting to stylesheet
 
 v0.1.5 (18.11.2003)
+-------------------
 + in "Selected Wait Events", Avg Waited is now more precise
   (while the system view only tells full seconds, we calculate it now
   ourselves - it's now reported in milliseconds instead of only full seconds)
@@ -51,6 +58,7 @@ v0.1.5 (18.11.2003)
 + added RPP column for Library Cache stats
 
 v0.1.6 (27.11.2003)
+-------------------
 + added DBLinks w/ check whether active or not
 + added "buffer busy waits" plus more description
 + made the disksort stats (in SYSSTAT Info) more precise
@@ -59,6 +67,7 @@ v0.1.6 (27.11.2003)
 + separated the config from the script to ease updates
 
 v0.1.7 (03.12.2003)
+-------------------
 + make use of the much more detailed information on objects causing waits
   in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg
 + added DB Cache advice (needs "db_cache_advice=ready" in the init.ora to
@@ -70,6 +79,7 @@ v0.1.7 (03.12.2003)
   these cases
 
 v0.1.8 (10.12.2003)
+-------------------
 + restricted the count of tables with less than 10% free blocks (reported at
   the very end of the page) to TOP_N_TABLES (new config var)
 + added enqueue stats
@@ -78,6 +88,7 @@ v0.1.8 (10.12.2003)
 + updated installation instructions in doc/readme.txt
 
 v0.1.9 (17.12.2003)
+-------------------
 + added own help icon (used one from the Apache installation up to now)
 + made the description for row migration more verbose (don't worry, it is
   in an external help file now ;)
@@ -86,6 +97,7 @@ v0.1.9 (17.12.2003)
   and "log file switch"
 
 v0.2.0 (05.01.2004)
+-------------------
 + more detailed hints on the enqueue wait event
 * some cosmetical changes to some of the external help files (formating issues)
 + more details on the log buffer size
@@ -94,6 +106,7 @@ v0.2.0 (05.01.2004)
 * some cosmetical changes (text formatting)
 
 v0.2.1 (13.01.2004)
+-------------------
 + added hints on ASSM to avoid freelist contention (buffer busy waits)
 * some formatting issues
 + added (external) help on row locks
@@ -101,13 +114,15 @@ v0.2.1 (13.01.2004)
 + added link to advices to page head (if exists)
 
 v0.2.2 (15.01.2004)
+-------------------
 + more details on row locks and I/O wait objects
 + more details on avoiding buffer busy waits
 + added PctWait and PctFailed to enqueue waits (Oracle 9+)
 + added profile and initial resource group to user info
 + added reports on resource management
 
-v0.2.3
+v0.2.3 (20.01.2004)
+-------------------
 + added extended resource plan report for Oracle 9i
 * made resource plan report an optional element (see the "config" file)
 + added TableSpace Quotas (optional)
