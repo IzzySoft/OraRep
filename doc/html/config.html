@@ -29,6 +29,7 @@
  <tr><td class="text">
   <table align="center" width="95%">
    <tr><th class="th_sub2">Variable</th><th class="th_sub2">Explanation</th></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">Database Information</td></tr>
    <tr><td class="td_name"><code>ORACLE_SID</code></td>
        <td class="text">As already known from the Oracle setup, the <code>ORACLE_SID</code>
            is the Service IDentifier for a given database instance. In the
@@ -49,6 +50,7 @@
            combinations, the recommendation is to use different config files,
            which you then can specify on the command line using the "-c" switch.</td></tr>
    <tr><td class="td_name"><code>password</code></td></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">Files and Directories</td></tr>
    <tr><td class="td_name"><code>TMPDIR</code></td>
        <td class="text">Directory to place temporary files into (these files will
            be removed at the end of the run of the script). The default setting,
@@ -74,11 +76,21 @@
  <tr><td class="text">
   <table align="center" width="95%">
    <tr><th class="th_sub2">Variable</th><th class="th_sub2">Explanation</th></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">Warnings</td></tr>
+   <tr><td class="td_name"><code>TPH_NOLOG</code></td>
+       <td class="text">OraRep will issue a warning (yellow table cell background)
+           when there was no log file available ("<code>log file switch(*)</code>"
+           event) more often per hour than specified by this value. The value
+           specified here should be low, since on the specified events all
+           <code>COMMIT</code>s wait until the event is done. See online help
+           on these events for details.</td></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">SQL</td></tr>
    <tr><td class="td_name"><code>TOP_N_WAITS</code></td>
        <td class="text" rowspan="2">How many items to list up in the "Top N"
            blocks of the report for Wait objects and tables (the latter in the
            Miscellaneous block at the end of the report)</td></tr>
    <tr><td class="td_name"><code>TOP_N_TABLES</code></td></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">Features</td></tr>
    <tr><td class="td_name"><code>MK_RSRC</code></td>
        <td class="text">Resource plans are a useful feature or Oracle to manage
            your resources - e.g. to insure that administrators will gain the
