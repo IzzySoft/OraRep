@@ -139,7 +139,7 @@ v0.2.4 (23.01.2004)
 + new command line parameter "-c" to specify alternative config file
 * some code cleanup
 
-v0.2.5
+v0.2.5 (29.01.2004)
 -------------------
 + added documentation (HTML)
 * sometimes the "Wait Objects" table was created empty (Oracle removed the
