@@ -114,8 +114,9 @@ if [ $MK_ENQ -eq 1 ]; then
     ENQHEAD=$PLUGINDIR/dummy.pls
     ENQBODY=$PLUGINDIR/dummy.pls
   fi
-  else
-    ENQHEAD=$PLUGINDIR/81enq_head.pls
+fi
+if [ $DBVER -lt 89 ]; then
+  ENQHEAD=$PLUGINDIR/81enq_head.pls
 fi
 # ----------------------------------[ Include optional Features if defined ]---
 if [ $MK_RSRC -eq 1 ]; then
