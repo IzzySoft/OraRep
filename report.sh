@@ -32,6 +32,7 @@ if [ -z "$1" ]; then
   echo ----------------------------------------------------------------------------
   echo "Syntax: ${SCRIPT} <ORACLE_SID> [Options]"
   echo "  Options:"
+  echo "     -c <alternative ConfigFile>"
   echo "     -d <StartDir>"
   echo "     -p <Password>"
   echo "     -s <ORACLE_SID/Connection String for Target DB>"
@@ -43,20 +44,29 @@ fi
 # =================================================[ Configuration Section ]===
 BINDIR=${0%/*}
 PLUGINDIR=$BINDIR/plugins
-. $BINDIR/config $*
+CONFIG=$BINDIR/config
+ARGS=$*
 
 # ------------------------------------------[ process command line options ]---
 while [ -n "$1" ] ; do
   case "$1" in
     -s) shift; ORACLE_CONNECT=$1;;
-    -u) shift; user=$1;;
-    -p) shift; password=$1;;
+    -u) shift; username=$1;;
+    -p) shift; passwd=$1;;
     -d) shift; startdir=$1;;
+    -c) shift; CONFIG=$1;;
   esac
   shift
 done
+. $CONFIG $ARGS
 if [ -z "$ORACLE_CONNECT" ]; then
   ORACLE_CONNECT=$ORACLE_SID
+fi
+if [ -n "$username" ]; then
+  user=$username
+fi
+if [ -n "$passwd" ]; then
+  password=$passwd
 fi
 
 SQLSET=$TMPDIR/orarep_sqlset_$ORACLE_SID.$$
