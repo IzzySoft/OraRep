@@ -125,7 +125,9 @@ DECLARE
            to_char(gets,'9,999,999,990') gets,
 	   to_char(pins,'9,999,999,990') pins,
 	   to_char(reloads,'9,999,999,990') reloads,
-           to_char(gethitratio*100,'990.00') ratio FROM v\$librarycache;
+           to_char(gethitratio*100,'990.00') ratio,
+	   to_char(DECODE(NVL(pins,0),0,0,100*reloads/pins),'990.00') rratio
+      FROM v\$librarycache;
   CURSOR C_ROW IS
     SELECT parameter,
            to_char(gets,'9,999,999,990') gets,
@@ -409,37 +411,39 @@ BEGIN
   print(L_LINE);
 
   -- Shared Pool Information
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="sharedpool">Shared Pool Information</A></TH></TR>'||CHR(10)||
-            ' <TR><TH COLSPAN="5" CLASS="th_sub">Library Cache</TH></TR>';
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="sharedpool">Shared Pool Information</A></TH></TR>'||CHR(10)||
+            ' <TR><TH COLSPAN="6" CLASS="th_sub">Library Cache</TH></TR>';
   print(L_LINE);
-  L_LINE := ' <TR><TD COLSPAN="5">If one of the following conditions is <B><I>NOT</B></I> '||
-            'met this indicates that SHARED_POOL_SIZE may have to be increased:';
+  L_LINE := ' <TR><TD COLSPAN="6">The following cases are indicators '||
+            'that SHARED_POOL_SIZE may have to be increased:';
   print(L_LINE);
-  L_LINE := ' <BR><LI>(reloads/pins)*100 < 1</LI><BR><LI>gethitratio > 90%</LI></TD><TR>'||
+  L_LINE := ' <BR><LI>RPP (100*reloads/pins) &gt; 1</LI><BR><LI>gethitratio &lt; 90%</LI></TD><TR>'||
             ' <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>';
   print(L_LINE);
   L_LINE := ' <TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD>'||
+            '<TD CLASS="td_name">RPP</TD>'||
             '<TD CLASS="td_name">GetHitRatio (%)</TD></TR>';
   print(L_LINE);
   FOR Rec_LIB IN C_LIB LOOP
     L_LINE := ' <TR><TD>'||Rec_LIB.namespace||'</TD><TD ALIGN="right">'||
               Rec_LIB.gets||'</TD>'||'<TD ALIGN="right">'||Rec_LIB.pins||
               '</TD><TD ALIGN="right">'||Rec_LIB.reloads||
-              '</TD><TD ALIGN="right">'||Rec_LIB.ratio||'</TD></TR>';
+              '</TD><TD ALIGN="right">'||Rec_LIB.rratio||
+	      '</TD><TD ALIGN="right">'||Rec_LIB.ratio||'</TD></TR>';
     print(L_LINE);
   END LOOP;
 
-  L_LINE := ' <TR><TD COLSPAN="5">'||CHR(38)||'nbsp;</TD></TR>';
+  L_LINE := ' <TR><TD COLSPAN="6">'||CHR(38)||'nbsp;</TD></TR>';
   print(L_LINE);
-  L_LINE := ' <TR><TH COLSPAN="5" CLASS="th_sub">Row Cache</TH></TR>'||
-            ' <TR><TD COLSPAN="5">If Ratio = (getmisses/gets)*100 > 15,'||
+  L_LINE := ' <TR><TH COLSPAN="6" CLASS="th_sub">Row Cache</TH></TR>'||
+            ' <TR><TD COLSPAN="6">If Ratio = (getmisses/gets)*100 > 15,'||
             ' SHARED_POOL_SIZE may have to be increased:</TD></TR>';
   print(L_LINE);
-  L_LINE := ' <TR><TD COLSPAN="2" CLASS="td_name">Parameter</TD><TD CLASS="td_name">Gets</TD>'||
+  L_LINE := ' <TR><TD COLSPAN="3" CLASS="td_name">Parameter</TD><TD CLASS="td_name">Gets</TD>'||
             '<TD CLASS="td_name">GetMisses</TD><TD CLASS="td_name">Ratio</TD></TR>';
   print(L_LINE);
   FOR Rec_ROW IN C_ROW LOOP
-    L_LINE := ' <TR><TD COLSPAN="2">'||Rec_ROW.parameter||'</TD><TD ALIGN="right">'||
+    L_LINE := ' <TR><TD COLSPAN="3">'||Rec_ROW.parameter||'</TD><TD ALIGN="right">'||
               Rec_ROW.gets||'</TD><TD ALIGN="right">'||Rec_ROW.getmisses||
               '</TD><TD ALIGN="right">'||Rec_ROW.ratio||'</TD></TR>';
     print(L_LINE);
