@@ -60,7 +60,17 @@
       determined by the parameter <CODE>DBWR_IO_SLAVES</CODE>. I/O slaves are
       also useful when asynchronous I/O is not available, because the multiple
       I/O slaves simulate nonblocking, asynchronous requests by freeing DBWR
-      to continue identifying blocks in the cache to be written.</TD></TR>
+      to continue identifying blocks in the cache to be written.<BR>
+      <B>Decide between additional DBWRs and I/O Slaves</B><BR>
+      First you should check whether asynchronous I/O is supported and used by
+      your system. If it is supported but not used, enable asynchronous I/O to
+      see if this alleviates the problem.<BR>
+      Using multiple DBWRs parallelizes the gathering and writing of buffers.
+      Therefore, multiple DBW<I>n</I> processes should deliver more throughput
+      than one DBWR process with the same number of I/O slaves. For this
+      reason, the use of I/O slaves has been deprecated in favour of multiple
+      DBWR processes. I/O slaves should only be used if multiple DBWR processes
+      cannot be configured.</TD></TR>
  </TABLE>
  <P>Another possible solution is to adjust the frequency of your checkpoints by
   tuning the <CODE>CHECK_POINT_TIMEOUT</CODE> and
