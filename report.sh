@@ -42,6 +42,7 @@ if [ -z "$1" ]; then
 fi
 # =================================================[ Configuration Section ]===
 BINDIR=${0%/*}
+PLUGINDIR=$BINDIR/plugins
 . $BINDIR/config $*
 
 # ------------------------------------------[ process command line options ]---
@@ -84,59 +85,59 @@ ENDSQL
 cat $SQLSET $BINDIR/getver.sql | $ORACLE_HOME/bin/sqlplus -s /NOLOG >/dev/null
 DBVER=`cat $TMPOUT`
 if [ $DBVER -gt 91 ]; then
-  WAITHEAD=$BINDIR/plugins/92wait_head.pls
-  WAITBODY=$BINDIR/plugins/92wait_body.pls
-  SPADVHEAD=$BINDIR/plugins/92spadv_head.pls
-  SPADVBODY=$BINDIR/plugins/92spadv_body.pls
+  WAITHEAD=$PLUGINDIR/92wait_head.pls
+  WAITBODY=$PLUGINDIR/92wait_body.pls
+  SPADVHEAD=$PLUGINDIR/92spadv_head.pls
+  SPADVBODY=$PLUGINDIR/92spadv_body.pls
 else
-  WAITHEAD=$BINDIR/plugins/81wait_head.pls
-  WAITBODY=$BINDIR/plugins/81wait_body.pls
-  SPADVHEAD=$BINDIR/plugins/dummy.pls
-  SPADVBODY=$BINDIR/plugins/dummy.pls
+  WAITHEAD=$PLUGINDIR/81wait_head.pls
+  WAITBODY=$PLUGINDIR/81wait_body.pls
+  SPADVHEAD=$PLUGINDIR/dummy.pls
+  SPADVBODY=$PLUGINDIR/dummy.pls
 fi
 if [ $MK_ENQ -eq 1 ]; then
   if [ $DBVER -gt 89 ]; then
-    ENQHEAD=$BINDIR/plugins/90enq_head.pls
-    ENQBODY=$BINDIR/plugins/90enq_body.pls
+    ENQHEAD=$PLUGINDIR/90enq_head.pls
+    ENQBODY=$PLUGINDIR/90enq_body.pls
   else
-    ENQHEAD=$BINDIR/plugins/dummy.pls
-    ENQBODY=$BINDIR/plugins/dummy.pls
+    ENQHEAD=$PLUGINDIR/dummy.pls
+    ENQBODY=$PLUGINDIR/dummy.pls
   fi
   else
-    ENQHEAD=$BINDIR/plugins/81enq_head.pls
+    ENQHEAD=$PLUGINDIR/81enq_head.pls
 fi
 # ----------------------------------[ Include optional Features if defined ]---
 if [ $MK_RSRC -eq 1 ]; then
-  RSRCBODY=$BINDIR/plugins/81resource_body.pls
+  RSRCBODY=$PLUGINDIR/81resource_body.pls
   if [ $DBVER -gt 89 ]; then
-    RSRCHEAD=$BINDIR/plugins/90resource_head.pls
+    RSRCHEAD=$PLUGINDIR/90resource_head.pls
   else
-    RSRCHEAD=$BINDIR/plugins/81resource_head.pls
+    RSRCHEAD=$PLUGINDIR/81resource_head.pls
   fi
 fi
 if [ $MK_TSQUOT -eq 1 ]; then
-  TSQUOTHEAD=$BINDIR/plugins/tsquot_head.pls
-  TSQUOTBODY=$BINDIR/plugins/tsquot_body.pls
+  TSQUOTHEAD=$PLUGINDIR/tsquot_head.pls
+  TSQUOTBODY=$PLUGINDIR/tsquot_body.pls
 fi
 if [ $MK_DBAPROF -eq 1 ]; then
-  PROFHEAD=$BINDIR/plugins/prof_head.pls
-  PROFBODY=$BINDIR/plugins/prof_body.pls
+  PROFHEAD=$PLUGINDIR/prof_head.pls
+  PROFBODY=$PLUGINDIR/prof_body.pls
 fi
 if [ $MK_FILES -eq 1 ]; then
-  FILESHEAD=$BINDIR/plugins/files_head.pls
-  FILESBODY=$BINDIR/plugins/files_body.pls
+  FILESHEAD=$PLUGINDIR/files_head.pls
+  FILESBODY=$PLUGINDIR/files_body.pls
 fi
 if [ $MK_RBS -eq 1 ]; then
-  RBSHEAD=$BINDIR/plugins/rbs_head.pls
-  RBSBODY=$BINDIR/plugins/rbs_body.pls
+  RBSHEAD=$PLUGINDIR/rbs_head.pls
+  RBSBODY=$PLUGINDIR/rbs_body.pls
 fi
 if [ $MK_MEMVAL -eq 1 ]; then
-  MEMVALHEAD=$BINDIR/plugins/memval_head.pls
-  MEMVALBODY=$BINDIR/plugins/memval_body.pls
+  MEMVALHEAD=$PLUGINDIR/memval_head.pls
+  MEMVALBODY=$PLUGINDIR/memval_body.pls
 fi
 if [ $MK_POOL -eq 1 ]; then
-  POOLHEAD=$BINDIR/plugins/pool_head.pls
-  POOLBODY=$BINDIR/plugins/pool_body.pls
+  POOLHEAD=$PLUGINDIR/pool_head.pls
+  POOLBODY=$PLUGINDIR/pool_body.pls
 fi
 
 cat >$SQLSET<<ENDSQL
