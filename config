@@ -53,6 +53,8 @@ MK_RBS=0
 MK_MEMVAL=0
 # Include Common Pool Stats block? [0|1]
 MK_POOL=0
+# Include the Buffer Ratios? [0|1]
+MK_BUFFRAT=1
 # Include Enqueue Waits (Oracle 9i and higher only)? [0|1]
 MK_ENQ=1
 # ===================================================================[ EOF ]===

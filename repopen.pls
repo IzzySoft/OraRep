@@ -11,6 +11,7 @@ BEGIN
   MK_RBS       := :MK_RBS;
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
+  MK_BUFFRAT   := :MK_BUFFRAT;
   MK_ENQ       := :MK_ENQ;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
@@ -58,6 +59,7 @@ BEGIN
     L_LINE := L_LINE||'[ <A HREF="#profiles">Profiles</A> ] ';
   END IF;
   print(L_LINE);
+
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
   ELSE
@@ -73,6 +75,7 @@ BEGIN
     L_LINE := L_LINE||' [ <A HREF="#memory">Memory</A> ]';
   END IF;
   print(L_LINE);
+
   IF MK_POOL = 1 THEN
     L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
     IF MK_BUFFP THEN
@@ -86,21 +89,23 @@ BEGIN
   END IF;
   L_LINE := L_LINE||' [ <A HREF="#sysstat">SysStat</A> ]';
   print(L_LINE);
+
   L_LINE := ' [ <A HREF="#events">Events</A> ]';
-  IF MK_WAITOBJ
-  THEN 
+  IF MK_BUFFRAT = 1 THEN 
+    L_LINE := L_LINE||' [ <A HREF="#buffwait">Buffer Waits</A> ]';
+  END IF;
+  IF MK_WAITOBJ THEN 
     L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';
   END IF;
   IF MK_ENQS THEN
     L_LINE := L_LINE||' [ <A HREF="#enqwaits">Enqueue Waits</A> ]';
   END IF;
-  IF MK_INVALIDS
-  THEN
-    L_LINE := L_LINE||' [ <A HREF="#invobj">Invalid Objects</A> ]';
-  END IF;
-  L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>';
   print(L_LINE);
-  L_LINE := TABLE_CLOSE;
+
+  IF MK_INVALIDS THEN
+    L_LINE := ' [ <A HREF="#invobj">Invalid Objects</A> ]';
+  END IF;
+  L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>'||TABLE_CLOSE;
   print(L_LINE);
 
   -- Initial information about this instance
