@@ -1,4 +1,20 @@
 
+  FUNCTION have_waits RETURN BOOLEAN IS
+    CI NUMBER;
+    BEGIN
+      SELECT COUNT(event) INTO CI FROM v$session_wait
+       WHERE event IN ('buffer busy waits','free buffer waits',
+                       'db file sequential read','db file scattered read');
+      IF CI > 0
+      THEN
+        RETURN TRUE;
+      ELSE
+        RETURN FALSE;
+      END IF;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN FALSE;
+    END;
+
   PROCEDURE P_81Waits IS
     CURSOR C_81Waits IS
       SELECT owner,segment_name,segment_type
@@ -18,6 +34,8 @@
           dbms_output.put_line('*!* Problem in print() *!*');
       END;
     BEGIN
+     IF have_waits()
+     THEN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="waitobj">Objects causing Wait Events</A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one of the '||
@@ -50,6 +68,7 @@
       END LOOP;
       L_LINE := TABLE_CLOSE;
       print(L_LINE);
+     END IF;
     EXCEPTION
       WHEN OTHERS THEN NULL;
     END;
