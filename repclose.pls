@@ -28,13 +28,14 @@
     IF MK_TABSCAN
     THEN
       L_LINE := ' <TR><TD COLSPAN="2" CLASS="td_name">If we have many full table '||
-                'scans, we may have to optimize <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I>. '||
-                'Beneath the statistic below, we need the block count of the largest '||
-                'table to find the best value. ';
+                'scans, we may have to optimize <CODE>DB_FILE_MULTI_BLOCK_READ_COUNT</CODE>. '||
+                'Beneath the statistic below, we need the block count of the largest ';
       print(L_LINE);
-      L_LINE := 'A common recommendation is to set <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> '||
-                'to the highest possible value for maximum performance, which is '||
-	        '32 (256k) in most environments. The absolute maximum of 128 (1M) is '||
+      L_LINE := 'table to find the best value. A common recommendation is to set '||
+                '<CODE>DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> to the highest '||
+                'possible value for maximum performance, which is 32 (256k) in ';
+      print(L_LINE);
+      L_LINE := 'most environments. The absolute maximum of 128 (1M) is '||
     	        'mostly only available on raw devices.</TD></TR>';
       print(L_LINE);
       FOR Rec_SCAN IN C_SCAN LOOP
@@ -49,8 +50,9 @@
                 'will for sure need more extents shortly, we can reduce I/O overhead '||
                 'allocating some extents for them in advance, using ';
       print(L_LINE);
-      L_LINE := '"ALTER TABLE tablename ALLOCATE EXTENT". Here are the max. Top '||
-                TOP_N_TABLES||' candidates, having less than 10 percent free blocks left:</TD></TR>';
+      L_LINE := '<CODE>"ALTER TABLE tablename ALLOCATE EXTENT"</CODE>. Here are '||
+                'the max. Top '||TOP_N_TABLES||' candidates, having less than '||
+                '10 percent free blocks left:</TD></TR>';
       print(L_LINE);
       FOR Rec_EXT IN C_EXT LOOP
         L_LINE := ' <TR><TD>'||Rec_EXT.owner||'.'||Rec_EXT.table_name||

@@ -6,13 +6,13 @@
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD>
  <H3>What is this?</H3>
- <P>The <CODE>log buffer space</CODE> wait event occurs when server processes
+ <P>The <I>log buffer space</I> wait event occurs when server processes
     are waiting for free space in the log buffer, because you are writing redo
     to the log buffer faster than LGWR can write it out.</P>
  <H3>What actions can be taken?</H3>
  <P>Modify the redo log buffer size. If the size of the log buffer is already
     reasonable, then ensure that the disks on which the online redo logs reside
-    do not suffer from I/O contention. The <CODE>log buffer space</CODE> wait
+    do not suffer from I/O contention. The <I>log buffer space</I> wait
     event could be indicative of either disk I/O contention on the disks where
     the redo logs reside, or of a too-small log buffer. Check the I/O profile
     of the disks containing the redo logs to investigate whether the I/O system

@@ -18,14 +18,14 @@
   L_LINE := ' <TR><TD WIDTH="300">Percent DiskSorts (of DiskSorts + MemSorts)</TD>'||
             '<TD ALIGN="right">'||S1||'</TD><TD>Should be less than 5% - ';
   print(L_LINE);
-  L_LINE := 'higher values are an indicator to increase <I>SORT_AREA_SIZE</I>, '||
+  L_LINE := 'higher values are an indicator to increase <CODE>SORT_AREA_SIZE</CODE>, '||
             'but you of course have to consider the amount of physical memory '||
 	    'available on your machine.</TD></TR>';
   print(L_LINE);
   sysstat_per('summed dirty queue length','write requests',S1);
   L_LINE := ' <TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">'||S1||
             '</TD><TD>If this value is &gt; 100, the LGWR is too lazy -- so you may '||
-            'want to decrease <I>DB_BLOCK_MAX_DIRTY_TARGET</I></TD></TR>';
+            'want to decrease <CODE>DB_BLOCK_MAX_DIRTY_TARGET</CODE></TD></TR>';
   print(L_LINE);
   sysstat_per('free buffer inspected','free buffer requested',S1);
   L_LINE := ' <TR><TD>free buffer inspected / free buffer requested</TD><TD ALIGN="right">'||
@@ -108,7 +108,7 @@
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Indicator for I/O problems on full table scans<BR><DIV CLASS="small">'||
-            '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
+            '(On increasing <CODE STYLE="font-size:125%">DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> if this value '||
             'is high see the first block of Miscellaneous below)</DIV></TD></TR>';
   print(L_LINE);
   get_wait('undo segment extension',S4,S1,S2,S3);
@@ -214,7 +214,7 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD ROWSPAN="2">These wait events occur when the Database'||
+  L_LINE := '</TD><TD ROWSPAN="2">These wait events occur when the Database '||
             'unexpectedly looses Net8 connectivity with a remote client or '||
             'Database. ';
   print(L_LINE);

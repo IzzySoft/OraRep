@@ -247,7 +247,7 @@ BEGIN
             ' <TR><TH COLSPAN="6" CLASS="th_sub">Library Cache</TH></TR>';
   print(L_LINE);
   L_LINE := ' <TR><TD COLSPAN="6">The following cases are indicators '||
-            'that SHARED_POOL_SIZE may have to be increased:';
+            'that <CODE>SHARED_POOL_SIZE</CODE> may have to be increased:';
   print(L_LINE);
   L_LINE := ' <BR><UL><LI>RPP (100*reloads/pins) &gt; 1</LI><LI>gethitratio &lt; 90%</LI></UL></TD><TR>'||
             ' <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>';
@@ -269,7 +269,7 @@ BEGIN
   print(L_LINE);
   L_LINE := ' <TR><TH COLSPAN="6" CLASS="th_sub">Row Cache</TH></TR>'||
             ' <TR><TD COLSPAN="6">If Ratio = (getmisses/gets)*100 > 15,'||
-            ' SHARED_POOL_SIZE may have to be increased:</TD></TR>';
+            ' <CODE>SHARED_POOL_SIZE</CODE> may have to be increased:</TD></TR>';
   print(L_LINE);
   L_LINE := ' <TR><TD COLSPAN="3" CLASS="td_name">Parameter</TD><TD CLASS="td_name">Gets</TD>'||
             '<TD CLASS="td_name">GetMisses</TD><TD CLASS="td_name">Ratio</TD></TR>';

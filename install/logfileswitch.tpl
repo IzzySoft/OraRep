@@ -6,12 +6,12 @@
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD>
  <H3>What does this event mean?</H3>
- <P>In both events, <CODE>log file switch (archiving needed)<CODE> and
-    <CODE>log file switch (checkpoint incomplete)<CODE>, the LGWR is unable
+ <P>In both events, <I>log file switch (archiving needed)</I> and
+    <I>log file switch (checkpoint incomplete)</I>, the LGWR is unable
     to switch into the next online redo log, and all the commit requests wait
     for this event.</P>
  <H3>What actions can be taken?</H3>
- <P>For the log file switch (archiving needed) event, examine why the archiver
+ <P>For the <I>log file switch (archiving needed)</I> event, examine why the archiver
     is unable to archive the logs in a timely fashion. It could be due to the
     following:<UL>
     <LI>Archive destination is running out of free space.</LI>
