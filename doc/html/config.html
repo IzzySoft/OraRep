@@ -116,6 +116,12 @@
            the "Selected Wait Events" block. You should activate this if you
            encounter many <code>buffer busy waits</code> and want to know what
            tuning actions are reasonable.</td></tr>
+   <tr><td class="td_name"><code>MK_FLC</code></td>
+       <td class="text">The "FreeList Contention" block should help you to
+           identify tables having problems with the <code>PCTFREE</code> and
+           <code>PCTUSED</code> values. You may try to enable this block if the
+           report indicates it may be useful. See the online help on this topic
+           for more details.</td></tr>
    <tr><td class="td_name"><code>MK_ENQ</code></td>
        <td class="text">The "Enqueue Waits" block may be useful for closer
            investigation if other results indicate problems concerning enqueues,
