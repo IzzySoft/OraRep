@@ -190,3 +190,7 @@ v0.3.0 (30.04.2004)
 ! report was broken again for Oracle < v9 due to use of CASE (introduced
   with Oracle v9)
 * some formatting updates (numbers not displayed correctly when value to high)
+
+v0.3.1
+-------------------
++ script now accepts the "-r" command line parameter to override the report dir

@@ -19,7 +19,7 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.2.9'
+version='0.3.0'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -35,6 +35,7 @@ if [ -z "$1" ]; then
   echo "     -c <alternative ConfigFile>"
   echo "     -d <StartDir>"
   echo "     -p <Password>"
+  echo "     -r <ReportDirectory>"
   echo "     -s <ORACLE_SID/Connection String for Target DB>"
   echo "     -u <username>"
   echo ============================================================================
@@ -55,6 +56,7 @@ while [ -n "$1" ] ; do
     -p) shift; passwd=$1;;
     -d) shift; startdir=$1;;
     -c) shift; CONFIG=$1;;
+    -r) shift; REPORTDIR=$1;;
   esac
   shift
 done
@@ -67,6 +69,9 @@ if [ -n "$username" ]; then
 fi
 if [ -n "$passwd" ]; then
   password=$passwd
+fi
+if [ -n "$REPORTDIR" ]; then
+  REPDIR=$REPORTDIR
 fi
 
 SQLSET=$TMPDIR/orarep_sqlset_$ORACLE_SID.$$
