@@ -74,6 +74,13 @@ else
   SPADVHEAD=$BINDIR/plugins/dummy.pls
   SPADVBODY=$BINDIR/plugins/dummy.pls
 fi
+if [ $DBVER -gt 89 ]; then
+  ENQHEAD=$BINDIR/plugins/90enq_head.pls
+  ENQBODY=$BINDIR/plugins/90enq_body.pls
+else
+  ENQHEAD=$BINDIR/plugins/dummy.pls
+  ENQBODY=$BINDIR/plugins/dummy.pls
+fi
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$1
@@ -102,7 +109,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT
