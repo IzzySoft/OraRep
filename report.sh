@@ -216,7 +216,7 @@ BEGIN
   L_LINE := ' <TR><TD class="td_name">Version:</TD><TD>'||S2||'</TD></TR>'||CHR(10)||
             ' <TR><TD class="td_name">Archiver:</TD><TD>'||S3||'</TD></TR>';
   print(L_LINE);
-  SELECT SUM(blocks*block_size)/(1024*1024) INTO I1 FROM v_\$archived_log;
+  SELECT SUM(blocks*block_size)/(1024*1024) INTO I1 FROM v\$archived_log;
   S1 := to_char(I1,'999,999,999.99');
   L_LINE := ' <TR><TD class="td_name">ArchivedLogSize:</TD><TD>'||S1||' MB</TD></TR>';
   print(L_LINE);
@@ -585,6 +585,18 @@ BEGIN
   L_LINE := '</TD><TD>If this value is too high, log buffers are filling faster '||
             'than being emptied. You then have to consider to increase the '||
             'number of logfile groups or to use larger log files.</TD></TR>';
+  print(L_LINE);
+  get_wait('log buffer space',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>log buffer space</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD>This event frequently occurs when the log buffers are '||
+            'filling faster than LGWR can write them to disk. The two obvious '||
+            'solutions are to either ';
+  print(L_LINE);
+  L_LINE := 'increase the amount of log buffers or to change your Redo log '||
+            'layout and/or IO strategy.</TD></TR>';
   print(L_LINE);
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
