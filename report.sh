@@ -506,6 +506,21 @@ BEGIN
   L_LINE := '<TH CLASS="th_sub">Total WaitTime</TH><TH CLASS="th_sub">Avg Waited</TH>'||
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
+  get_wait('free buffer waits',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD><DIV STYLE="width:22ex">free buffer waits</DIV></TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD>This wait event occurs when the database attemts to locate '||
+	    'a clean block buffer but cannot because there are too many outstanding '||
+	    'dirty blocks waiting to be written. ';
+  print(L_LINE);
+  L_LINE := 'This could be an indication that either your database is having an '||
+            'IO problem (check the other IO related wait events to validate this) '||
+	    'or your database is very busy ';
+  print(L_LINE);
+  L_LINE := 'and you simply don''t have enough block buffers to go around.</TD></TR>';
+  print(L_LINE);
   get_wait('db file sequential read',I1,S1,S2,S3);
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">db file sequential read</DIV></TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
