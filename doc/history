@@ -177,7 +177,7 @@ v0.2.8 (16.03.2004)
 * some updates to the (HTML) documentation
 * some formatting (stylesheet) updates
 
-v0.2.9
+v0.2.9 (23.03.2004)
 -------------------
 + enhanced formatting of time and size values throughout the report
 * outsourced the formatting functions (for common use with OSPRep)

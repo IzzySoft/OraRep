@@ -35,13 +35,21 @@
         ELSE string := '';
       END CASE;
       mt := round(st/sdiv);
-      string := trim(to_char(mod(mt,60),'00'))||string; -- s
+      IF (round(mt/60) > 0) OR (mod(mt,60) > 9) THEN
+        string := trim(to_char(mod(mt,60),'00'))||string; -- s
+      ELSE
+        string := trim(to_char(mod(mt,60),'0'))||string;
+      END IF;
       mt := round(mt/60);
       IF mt > 0 THEN
-        string := trim(to_char(mod(mt,60),'00'))||':'||string; -- min
+        IF (round(mt/60) > 0) OR (mod(mt,60) > 9) THEN
+          string := trim(to_char(mod(mt,60),'00'))||':'||string; -- min
+        ELSE
+          string := trim(to_char(mod(mt,60),'0'))||':'||string;
+        END IF;
         mt := round(mt/60);
         IF mt > 0 THEN
-          string := trim(to_char(mod(mt,24),'00'))||':'||string; -- h
+          string := trim(to_char(mod(mt,24),'90'))||':'||string; -- h
           mt := round(mt/24);
           IF mt > 365 THEN
             RETURN round(mt/365)||'y '||to_char(mod(mt,365))||'d '||string;
