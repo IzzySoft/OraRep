@@ -30,7 +30,12 @@ if [ -z "$1" ]; then
   echo inside the script header for closer details, and check for the configuration
   echo there as well.
   echo ----------------------------------------------------------------------------
-  echo "Syntax: ${SCRIPT} <ORACLE_SID> [StartDir]"
+  echo "Syntax: ${SCRIPT} <ORACLE_SID> [Options]"
+  echo "  Options:"
+  echo "     -d <StartDir>"
+  echo "     -p <Password>"
+  echo "     -s <ORACLE_SID/Connection String for Target DB>"
+  echo "     -u <username>"
   echo ============================================================================
   echo
   exit 1
@@ -38,18 +43,30 @@ fi
 # =================================================[ Configuration Section ]===
 BINDIR=${0%/*}
 . $BINDIR/config $*
+
+# ------------------------------------------[ process command line options ]---
+while [ "$1" != "" ] ; do
+  case "$1" in
+    -s) shift; ORACLE_SID=$1;;
+    -u) shift; user=$1;;
+    -p) shift; password=$1;;
+    -d) shift; startdir=$1;;
+  esac
+  shift
+done
+
 SQLSET=$TMPDIR/orarep_sqlset_$1.$$
 TMPOUT=$TMPDIR/orarep_tmpout_$1.$$
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
-if [ -n "$2" ]; then
-  cd $2
+if [ -n "$startdir" ]; then
+  cd $startdir
 fi
 
 # --------------------------------[ Get the Oracle version of the DataBase ]---
 cat >$SQLSET<<ENDSQL
-CONNECT $user/$password@$1
+CONNECT $user/$password@$ORACLE_SID
 Set TERMOUT OFF
 Set SCAN OFF
 Set SERVEROUTPUT On Size 1000000
@@ -100,7 +117,7 @@ if [ $MK_DBAPROF -eq 1 ]; then
 fi
 
 cat >$SQLSET<<ENDSQL
-CONNECT $user/$password@$1
+CONNECT $user/$password@$ORACLE_SID
 Set TERMOUT OFF
 Set SCAN OFF
 Set SERVEROUTPUT On Size 1000000

@@ -51,7 +51,7 @@ BEGIN
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
   END IF;
-  L_LINE := '[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
+  L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
             '] [ <A HREF="#memory">Memory</A> ]';
   print(L_LINE);
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';

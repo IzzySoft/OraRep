@@ -112,3 +112,6 @@ v0.2.3
 * made resource plan report an optional element (see the "config" file)
 + added TableSpace Quotas (optional)
 + added DBA Profiles (optional)
++ enhanced command line syntax: now you can override some of the default
+  options from the "config" file (e.g. user, passwd) at the command line
+  (thanx to Manuel Soriano for this suggestion incl. code)
