@@ -168,6 +168,20 @@ DECLARE
        I01 := 0; S01 := '0'; S02 := '0'; S03 := '0';
     END;
 
+  PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, rval OUT VARCHAR2) IS
+    BEGIN
+      SELECT value INTO I1 FROM v\$sysstat WHERE name=aval;
+      SELECT value INTO I2 FROM v\$sysstat WHERE name=bval;
+      IF NVL(I2,0) = 0
+      THEN
+        rval := '&nbsp;';
+      ELSE
+        rval := TO_CHAR(I1/I2,'999,999,990.99');
+      END IF;
+    EXCEPTION
+      WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
+    END;
+
   PROCEDURE print(line IN VARCHAR2) IS
     BEGIN
       dbms_output.put_line(line);
@@ -442,37 +456,20 @@ BEGIN
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH>'||
             '<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
-  SELECT value INTO I1 FROM v\$sysstat WHERE name='sorts (disk)';
-  SELECT value INTO I2 FROM v\$sysstat WHERE name='sorts (memory)';
-  I3 := I1/I2;
-  S1 := to_char(I3,'999,999,990.99');
+  sysstat_per('sorts (disk)','sorts (memory)',S1);
   L_LINE := ' <TR><TD WIDTH="300">DiskSorts / MemorySorts</TD><TD ALIGN="right">'||S1||'</TD><TD>'||
             'Higher values are an indicator to increase <I>SORT_AREA_SIZE</I></TD></TR>';
   print(L_LINE);
-  SELECT value INTO I1 FROM v\$sysstat WHERE name='summed dirty queue length';
-  I2 := 1;
-  BEGIN
-    SELECT value INTO I2 FROM v\$sysstat WHERE name='write requests';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
-  I3 := I1/I2;
-  S1 := to_char(I3,'999,999,990.99');
+  sysstat_per('summed dirty queue length','write requests',S1);
   L_LINE := ' <TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">'||S1||
             '</TD><TD>If this value is > 100, the LGWR is too lazy -- so you may'||
             'want to decrease <I>DB_BLOCK_MAX_DIRTY_TARGET</I></TD></TR>';
   print(L_LINE);
-  SELECT value INTO I1 FROM v\$sysstat WHERE name='free buffer inspected';
-  SELECT value INTO I2 FROM v\$sysstat WHERE name='free buffer requested';
-  I3 := I1/I2;
-  S1 := to_char(I3,'999,999,990.99');
+  sysstat_per('free buffer inspected','free buffer requested',S1);
   L_LINE := ' <TR><TD>free buffer inspected / free buffer requested</TD><TD ALIGN="right">'||
             S1||'</TD><TD>Increase your buffer cache if this value is too high</TD></TR>';
   print(L_LINE);
-  SELECT value INTO I1 FROM v\$sysstat WHERE name='redo buffer allocation retries';
-  SELECT value INTO I2 FROM v\$sysstat WHERE name='redo blocks written';
-  I3 := I1/I2;
-  S1 := to_char(I3,'999,999,990.99');
+  sysstat_per('redo buffer allocation retries','redo blocks written',S1);
   L_LINE := ' <TR><TD>redo buffer allocation retries / redo blocks written</TD>'||
             '<TD ALIGN="right">'||S1||'</TD><TD>should be less than 0.01</TD></TR>';
   print(L_LINE);
@@ -522,7 +519,7 @@ BEGIN
   L_LINE := 'and you simply don''t have enough block buffers to go around.</TD></TR>';
   print(L_LINE);
   get_wait('db file sequential read',I1,S1,S2,S3);
-  L_LINE := ' <TR><TD><DIV STYLE="width:22ex">db file sequential read</DIV></TD><TD ALIGN="right">'||S1||
+  L_LINE := ' <TR><TD>db file sequential read</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
