@@ -84,7 +84,10 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>Indicates contention for a buffer in the SGA. You may need '||
+  L_LINE := '</TD><TD><A HREF="JavaScript:popup('||CHR(39)||'busybuffers'||
+            CHR(39)||')"><CODE>buffer busy waits</CODE></A> indicate';
+  print(L_LINE);
+  L_LINE := 'contention for a buffer in the SGA. You may need '||
             'to increase the <A HREF="JavaScript:popup('||
 	    CHR(39)||'initrans'||CHR(39)||')"><CODE>INITRANS</CODE></A> parameter for a specific table ';
   print(L_LINE);
