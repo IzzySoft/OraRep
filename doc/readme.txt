@@ -54,13 +54,13 @@ than it does report :-)
 2. Below this directory, create another directory named "help"
 3. Create a directory to hold the scripts - this should *NOT* be below your
    web servers document root. As example, we use ~/scripts here.
-4. Unpack this archive (including the plugins/ sub directories) to ~/scripts
-   (since you read this file, you may already have the archive unpacked; in
-   this case just move the files there).
+4. Unpack this archive (including the plugins/ and install/ sub directories)
+   to ~/scripts (since you read this file, you may already have the archive
+   unpacked; in this case just move the files there).
 5. Edit the ~/scripts/config file to reflect your settings. Important to change
    are at least the settings for user, password, REPDIR (if other than in our
    example) and the location of the style sheet (which you need to copy there;
-   just chose one from the *.css files provided in the reports/ directory)
+   just chose one from the *.css files provided in the reports directory)
 6. Go to the ~scripts/install directory and execute mkhelp.sh which creates
    the help files (placement of the stylesheet is adjusted this way)
 7. In six days G*d created the heavens and the earth - the seventh is Shabbat,
