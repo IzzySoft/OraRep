@@ -209,11 +209,12 @@ DECLARE
       WHEN OTHERS THEN NULL;
     END;
 
-  FUNCTION have_invalids RETURN BOOLEAN IS
-    CI NUMBER;
+  FUNCTION have_xxx (tablename IN VARCHAR2,field IN VARCHAR2, condition IN VARCHAR2) RETURN BOOLEAN IS
+    CI NUMBER; statement VARCHAR2(500);
     BEGIN
-      SELECT COUNT(owner) INTO CI FROM dba_objects
-       WHERE status='INVALID';
+      statement := 'SELECT COUNT('||field||') FROM '||tablename||
+                   ' WHERE '||condition;
+      EXECUTE IMMEDIATE statement INTO CI;
       IF CI > 0
       THEN
         RETURN TRUE;
@@ -222,4 +223,14 @@ DECLARE
       END IF;
     EXCEPTION
       WHEN OTHERS THEN RETURN FALSE;
+    END;
+
+  FUNCTION have_invalids RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx ('dba_objects','owner','status=''INVALID''');
+    END;
+
+  FUNCTION have_dblinks RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx ('dba_db_links','db_link','1=1');
     END;

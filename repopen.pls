@@ -99,23 +99,25 @@ BEGIN
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
 
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6">DB Links</TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">DB Link</TH>';
-  print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Host</TH>'||
-            '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Status</TH></TR>';
-  print(L_LINE);
-  FOR R_Link IN C_DBLinks LOOP
-    check_dblink(R_Link.db_link,S1);
-    L_LINE := ' <TR><TD>'||R_Link.owner||'</TD><TD>'||R_Link.db_link||
-              '</TD><TD>'||R_Link.username||'</TD><TD>'||R_Link.host||
-	      '</TD><TD>';
+  IF have_dblinks()
+  THEN
+    L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6">DB Links</TH></TR>'||CHR(10)||
+              ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">DB Link</TH>';
     print(L_LINE);
-    L_LINE := R_Link.created||'</TD><TD ALIGN="center"'||S1||'</TD></TR>';
+    L_LINE := '<TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Host</TH>'||
+              '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Status</TH></TR>';
     print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
+    FOR R_Link IN C_DBLinks LOOP
+      check_dblink(R_Link.db_link,S1);
+      L_LINE := ' <TR><TD>'||R_Link.owner||'</TD><TD>'||R_Link.db_link||
+                '</TD><TD>'||R_Link.username||'</TD><TD>'||R_Link.host||
+ 	        '</TD><TD>';
+      print(L_LINE);
+      L_LINE := R_Link.created||'</TD><TD ALIGN="center"'||S1||'</TD></TR>';
+      print(L_LINE);
+    END LOOP;
+    print(TABLE_CLOSE);
+  END IF;
   print('<HR>');
 
   -- Data Files
