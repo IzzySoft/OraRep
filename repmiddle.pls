@@ -113,12 +113,10 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>Whenever the database must extend or shrink a rollback '||
-            'segment, this wait event occurs while the rollback segment is being '||
-            'manipulated. ';
-  print(L_LINE);
-  L_LINE := 'High wait times here could indicate a problem with the extent size, '||
-            'the value of MINEXTENTS, or possibly IO related problems.</TD></TR>';
+  L_LINE := '</TD><TD>High wait times <A HREF="JavaScript:popup('||CHR(39)||
+            'undoseg'||CHR(39)||')">here</A> could indicate a problem with the '||
+	    'extent size, the value of MINEXTENTS, or possibly IO related '||
+	    'problems.</TD></TR>';
   print(L_LINE);
   get_wait('enqueue',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>enqueue</TD><TD ALIGN="right">'||S1||
