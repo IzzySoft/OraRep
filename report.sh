@@ -94,12 +94,16 @@ else
   SPADVHEAD=$BINDIR/plugins/dummy.pls
   SPADVBODY=$BINDIR/plugins/dummy.pls
 fi
-if [ $DBVER -gt 89 ]; then
-  ENQHEAD=$BINDIR/plugins/90enq_head.pls
-  ENQBODY=$BINDIR/plugins/90enq_body.pls
-else
-  ENQHEAD=$BINDIR/plugins/dummy.pls
-  ENQBODY=$BINDIR/plugins/dummy.pls
+if [ $MK_ENQ -eq 1 ]; then
+  if [ $DBVER -gt 89 ]; then
+    ENQHEAD=$BINDIR/plugins/90enq_head.pls
+    ENQBODY=$BINDIR/plugins/90enq_body.pls
+  else
+    ENQHEAD=$BINDIR/plugins/dummy.pls
+    ENQBODY=$BINDIR/plugins/dummy.pls
+  fi
+  else
+    ENQHEAD=$BINDIR/plugins/81enq_head.pls
 fi
 # ----------------------------------[ Include optional Features if defined ]---
 if [ $MK_RSRC -eq 1 ]; then
@@ -155,6 +159,7 @@ variable MK_FILES NUMBER;
 variable MK_RBS NUMBER;
 variable MK_MEMVAL NUMBER;
 variable MK_POOL NUMBER;
+variable MK_ENQ NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
@@ -167,6 +172,7 @@ BEGIN
   :MK_RBS      := $MK_RBS;
   :MK_MEMVAL   := $MK_MEMVAL;
   :MK_POOL     := $MK_POOL;
+  :MK_ENQ      := $MK_ENQ;
 END;
 /
 SPOOL $REPDIR/${ORACLE_SID}.html

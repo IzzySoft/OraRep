@@ -11,12 +11,18 @@ BEGIN
   MK_RBS       := :MK_RBS;
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
+  MK_ENQ       := :MK_ENQ;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
   MK_EXTNEED  := have_extentneed();
   MK_BUFFP    := have_buffp_stats();
   MK_ADVICE   := have_advice();
+  IF MK_ENQ = 1 THEN
+    MK_ENQS := have_enqs();
+  ELSE
+    MK_ENQS := FALSE;
+  END IF;
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
@@ -84,6 +90,9 @@ BEGIN
   IF MK_WAITOBJ
   THEN 
     L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';
+  END IF;
+  IF MK_ENQS THEN
+    L_LINE := L_LINE||' [ <A HREF="#enqwaits">Enqueue Waits</A> ]';
   END IF;
   IF MK_INVALIDS
   THEN

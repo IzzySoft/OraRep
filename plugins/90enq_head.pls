@@ -21,7 +21,7 @@
        ORDER BY cum_wait_time DESC;
 
     BEGIN
-      L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="8"><A NAME="waitobj">Enqueue Waits'||
+      L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="8"><A NAME="enqwaits">Enqueue Waits'||
                 '</A>&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'enqwaits'||CHR(39)||
 		')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
 		'VALIGN="middle"></A></TH></TR>';
