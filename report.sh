@@ -36,12 +36,12 @@ fi
 # SID of the database to analyse
 export ORACLE_SID=$1
 # in which directory should the report ($ORACLE_SID.html) be placed
-REPDIR=report
+REPDIR=/var/www/html/reports
 # StyleSheet to use
 CSS=main.css
 # login information
-user=internal
-password="oracle"
+user=sys
+password="pyha#"
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -50,7 +50,7 @@ if [ -n "$2" ]; then
 fi
 
 # ====================================================[ Script starts here ]===
-version='0.1.1'
+version='0.1.2'
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 $ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
@@ -89,10 +89,11 @@ DECLARE
   CURSOR C_FILE IS
     SELECT distinct t.name tablespace,d.name datafile,status,enabled,
            to_char(d.bytes/1024,'99,999,999.00') kbytes,
-           to_char(f.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(f.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
-      FROM v\$filestat,v\$datafile d,v\$tablespace t,dba_free_space f
-     WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file#;
+           to_char(free.bytes/1024,'99,999,999.00') freekbytes,
+           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
+      FROM v\$filestat,v\$datafile d,v\$tablespace t,dba_free_space f,
+           (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
+     WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
   CURSOR C_RBS IS
     SELECT d.segment_name,d.status,to_char(r.rssize/1024,'99,999,999.00') rssize,
            to_char(nvl(r.optsize/1024,'0'),'99,999,999.00') optsize,
