@@ -176,6 +176,10 @@ DECLARE
       FROM dba_objects
      WHERE status='INVALID'
      ORDER BY owner;
+  CURSOR C_DBLinks IS
+    SELECT owner,db_link,username,host,to_char(created,'DD.MM.YYYY') created
+      FROM dba_db_links
+     ORDER BY owner,db_link;
 
   PROCEDURE get_wait(eventname IN VARCHAR2, S04 OUT VARCHAR, S01 OUT VARCHAR2,
                      S02 OUT VARCHAR2, S03 OUT VARCHAR2) IS
@@ -215,6 +219,15 @@ DECLARE
        WHERE name=aval;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
+    END;
+
+  PROCEDURE check_dblink(db_link IN VARCHAR2, rval OUT VARCHAR2) IS
+    BEGIN
+      ROLLBACK;
+      S1 := 'SELECT ''>ACTIVE'' FROM DUAL@'||db_link;
+      EXECUTE IMMEDIATE S1 INTO rval;
+    EXCEPTION
+      WHEN OTHERS THEN rval := ' CLASS="alert">INACTIVE';
     END;
 
   PROCEDURE print(line IN VARCHAR2) IS
@@ -308,6 +321,24 @@ BEGIN
   FOR Rec_ADM IN C_ADM LOOP
     L_LINE := ' <TR><TD>'||Rec_ADM.grantee||'</TD><TD ALIGN="center">'||
               Rec_ADM.admin_option||'</TD></TR>';
+    print(L_LINE);
+  END LOOP;
+  L_LINE := TABLE_CLOSE;
+  print(L_LINE);
+
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6">DB Links</TH></TR>'||CHR(10)||
+            ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">DB Link</TH>';
+  print(L_LINE);
+  L_LINE := '<TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Host</TH>'||
+            '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Status</TH></TR>';
+  print(L_LINE);
+  FOR R_Link IN C_DBLinks LOOP
+    check_dblink(R_Link.db_link,S1);
+    L_LINE := ' <TR><TD>'||R_Link.owner||'</TD><TD>'||R_Link.db_link||
+              '</TD><TD>'||R_Link.username||'</TD><TD>'||R_Link.host||
+	      '</TD><TD>';
+    print(L_LINE);
+    L_LINE := R_Link.created||'</TD><TD ALIGN="center"'||S1||'</TD></TR>';
     print(L_LINE);
   END LOOP;
   L_LINE := TABLE_CLOSE;

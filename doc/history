@@ -43,9 +43,12 @@ v0.1.4 (13.11.2003)
 + optimization: created procedure poolsize() for "Pool Sizes"
 * moved some hardcoded font formatting to stylesheet
 
-0.1.5 (18.11.2003)
+v0.1.5 (18.11.2003)
 + in "Selected Wait Events", Avg Waited is now more precise
   (while the system view only tells full seconds, we calculate it now
   ourselves - it's now reported in milliseconds instead of only full seconds)
 + many numerical values are now presented in a better readable format
 + added RPP column for Library Cache stats
+
+v0.1.6
++ added DBLinks w/ check whether active or not
