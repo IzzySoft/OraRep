@@ -25,3 +25,6 @@ v0.1.2 (31.10.2003)  small enhancements:
   generated) are listed
 + added more hints/comments
 + added version info to the syntax header
+
+v0.1.3 (xx.xx.2003) small enhancements:
++ Selected Wait Events block now contains more detailed stats like AvgWaitTime

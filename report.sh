@@ -16,7 +16,7 @@
 #                                                              Itzchak Rehberg
 #
 #
-version='0.1.2'
+version='0.1.3'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -41,8 +41,8 @@ REPDIR=/var/www/html/reports
 # StyleSheet to use
 CSS=main.css
 # login information
-user=internal
-password="oracle"
+user=oracle
+password="internal"
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -462,66 +462,89 @@ BEGIN
   dbms_output.put_line('<HR>');
 
   -- Selected Events
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="events">Selected Wait Events</A></TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH>'||
-            '<TH CLASS="th_sub">Description</TH></TR>';
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events</A></TH></TR>'||CHR(10)||
+            ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>';
   dbms_output.put_line(L_LINE);
-  SELECT total_waits INTO I1 FROM v\$system_event WHERE event='db file sequential read';
-  L_LINE := ' <TR><TD WIDTH="300">v'||CHR(36)||'system_event: db file sequential read</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">'||
+  L_LINE := '<TH CLASS="th_sub">TotalWaitTime</TH><TH CLASS="th_sub">AvgWaited</TH>'||
+            '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
+  dbms_output.put_line(L_LINE);
+  SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='db file sequential read';
+  L_LINE := ' <TR><TD WIDTH="300">v'||CHR(36)||'system_event: db file sequential read</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">'||
 	    '(Consider increasing the buffer cache when value is high)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
-  SELECT total_waits INTO I1 FROM v\$system_event WHERE event='db file scattered read';
-  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: db file scattered read</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Indicator for I/O problems on full table scans<BR><FONT SIZE="-2">';
+  SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='db file scattered read';
+  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: db file scattered read</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
   dbms_output.put_line(L_LINE);
-  L_LINE := '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
+  L_LINE := '</TD><TD>Indicator for I/O problems on full table scans<BR><FONT SIZE="-2">'||
+            '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
             'is high see the first block of Miscellaneous below)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0;
+  I1 := 0; I2 := 0; S1 := '0'; S2 := '0';
   BEGIN
-    SELECT total_waits INTO I1 FROM v\$system_event WHERE event='latch free';
+    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='latch free';
   EXCEPTION
     WHEN NO_DATA_FOUND THEN NULL;
   END;
-  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: latch free</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
+  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: latch free</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
   dbms_output.put_line(L_LINE);
-  I1 := 0;
-  BEGIN
-    SELECT total_waits INTO I1 FROM v\$system_event WHERE event='LGWR wait for redo copy';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
-  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: LGWR wait for redo copy</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
+  L_LINE := '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0;
+  I1 := 0; I2 := 0; S1 := '0'; S2 := '0';
   BEGIN
-    SELECT total_waits INTO I1 FROM v\$system_event WHERE event='log file switch (checkpoint incomplete)';
+    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='LGWR wait for redo copy';
   EXCEPTION
     WHEN NO_DATA_FOUND THEN NULL;
   END;
-  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
+  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: LGWR wait for redo copy</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
   dbms_output.put_line(L_LINE);
-  I1 := 0;
-  BEGIN
-    SELECT total_waits INTO I1 FROM v\$system_event WHERE event='log file switch completion';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
-  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: log file switch completion</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>';
+  L_LINE := '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0;
+  I1 := 0; I2 := 0; S1 := '0'; S2 := '0';
   BEGIN
-    SELECT wait_time INTO I1 FROM v\$session_wait WHERE event='log buffer wait';
+    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='log file switch (checkpoint incomplete)';
   EXCEPTION
     WHEN NO_DATA_FOUND THEN NULL;
   END;
-  L_LINE := ' <TR><TD>v'||CHR(36)||'session_wait: log buffer wait</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>If this value is too high, log buffers are filling faster '||
+  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
+  dbms_output.put_line(L_LINE);
+  I1 := 0; I2 := 0; S1 := '0'; S2 := '0';
+  BEGIN
+    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,total_timeouts INTO S1,S2,I1,I2 FROM v\$system_event WHERE event='log file switch completion';
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN NULL;
+  END;
+  L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: log file switch completion</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>';
+  dbms_output.put_line(L_LINE);
+  I1 := 0; I2 := 0; S1 := '0'; S2 := '0';
+  BEGIN
+    SELECT wait_time,TO_CHAR(wait_time,'9,999,990') INTO I1,S1 FROM v\$session_wait WHERE event='log buffer wait';
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN NULL;
+  END;
+  S2 := S1; I2 := I1;
+  L_LINE := ' <TR><TD>v'||CHR(36)||'session_wait: log buffer wait</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||I2;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '</TD><TD>If this value is too high, log buffers are filling faster '||
             'than being emtied. You then have to consider to increase the '||
             'number of logfile groups or to use larger log files.</TD></TR>';
   dbms_output.put_line(L_LINE);
