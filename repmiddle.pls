@@ -236,8 +236,8 @@
             'As the wait times on these events become higher, you will notice '||
             'additional Wait Events such as ';
   print(L_LINE);
-  L_LINE := '<I>log buffer space</I>, <I>log file switch (archiving needed)</I>, '||
-            'etc.</TD></TR>';
+  L_LINE := '<CODE>log buffer space</CODE>, <CODE>log file switch (archiving '||
+            'needed)</CODE>, etc.</TD></TR>';
   print(L_LINE);
   get_wait('log file single write',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file single write</TD><TD ALIGN="right">'||S1||

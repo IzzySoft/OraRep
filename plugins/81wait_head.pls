@@ -36,8 +36,8 @@
       L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one '||
                 'of the events ';
       print(L_LINE);
-      L_LINE := '<I>buffer busy waits</I>, <I>db file sequential read</I>, '||
-                '<I>db file scattered read</I> or <I>free buffer waits</I> at '||
+      L_LINE := '<CODE>buffer busy waits</CODE>, <CODE>db file sequential read</CODE>, '||
+                '<CODE>db file scattered read</CODE> or <CODE>free buffer waits</CODE> at '||
 		'the time the report was generated.</TD></TR>';
       print(L_LINE);
       L_LINE := '<TR><TD COLSPAN="3">'||TABLE_OPEN||'<TR><TH CLASS="th_sub">'||
@@ -62,5 +62,6 @@
 	print('</TABLE></TD></TR>'||TABLE_CLOSE);
       WHEN OTHERS THEN
 	print('</TABLE></TD></TR>'||TABLE_CLOSE);
+	print('<BR>81wait: '||SQLERRM||'<BR>');
     END;
 

@@ -7,9 +7,11 @@
               'BORDER="0" HEIGTH="12" VALIGN="middle" STYLE="margin-right:5"></A></TH></TR>';
     print(L_LINE);
     L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one of '||
-              'the events <I>buffer busy waits</I>, <I>db file sequential read'||
-              '</I>, <I>db file scattered read</I> or <I>free buffer waits</I> '||
-              'at the time the report was generated.</TD></TR>';
+              'the events <CODE>buffer busy waits</CODE>, <CODE>db file sequential read'||
+              '</CODE>, <CODE>db file scattered read</CODE>';
+    print(L_LINE);
+    L_LINE := 'or <CODE>free buffer waits</CODE> at the time the report was '||
+              'generated.</TD></TR>';
     print(L_LINE);
     L_LINE := TABLE_CLOSE;
     print(L_LINE);

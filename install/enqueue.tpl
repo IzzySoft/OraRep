@@ -5,6 +5,11 @@
 </HEAD><BODY>
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
+ <H3>What are Enqueues?</H3>
+ <P>Enqueues are OS specific "Locks" using different modes. If an object
+  protected by an enqueue is requested by another process in an incompatible
+  mode, this request is put in a FiFo queue (if not requested with NOWAIT).
+  Thus all requests are handled in the order of their appearance.</P>
  <H3>What do Enqueue waits stand for?</H3>
  <P>The <code>Enqueue</code> wait event may be an indication that something is
   either wrong with the code (should multiple sessions be serializing
@@ -17,7 +22,7 @@
   constraints, issuing the following statement either as <CODE>SYS</CODE> or
   <CODE>SYSTEM</CODE> user:
   <TABLE ALIGN="center"><TR><TD>
-    <DIV CLASS="code" STYLE="width:30em">
+    <DIV CLASS="code" STYLE="width:35em">
     SELECT con.owner, con.table_name, co.column_name,<BR>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;con.constraint_name, i.index_name<BR>
     &nbsp;&nbsp;FROM dba_constraints con, dba_cons_columns co,<BR>
@@ -47,7 +52,7 @@
   help reduce these waits as well. To check the current values, execute the
   following statement as <CODE>SYS</CODE> or <CODE>SYSTEM</CODE>:
   <TABLE ALIGN="center"><TR><TD>
-    <DIV CLASS="code" STYLE="width:25em">
+    <DIV CLASS="code" STYLE="width:28em">
     SELECT *<BR>
     &nbsp;&nbsp;FROM v$resource_limit<BR>
     &nbsp;WHERE resource_name='enqueue_resources'
