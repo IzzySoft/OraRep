@@ -8,6 +8,8 @@ DECLARE
   TABLE_CLOSE VARCHAR(100);
   MK_WAITOBJ BOOLEAN;
   MK_INVALIDS BOOLEAN;
+  MK_TABSCAN BOOLEAN;
+  MK_EXTNEED BOOLEAN;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -174,7 +176,7 @@ DECLARE
       SELECT name,
              TO_CHAR(size_for_estimate,'999,990') estsize,
              TO_CHAR(buffers_for_estimate,'999,999,990') estbuff,
-             TO_CHAR(100*estd_physical_read_factor,'990.0') estrf,
+             TO_CHAR(100*estd_physical_read_factor,'9,990.0') estrf,
              TO_CHAR(estd_physical_reads,'999,999,999,990') estread
         FROM v$db_cache_advice
        WHERE estd_physical_reads IS NOT NULL
@@ -233,4 +235,14 @@ DECLARE
   FUNCTION have_dblinks RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx ('dba_db_links','db_link','1=1');
+    END;
+
+  FUNCTION have_tablescans RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx ('v$sysstat','name','name LIKE ''%table scans%''');
+    END;
+
+  FUNCTION have_extentneed RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx ('dba_tables','owner','0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)');
     END;

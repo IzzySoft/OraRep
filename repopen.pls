@@ -5,6 +5,8 @@ BEGIN
   TOP_N_WAITS := :TOP_N_WAITS;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
+  MK_TABSCAN  := have_tablescans();
+  MK_EXTNEED  := have_extentneed();
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
