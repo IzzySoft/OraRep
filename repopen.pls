@@ -3,7 +3,8 @@ BEGIN
   CSS := :CSS;
   SCRIPTVER := :SCRIPTVER;
   TOP_N_WAITS := :TOP_N_WAITS;
-  MK_WAITOBJ := have_waits();
+  MK_WAITOBJ  := have_waits();
+  MK_INVALIDS := have_invalids();
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
@@ -32,8 +33,11 @@ BEGIN
   THEN 
     L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';
   END IF;
-  L_LINE := L_LINE||' [ <A HREF="#invobj">Invalid Objects</A> ]'||
-	    ' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>';
+  IF MK_INVALIDS
+  THEN
+    L_LINE := L_LINE||' [ <A HREF="#invobj">Invalid Objects</A> ]';
+  END IF;
+  L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>';
   print(L_LINE);
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
