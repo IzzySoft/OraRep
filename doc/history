@@ -50,9 +50,14 @@ v0.1.5 (18.11.2003)
 + many numerical values are now presented in a better readable format
 + added RPP column for Library Cache stats
 
-v0.1.6
+v0.1.6 (27.11.2003)
 + added DBLinks w/ check whether active or not
 + added "buffer busy waits" plus more description
 + made the disksort stats (in SYSSTAT Info) more precise
 + made description on migrated rows more precise
 + updated desc for free buffer waits
++ separated the config from the script to ease updates
+
+v0.1.7
++ make use of the much more detailed information on objects causing waits
+  in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg

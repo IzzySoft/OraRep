@@ -22,13 +22,19 @@
 # SID of the database to analyse
 export ORACLE_SID=$1
 # login information
-user=internal
-password="oracle"
+user=sys
+password="pyha#"
 
 # -------------------------------------------------[ Files and Directories ]---
+# directory for temporary files
+TMPDIR=/tmp
 # in which directory should the report ($ORACLE_SID.html) be placed
 REPDIR=/var/www/html/reports
 # StyleSheet to use
 CSS=../main.css
+
+# -------------------------------------------------------------------[ SQL ]---
+# Top settings: Display Top N Statements
+TOP_N_WAITS=10
 
 # ===================================================================[ EOF ]===
