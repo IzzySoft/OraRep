@@ -54,6 +54,12 @@
       print(L_LINE);
      END IF;
     EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+        L_LINE := ' <TR><TD COLSPAN="3" ALIGN="center">Sorry - the objects have '||
+	          'meanwhile been removed from <code>V$SESSION_WAIT</code></TD>'||
+		  '</TR>';
+        print(L_LINE);
+	print('</TABLE></TD></TR>'||TABLE_CLOSE);
       WHEN OTHERS THEN NULL;
     END;
 
