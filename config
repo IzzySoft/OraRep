@@ -56,7 +56,7 @@ MK_POOL=0
 # Include the Buffer Ratios? [0|1]
 MK_BUFFRAT=1
 # Include FreeListContention (possible affected tables)? [0|1]
-MK_FLC=1
+MK_FLC=0
 # Include Enqueue Waits (Oracle 9i and higher only)? [0|1]
 MK_ENQ=1
 # ===================================================================[ EOF ]===
