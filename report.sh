@@ -611,7 +611,24 @@ BEGIN
             'etc.</TD></TR>';
   print(L_LINE);
   get_wait('log file single write',I1,S1,S2,S3);
-  L_LINE := ' <TR><TD>log file parallel write</TD><TD ALIGN="right">'||S1||
+  L_LINE := ' <TR><TD>log file single write</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3||'</TD></TR>';
+  print(L_LINE);
+  get_wait('SQL*Net message to client',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>SQL*Net message to client</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD ROWSPAN="2">These wait events occur when the Database'||
+            'unexpectedly looses Net8 connectivity with a remote client or '||
+            'Database. ';
+  print(L_LINE);
+  L_LINE := 'Frequent occurences of these events could indicate a networking '||
+            'issue.</TD></TR>';
+  print(L_LINE);
+  get_wait('SQL*Net message to dblink',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>SQL*Net message to dblink</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3||'</TD></TR>';
   print(L_LINE);
