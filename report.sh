@@ -512,9 +512,21 @@ BEGIN
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH>'||
             '<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
-  sysstat_per('sorts (disk)','sorts (memory)',S1);
-  L_LINE := ' <TR><TD WIDTH="300">DiskSorts / MemorySorts</TD><TD ALIGN="right">'||S1||'</TD><TD>'||
-            'Higher values are an indicator to increase <I>SORT_AREA_SIZE</I></TD></TR>';
+  SELECT value INTO I1 FROM v\$sysstat WHERE name='sorts (disk)';
+  SELECT value INTO I2 FROM v\$sysstat WHERE name='sorts (memory)';
+  I3 := I1+I2;
+  IF NVL(I3,0) = 0
+  THEN
+    S1 := '&nbsp;';
+  ELSE
+    S1 := TO_CHAR(100*I1/I3,'990.00');
+  END IF;
+  L_LINE := ' <TR><TD WIDTH="300">Percent DiskSorts (of DiskSorts + MemSorts)</TD>'||
+            '<TD ALIGN="right">'||S1||'</TD><TD>Should be less than 5% - ';
+  print(L_LINE);
+  L_LINE := 'higher values are an indicator to increase <I>SORT_AREA_SIZE</I>, '||
+            'but you of course have to consider the amount of physical memory '||
+	    'available on your machine.</TD></TR>';
   print(L_LINE);
   sysstat_per('summed dirty queue length','write requests',S1);
   L_LINE := ' <TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">'||S1||
@@ -527,7 +539,15 @@ BEGIN
   print(L_LINE);
   sysstat_per('redo buffer allocation retries','redo blocks written',S1);
   L_LINE := ' <TR><TD>redo buffer allocation retries / redo blocks written</TD>'||
-            '<TD ALIGN="right">'||S1||'</TD><TD>should be less than 0.01</TD></TR>';
+            '<TD ALIGN="right">'||S1||'</TD><TD>should be less than 0.01 - larger '||
+	    'values indicate ';
+  print(L_LINE);
+  L_LINE := 'that the LGWR is not keeping up. If this happens, tuning the values '||
+            'for <CODE>LOG_CHECKPOINT_INTERVAL</CODE> and <CODE>LOG_CHECKPOINT_TIMEOUT</CODE> '||
+	    '(or, with Oracle 9i, ';
+  print(L_LINE);
+  L_LINE := ' <CODE>FAST_START_MTTR_TARGET</CODE>) can help to improve the '||
+            'situation.</TD></TR>';
   print(L_LINE);
   SELECT value INTO I1 FROM v\$sysstat WHERE name='redo log space requests';
   S1 := to_char(I1,'999,999,990.99');
