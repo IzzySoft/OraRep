@@ -82,14 +82,14 @@
       print(L_LINE);
       L_LINE := ' <TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD>'||
                 '<TD CLASS="td_name">RPP</TD>'||
-                '<TD CLASS="td_name">GetHitRatio (%)</TD></TR>';
+                '<TD CLASS="td_name">GetHitRatio</TD></TR>';
       print(L_LINE);
       FOR Rec_LIB IN C_LIB LOOP
         L_LINE := ' <TR><TD>'||Rec_LIB.namespace||'</TD><TD ALIGN="right">'||
                   Rec_LIB.gets||'</TD>'||'<TD ALIGN="right">'||Rec_LIB.pins||
                   '</TD><TD ALIGN="right">'||Rec_LIB.reloads||
                   '</TD><TD ALIGN="right">'||Rec_LIB.rratio||
-	          '</TD><TD ALIGN="right">'||Rec_LIB.ratio||'</TD></TR>';
+	          '</TD><TD ALIGN="right">'||Rec_LIB.ratio||'%</TD></TR>';
         print(L_LINE);
       END LOOP;
 
@@ -105,7 +105,7 @@
       FOR Rec_ROW IN C_ROW LOOP
         L_LINE := ' <TR><TD COLSPAN="3">'||Rec_ROW.parameter||'</TD><TD ALIGN="right">'||
                   Rec_ROW.gets||'</TD><TD ALIGN="right">'||Rec_ROW.getmisses||
-                  '</TD><TD ALIGN="right">'||Rec_ROW.ratio||'</TD></TR>';
+                  '</TD><TD ALIGN="right">'||Rec_ROW.ratio||'%</TD></TR>';
         print(L_LINE);
       END LOOP;
       print(TABLE_CLOSE);

@@ -84,7 +84,7 @@
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events (from v'||CHR(36)||'system_event)</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>';
   print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">Total WaitTime (s)</TH><TH CLASS="th_sub">Avg Waited (ms)</TH>'||
+  L_LINE := '<TH CLASS="th_sub">Total WaitTime</TH><TH CLASS="th_sub">Avg Waited</TH>'||
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
   get_wait('free buffer waits',S4,S1,S2,S3);
