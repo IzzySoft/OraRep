@@ -16,7 +16,7 @@
 #                                                              Itzchak Rehberg
 #
 #
-version='0.1.5'
+version='0.1.6'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -572,7 +572,23 @@ BEGIN
             'IO problem (check the other IO related wait events to validate this) '||
 	    'or your database is very busy ';
   print(L_LINE);
-  L_LINE := 'and you simply don''t have enough block buffers to go around.</TD></TR>';
+  L_LINE := 'and you simply don''t have enough block buffers to go around. A possible '||
+            'solution is to adjust the frequency of your checkpoints by tuning the '||
+	    '<CODE>CHECK_POINT_TIMEOUT</CODE>';
+  print(L_LINE);
+  L_LINE := 'and <CODE>CHECK_POINT_INTERVAL</CODE> parameters to help the DBWR '||
+            'process to keep up.</TD></TR>';
+  print(L_LINE);
+  get_wait('buffer busy waits',S4,S1,S2,S3);
+  L_LINE := ' <TR><TD><DIV STYLE="width:22ex">buffer busy waits</DIV></TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD>Indicates contention for a buffer in the SGA. You may need '||
+            'to increase the <CODE>INITRANS</CODE> parameter for a specific table ';
+  print(L_LINE);
+  L_LINE := 'or index if the event is identified as belonging to either a table '||
+            'or index.</TD></TR>';
   print(L_LINE);
   get_wait('db file sequential read',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>db file sequential read</TD><TD ALIGN="right">'||S1||
@@ -614,7 +630,13 @@ BEGIN
   print(L_LINE);
   L_LINE := 'or possibly the physical design (high activity on child tables '||
             'with unindexed foreign keys, inadequate INITRANS or MAXTRANS '||
-	    'values, etc.</TD></TR>';
+	    'values, etc.';
+  print(L_LINE);
+  L_LINE := 'Since this event also indicates that there are too many DML or DDL '||
+            'locks (or, maybe, a large number of sequences), increasing the '||
+	    '<CODE>ENQUEUE_RESOURCES</CODE>';
+  print(L_LINE);
+  L_LINE := 'parameter in the <CODE>init.ora</CODE> will help reduce these waits.</TD></TR>';
   print(L_LINE);
   get_wait('latch free',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>latch free</TD><TD ALIGN="right">'||S1||
