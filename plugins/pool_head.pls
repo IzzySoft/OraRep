@@ -22,6 +22,7 @@
              to_char(physical_reads,'9,999,999,990') physical_reads,
 	     to_char(consistent_gets,'9,999,999,990') consistent_gets,
 	     to_char(db_block_gets,'9,999,999,990') db_block_gets,
+             physical_reads/(consistent_gets+db_block_gets) numratio,
              to_char(physical_reads/(consistent_gets+db_block_gets),'990.00') ratio
         FROM v$buffer_pool_statistics
        WHERE consistent_gets+db_block_gets>0;
@@ -118,10 +119,17 @@
                   '<TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>';
         print(L_LINE);
         FOR Rec_BUF IN C_BUF LOOP
+	  IF Rec_BUF.numratio > 0.9 THEN
+	    S1 := ' CLASS="alert"';
+	  ELSIF Rec_BUF.numratio > 0.7 THEN
+	    S1 := ' CLASS="warn"';
+	  ELSE
+	    S1 := '';
+	  END IF;
           L_LINE := ' <TR><TD>'||Rec_BUF.name||'</TD><TD ALIGN="right">'||
                     Rec_BUF.physical_reads||'</TD><TD ALIGN="right">'||
                     Rec_BUF.consistent_gets||'</TD><TD ALIGN="right">'||
-                    Rec_BUF.db_block_gets||'</TD><TD ALIGN="right">'||
+                    Rec_BUF.db_block_gets||'</TD><TD ALIGN="right"'||S1||'>'||
                     Rec_BUF.ratio||'</TD></TR>';
           print(L_LINE);
         END LOOP;
