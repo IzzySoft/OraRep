@@ -1,0 +1,34 @@
+#!/bin/bash
+# $Id$
+#
+# =============================================================================
+# Simple Database Analysis Report      (c) 2003 by IzzySoft (devel@izzysoft.de)
+# -----------------------------------------------------------------------------
+# This report script creates a HTML document containing an overview on the
+# database, whichs SID you either provide at the command line or configure it
+# in the block below. But more than this, it not only reads the usual
+# performance indicators out of the usual views, but connects values and gives
+# you hints about how to use these results.
+# I'ld never claim this report tool to be perfect, complete or "state of the
+# art". But it's simple to use and very helpful to those not having a license
+# to the expensive AddOns available at Oracle. Any hints on errors or bugs as
+# well as recommendations for additions are always welcome.
+#                                                              Itzchak Rehberg
+# -----------------------------------------------------------------------------
+# This is the config file - and the only one you need to edit!
+#
+# =================================================[ Configuration Section ]===
+# --------------------------------------------------[ Database Information ]---
+# SID of the database to analyse
+export ORACLE_SID=$1
+# login information
+user=internal
+password="oracle"
+
+# -------------------------------------------------[ Files and Directories ]---
+# in which directory should the report ($ORACLE_SID.html) be placed
+REPDIR=/var/www/html/reports
+# StyleSheet to use
+CSS=../main.css
+
+# ===================================================================[ EOF ]===
