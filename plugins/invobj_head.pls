@@ -12,7 +12,7 @@
                   ' <TR><TD COLSPAN="5">The following objects may need your investigation. These are not';
         print(L_LINE);
         print(' necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>');
-        L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Typ</TH>'||
+        L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Type</TH>'||
                   '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>';
         print(L_LINE);
         FOR Rec_INVOBJ IN C_INVOBJ LOOP
