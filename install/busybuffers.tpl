@@ -45,6 +45,29 @@
     <B>SEGMENT SPACE MANAGEMENT AUTO</B>
     </DIV>
   </TD></TR></TABLE>
+  <P>To ease the move of all objects, there are some scripts available for
+   download at the <A HREF="http://www.izzysoft.de/?topic=oracle">IzzySoft</A>
+   website: look for the DBAHelpers archive there. Create a new tablespace as
+   described above, then use the <CODE>tabmove.sh</CODE> and/or
+   <CODE>idxmove.sh</CODE> script from the DBAHelper archive to move all objects
+   to this tablespace. When those scripts successfully finished their work,
+   check for objects that may have remained in the original tablespace:</P>
+  <TABLE ALIGN="center"><TR><TD>
+    <DIV CLASS="code" STYLE="width:26em">
+    SELECT *<BR>
+    FROM dba_segments<BR>
+    WHERE tablespace_name='orig_tablespace_name'
+    </DIV>
+  </TD></TR></TABLE>
+  <P>Of course you have to replace the string "orig_tablespace_name" with the
+   name of your original tablespace (uppercase!) in the above statement. If no
+   objects remained, use the <CODE>DROP TABLESPACE orig_tablespace_name</CODE>
+   statement to remove the original tablespace, delete the datafile that
+   belonged to it, and then create the tablespace anew with ASSM (see above).</P>
+  <P>If there are any objects left in the original tablespace, check the logs
+   of <CODE>tabmove.sh</CODE> and/or <CODE>idxmove.sh</CODE> for the reason:
+   may be you have some objects that are not supported by ASSM - LOBs could be
+   one example, see next paragraph.</P>
   <P>One side effect to consider is, that at least with Oracle 9i LOB objects
    are not supported with ASSM. So if you have LOB objects and want to use ASSM,
    you must create a separate tablespace for the LOB objects that does
