@@ -45,6 +45,8 @@ MK_RSRC=0
 MK_TSQUOT=1
 # Include DBA Profiles? [0|1]
 MK_DBAPROF=0
+# Include DataFile Stats [0|1]
+MK_FILES=1
 # Include Rollback Segment Stats (maybe unnecessary w/ Auto Undo) [0|1]
-MK_RBS=0
+MK_RBS=1
 # ===================================================================[ EOF ]===

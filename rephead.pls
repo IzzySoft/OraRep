@@ -16,6 +16,7 @@ DECLARE
   MK_RSRC NUMBER;
   MK_DBAPROF NUMBER;
   MK_TSQUOT NUMBER;
+  MK_FILES NUMBER;
   MK_RBS NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
@@ -35,28 +36,6 @@ DECLARE
       FROM dba_users;
   CURSOR C_ADM IS
     SELECT grantee,admin_option FROM dba_role_privs WHERE granted_role='DBA';
-  CURSOR C_FILE IS
-    SELECT distinct t.name tablespace,d.name datafile,status,enabled,
-           to_char(d.bytes/1024,'99,999,999.00') kbytes,
-           to_char(free.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,
-	   to_char(phyrds,'9,999,999,990') phyrds,
-           to_char(phywrts,'9,999,999,990') phywrts,
-	   to_char(avgiotim,'9,999,999,990') avgiotim
-      FROM v$filestat,v$datafile d,v$tablespace t,dba_free_space f,
-           (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
-     WHERE v$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#
-     UNION
-    SELECT distinct t.name tablespace,d.name datafile,status,enabled,
-           to_char(d.bytes/1024,'99,999,999.00') kbytes,
-           to_char(free.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,
-	   to_char(phyrds,'9,999,999,990') phyrds,
-           to_char(phywrts,'9,999,999,990') phywrts,
-	   to_char(avgiotim,'9,999,999,990') avgiotim
-      FROM v$filestat,v$tempfile d,v$tablespace t,dba_free_space f,
-           (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
-     WHERE v$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
   CURSOR C_LIB IS
     SELECT namespace,
            to_char(gets,'9,999,999,990') gets,

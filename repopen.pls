@@ -7,6 +7,7 @@ BEGIN
   MK_RSRC      := :MK_RSRC;
   MK_DBAPROF   := :MK_DBAPROF;
   MK_TSQUOT    := :MK_TSQUOT;
+  MK_FILES     := :MK_FILES;
   MK_RBS       := :MK_RBS;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
@@ -52,7 +53,9 @@ BEGIN
   IF MK_TSQUOT = 1 THEN
     L_LINE := '[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
   END IF;
-  L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ]';
+  IF MK_FILES = 1 THEN
+    L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ]';
+  END IF;
   IF MK_RBS = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#rbs">Rollback</A> ]';
   END IF;

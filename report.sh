@@ -118,6 +118,10 @@ if [ $MK_DBAPROF -eq 1 ]; then
   PROFHEAD=$BINDIR/plugins/prof_head.pls
   PROFBODY=$BINDIR/plugins/prof_body.pls
 fi
+if [ $MK_FILES -eq 1 ]; then
+  FILESHEAD=$BINDIR/plugins/files_head.pls
+  FILESBODY=$BINDIR/plugins/files_body.pls
+fi
 if [ $MK_RBS -eq 1 ]; then
   RBSHEAD=$BINDIR/plugins/rbs_head.pls
   RBSBODY=$BINDIR/plugins/rbs_body.pls
@@ -139,6 +143,7 @@ variable TOP_N_TABLES NUMBER;
 variable MK_RSRC NUMBER;
 variable MK_TSQUOT NUMBER;
 variable MK_DBAPROF NUMBER;
+variable MK_FILES NUMBER;
 variable MK_RBS NUMBER;
 BEGIN
   :CSS         := '$CSS';
@@ -148,6 +153,7 @@ BEGIN
   :MK_RSRC     := $MK_RSRC;
   :MK_DBAPROF  := $MK_DBAPROF;
   :MK_TSQUOT   := $MK_TSQUOT;
+  :MK_FILES    := $MK_FILES;
   :MK_RBS      := $MK_RBS;
 END;
 /
@@ -158,7 +164,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $FILESHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $FILESBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $FILESHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $FILESBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT

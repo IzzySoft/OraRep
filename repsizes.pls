@@ -1,30 +1,4 @@
 
-  -- Data Files
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="10"><A NAME="datafiles">Data Files</A></TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Tablespace</TH><TH CLASS="th_sub">'||
-            'Datafile</TH><TH CLASS="th_sub">Status</TH><TH CLASS="th_sub">';
-  print(L_LINE);
-  L_LINE := 'Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">'||
-            'Free (kB)</TH><TH CLASS="th_sub">Used (%)</TH><TH CLASS="th_sub">'||
-            'Phys.Reads</TH><TH CLASS="th_sub">Phys.Writes</TH>';
-  print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">Avg.I/O Time</TH></TR>';
-  print(L_LINE);
-  FOR Rec_FILE IN C_FILE LOOP
-    L_LINE := ' <TR><TD>'||Rec_FILE.tablespace||'</TD><TD>'||Rec_FILE.datafile||
-              '</TD><TD>'||Rec_FILE.status||'</TD><TD>'||Rec_FILE.enabled||
-              '</TD><TD ALIGN="right">'||Rec_FILE.kbytes||'</TD><TD ALIGN="right">'||
-              Rec_FILE.freekbytes;
-    print(L_LINE);
-    L_LINE := '</TD><TD ALIGN="right">'||Rec_FILE.usedpct||'</TD><TD ALIGN="right">'||
-              Rec_FILE.phyrds||'</TD><TD ALIGN="right">'||Rec_FILE.phywrts||
-              '</TD><TD ALIGN="right">'||Rec_FILE.avgiotim||'</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
-  print('<HR>');
-
   -- Memory
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="memory">Memory Values</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Size</TH></TR>';
