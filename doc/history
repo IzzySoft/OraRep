@@ -52,3 +52,6 @@ v0.1.5 (18.11.2003)
 
 v0.1.6
 + added DBLinks w/ check whether active or not
++ added "buffer busy waits" plus more description
++ made the disksort stats (in SYSSTAT Info) more precise
++ made description on migrated rows more precise
