@@ -77,13 +77,19 @@ fi
 if [ $DBVER -gt 89 ]; then
   ENQHEAD=$BINDIR/plugins/90enq_head.pls
   ENQBODY=$BINDIR/plugins/90enq_body.pls
-  RSRCHEAD=$BINDIR/plugins/90resource_head.pls
 else
-  RSRCHEAD=$BINDIR/plugins/81resource_head.pls
   ENQHEAD=$BINDIR/plugins/dummy.pls
   ENQBODY=$BINDIR/plugins/dummy.pls
 fi
-RSRCBODY=$BINDIR/plugins/81resource_body.pls
+# ----------------------------------[ Include optional Features if defined ]---
+if [ $MK_RSRC -eq 1 ]; then
+  RSRCBODY=$BINDIR/plugins/81resource_body.pls
+  if [ $DBVER -gt 89 ]; then
+    RSRCHEAD=$BINDIR/plugins/90resource_head.pls
+  else
+    RSRCHEAD=$BINDIR/plugins/81resource_head.pls
+  fi
+fi
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$1
@@ -98,11 +104,13 @@ variable CSS VARCHAR2(255);
 variable SCRIPTVER VARCHAR2(20);
 variable TOP_N_WAITS NUMBER;
 variable TOP_N_TABLES NUMBER;
+variable MK_RSRC NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
   :TOP_N_WAITS := $TOP_N_WAITS;
   :TOP_N_TABLES := $TOP_N_TABLES;
+  :MK_RSRC     := $MK_RSRC;
 END;
 /
 SPOOL $REPDIR/${ORACLE_SID}.html

@@ -4,6 +4,7 @@ BEGIN
   SCRIPTVER := :SCRIPTVER;
   TOP_N_WAITS  := :TOP_N_WAITS;
   TOP_N_TABLES := :TOP_N_TABLES;
+  MK_RSRC      := :MK_RSRC;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
@@ -37,9 +38,11 @@ BEGIN
   print(L_LINE);
 
   -- Navigation
-  L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ] '||
-            '[ <A HREF="#resource_groups">Resource Mgmnt</A> ] '||
-            '[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
+  L_LINE := TABLE_OPEN||'<TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ] ';
+  IF MK_RSRC = 1 THEN
+    L_LINE := L_LINE||'[ <A HREF="#resource_groups">Resource Mgmnt</A> ] ';
+  END IF;
+  L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
             '] [ <A HREF="#memory">Memory</A> ]';
   print(L_LINE);
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
