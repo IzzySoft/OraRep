@@ -2,7 +2,7 @@
 # $Id$
 #
 # =============================================================================
-# Simple Database Analysis Report (c) 2003 by IzzySoft (izzysoft@buntspecht.de)
+# Simple Database Analysis Report      (c) 2003 by IzzySoft (devel@izzysoft.de)     
 # -----------------------------------------------------------------------------
 # This report script creates a HTML document containing an overview on the
 # database, whichs SID you either provide at the command line or configure it
@@ -41,8 +41,8 @@ REPDIR=/var/www/html/reports
 # StyleSheet to use
 CSS=main.css
 # login information
-user=oracle
-password="internal"
+user=sys
+password="pyha#"
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -139,6 +139,12 @@ DECLARE
 	   dba_extents a
      WHERE a.file_id=b.file#
        AND b.block# BETWEEN a.block_id AND (a.block_id+blocks-1);
+  CURSOR C_INVOBJ IS
+    SELECT owner,object_name,object_type,to_char(created,'dd.mm.yyyy hh:mi') created,
+           to_char(last_ddl_time,'dd.mm.yyyy hh:mi') last_ddl_time
+      FROM dba_objects
+     WHERE status='INVALID'
+     ORDER BY owner;
 
 BEGIN
   -- Configuration
@@ -161,8 +167,10 @@ BEGIN
             '] [ <A HREF="#memory">Memory</A> ]';
   dbms_output.put_line(L_LINE);
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A>'||
-            ' ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A>'||
-            ' ] [ <A HREF="#events">Events</A> ] [ <A HREF="#misc">Misc</A> ]</TD></TR>';
+            ' ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' [ <A HREF="#events">Events</A> ] [ <A HREF="#invobj">Invalid Objects</A> ]'||
+	    ' [ <A HREF="#misc">Misc</A> ]</TD></TR>';
   dbms_output.put_line(L_LINE);
   L_LINE := TABLE_CLOSE;
   dbms_output.put_line(L_LINE);
@@ -580,6 +588,25 @@ BEGIN
     L_LINE := ' <TR><TD>'||Rec_WAIT.owner||'</TD><TD ALIGN="right">'||
               Rec_WAIT.segment_name||'</TD><TD ALIGN="right">'||
               Rec_WAIT.segment_type||'</TD></TR>';
+    dbms_output.put_line(L_LINE);
+  END LOOP;
+  L_LINE := TABLE_CLOSE;
+  dbms_output.put_line(L_LINE);
+  dbms_output.put_line('<HR>');
+
+  -- Invalid Objects
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="invobj">Invalid Objects</A></TH></TR>'||CHR(10)||
+            ' <TR><TD COLSPAN="5">The following objects may need your investigation. These are not';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Typ</TH>'||
+            '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>';
+  dbms_output.put_line(L_LINE);
+  FOR Rec_INVOBJ IN C_INVOBJ LOOP
+    L_LINE := ' <TR><TD>'||Rec_INVOBJ.owner||'</TD><TD>'||Rec_INVOBJ.object_name||
+              '</TD><TD>'||Rec_INVOBJ.object_type||'</TD><TD>'||Rec_INVOBJ.created||
+	      '</TD><TD>'||Rec_INVOBJ.last_ddl_time||'</TD></TR>';
     dbms_output.put_line(L_LINE);
   END LOOP;
   L_LINE := TABLE_CLOSE;
