@@ -7,7 +7,7 @@ v0.3.1
 -------------------
 + script now accepts the command line parameters "-r" to use an alternative
   report dir and "-o" to use an alternativ output file name
-+ generated report is now HTML 4.01 compliant
++ the help files and the generated reports are now HTML 4.01 compliant
 
 v0.3.0 (30.04.2004)
 -------------------

@@ -1,12 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML><HEAD>
- <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15"/>
- <LINK REL='stylesheet' TYPE='text/css' HREF='../{css}'/>
+ <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+ <LINK REL='stylesheet' TYPE='text/css' HREF='../{css}'>
  <TITLE>OraHelp: Log buffer space</TITLE>
 </HEAD><BODY>
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD CLASS="text">
  <H3>What is this?</H3>
- <P>The <I>log buffer space</I> wait event occurs when server processes
+ <P>The <CODE>log buffer space</CODE> wait event occurs when server processes
     are waiting for free space in the log buffer, because you are writing redo
     to the log buffer faster than LGWR can write it out.</P>
  <H3>What actions can be taken?</H3>
@@ -28,5 +29,12 @@
    fine-grained striping across multiple disks. For example, use a stripe size
    of 16 KB. A simpler approach is to isolate redo logs on their own disk.</P>
 </TD></TR></TABLE>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">//<!--
+  if ( opener != null && opener.version != '' && opener.version != null )
+    version = 'v'+opener.version;
+  else version = '';
+  document.write('<DIV ALIGN="center" STYLE="margin-top:3px"><IMG SRC="..\/w3c.jpg" ALT="w3c" WIDTH="14" HEIGHT="14" ALIGN="middle" STYLE="margin-right:3px"><SPAN CLASS="small" ALIGN="middle">OraRep '+version+' &copy; 2003-2004 by <A STYLE="text-decoration:none" HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg<\/A> &amp; <A STYLE="text-decoration:none" HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft<\/A><\/SPAN><IMG SRC="..\/islogo.gif" ALT="IzzySoft" WIDTH="14" HEIGHT="14" ALIGN="middle" STYLE="margin-left:3px"><\/DIV>');
+//--></SCRIPT>
 
 </BODY></HTML>

@@ -67,8 +67,9 @@ BEGIN
 	    'status=yes,copyhistory=no,scrollbars=yes,width=600,height=400,top=0,left="+pos+"'||
 	    CHR(39)||')");';
   print(L_LINE);
-  L_LINE := '   }'||CHR(10)||' </SCRIPT>'||CHR(10)||
-            '</HEAD><BODY>'||CHR(10)||'<H2>'||R_TITLE||'</H2>'||CHR(10);
+  L_LINE := '   }'||CHR(10)||'  version="'||SCRIPTVER||'";'||CHR(10)||
+            ' </SCRIPT>'||CHR(10)||'</HEAD><BODY>'||CHR(10)||'<H2>'||
+	    R_TITLE||'</H2>'||CHR(10);
   print(L_LINE);
 
   -- Navigation

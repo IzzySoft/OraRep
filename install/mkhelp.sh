@@ -21,4 +21,8 @@ for i in *.tpl; do
   chmod o+r $TARGET
 done
 cp help.gif $REPDIR/help/
-chmod o+r help.gif
+chmod o+r $REPDIR/help/help.gif
+cp w3c.jpg $REPDIR
+cp islogo.gif $REPDIR
+cp iceage.css $REPDIR
+chmod o+r w3c.jpg islogo.gif iceage.css

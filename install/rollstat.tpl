@@ -1,6 +1,7 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML><HEAD>
- <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15"/>
- <LINK REL='stylesheet' TYPE='text/css' HREF='../{css}'/>
+ <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15">
+ <LINK REL='stylesheet' TYPE='text/css' HREF='../{css}'>
  <TITLE>OraHelp: RollBack Stats</TITLE>
 </HEAD><BODY>
 
@@ -38,7 +39,7 @@
       see recommendations below</TD></TR>
   <TR><TD CLASS="inner">XActs</TD><TD CLASS="inner" STYLE="text-align:justify">current transactions</TD></TR>
   <TR><TD CLASS="inner">Shrinks</TD><TD CLASS="inner" STYLE="text-align:justify">Number of growth beyond the
-      <CODE>OPTIMAL<CODE> value (see OptSize in this table) that have been shrunk
+      <CODE>OPTIMAL</CODE> value (see OptSize in this table) that have been shrunk
       afterwards</TD></TR>
   <TR><TD CLASS="inner">Wraps</TD><TD CLASS="inner" STYLE="text-align:justify">Wraps occur whenever a new extent is needed
       but the next extent in the current RBS is still in use by a transaction,
@@ -75,5 +76,12 @@
           of shrinks is lower.</TD></TR>
  </TABLE>
 </TD></TR></TABLE>
+
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">//<!--
+  if ( opener != null && opener.version != '' && opener.version != null )
+    version = 'v'+opener.version;
+  else version = '';
+  document.write('<DIV ALIGN="center" STYLE="margin-top:3px"><IMG SRC="..\/w3c.jpg" ALT="w3c" WIDTH="14" HEIGHT="14" ALIGN="middle" STYLE="margin-right:3px"><SPAN CLASS="small" ALIGN="middle">OraRep '+version+' &copy; 2003-2004 by <A STYLE="text-decoration:none" HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg<\/A> &amp; <A STYLE="text-decoration:none" HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft<\/A><\/SPAN><IMG SRC="..\/islogo.gif" ALT="IzzySoft" WIDTH="14" HEIGHT="14" ALIGN="middle" STYLE="margin-left:3px"><\/DIV>');
+//--></SCRIPT>
 
 </BODY></HTML>
