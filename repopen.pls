@@ -21,6 +21,7 @@ BEGIN
   MK_BUFFP    := have_buffp_stats();
   MK_ADVICE   := have_advice();
   TPH_NOLOG   := :TPH_NOLOG;
+  WPH_NOLOG   := :WPH_NOLOG;
   IF MK_ENQ = 1 THEN
     MK_ENQS := have_enqs();
   ELSE

@@ -31,7 +31,7 @@
 	    'lazy -- so you may want to decrease '||
 	    '<CODE>DB_BLOCK_MAX_DIRTY_TARGET</CODE></TD></TR>';
   print(L_LINE);
-  sysstat_per('free buffer inspected','free buffer requested',50,20,S1,S2);
+  sysstat_per('free buffer inspected','free buffer requested',50,2,S1,S2);
   L_LINE := ' <TR><TD>free buffer inspected / free buffer requested</TD>'||
             '<TD ALIGN="right"'||S2||'>'||S1||'</TD><TD>Increase your buffer '||
 	    'cache if this value is too high</TD></TR>';
@@ -50,9 +50,10 @@
   print(L_LINE);
   SELECT value INTO I1 FROM v$sysstat WHERE name='redo log space requests';
   S1 := to_char(I1,'999,999,990.99');
-  L_LINE := ' <TR><TD>redo log space requests</TD><TD ALIGN="right">'||S1||
-            '</TD><TD>how often the log file was full and Oracle had to wait '||
-            'for a new file to become available</TD></TR>';
+  S2 := notify_gt(S1,WPH_NOLOG,'warn');
+  L_LINE := ' <TR><TD>redo log space requests</TD><TD ALIGN="right"'||S2||'>'||
+            S1||'</TD><TD>how often the log file was full and Oracle had to '||
+	    'wait for a new file to become available</TD></TR>';
   print(L_LINE);
   SELECT value INTO I1 FROM v$sysstat WHERE name='table fetch continued row';
   S1 := to_char(I1,'999,999,990.99');
@@ -181,9 +182,10 @@
   print(L_LINE);
   get_wait('log file switch (checkpoint incomplete)',S4,S1,S2,S3);
   S5 := notify_gt(S3,TPH_NOLOG,'warn');
-  L_LINE := ' <TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
-	    '<TD ALIGN="right"'||S5||'>'||S3||'</TD><TD ROWSPAN="2">';
+  S6 := notify_gt(S1,WPH_NOLOG,'warn');
+  L_LINE := ' <TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right"'||
+            S6||'>'||S1||'</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||
+	    S4||'</TD>'||'<TD ALIGN="right"'||S5||'>'||S3||'</TD><TD ROWSPAN="2">';
   print(L_LINE);
   L_LINE := 'Higher values for one of <A HREF="JavaScript:popup('||CHR(39)||
             'logfileswitch'||CHR(39)||')">these events</A> indicate that '||
@@ -192,9 +194,10 @@
   print(L_LINE);
   get_wait('log file switch (archiving needed)',S4,S1,S2,S3);
   S5 := notify_gt(S3,TPH_NOLOG,'warn');
-  L_LINE := ' <TR><TD>log file switch (archiving needed)</TD><TD ALIGN="right">'||S1||
-            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
-	    '<TD ALIGN="right"'||S5||'>'||S3||'</TD></TR>';
+  S6 := notify_gt(S1,WPH_NOLOG,'warn');
+  L_LINE := ' <TR><TD>log file switch (archiving needed)</TD><TD ALIGN="right"'||
+            S6||'>'||S1||'</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||
+	    S4||'</TD>'||'<TD ALIGN="right"'||S5||'>'||S3||'</TD></TR>';
   print(L_LINE);
   get_wait('log file switch completion',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch completion</TD><TD ALIGN="right">'||S1||

@@ -35,9 +35,11 @@ CSS=../main.css
 
 # --------------------------------------------------------------[ Warnings ]---
 # At what treshholds we should issue warnings (yellow background). TPH_* stands
-# for Timeouts Per Hour
+# for Timeouts Per Hour, WHP_* for Waits Per Hour. Values to specify are
+# NUMBERs, i.e. decimals are permitted as well as fractions
 # No logfile available to switch to
-TPH_NOLOG=1
+TPH_NOLOG=5/6
+WPH_NOLOG=5.5
 
 # -------------------------------------------------------------------[ SQL ]---
 # Top settings: Display Top N Statements

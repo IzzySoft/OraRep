@@ -197,6 +197,7 @@ variable MK_BUFFRAT NUMBER;
 variable MK_ENQ NUMBER;
 variable MK_FLC NUMBER;
 variable TPH_NOLOG NUMBER;
+variable WPH_NOLOG NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
@@ -213,6 +214,7 @@ BEGIN
   :MK_FLC      := $MK_FLC;
   :MK_ENQ      := $MK_ENQ;
   :TPH_NOLOG   := $TPH_NOLOG;
+  :WPH_NOLOG   := $WPH_NOLOG;
 END;
 /
 SPOOL $REPDIR/${ORACLE_SID}.html
