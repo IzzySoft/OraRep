@@ -5,6 +5,7 @@ BEGIN
   TOP_N_WAITS  := :TOP_N_WAITS;
   TOP_N_TABLES := :TOP_N_TABLES;
   MK_RSRC      := :MK_RSRC;
+  MK_TSQUOT    := :MK_TSQUOT;
   MK_WAITOBJ  := have_waits();
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
@@ -42,7 +43,11 @@ BEGIN
   IF MK_RSRC = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#resource_groups">Resource Mgmnt</A> ] ';
   END IF;
-  L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
+  IF MK_TSQUOT = 1 THEN
+    L_LINE := L_LINE||'[ <A HREF="#ts_quotas">TS Quotas</A> ] ';
+  END IF;
+  print(L_LINE);
+  L_LINE := '[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
             '] [ <A HREF="#memory">Memory</A> ]';
   print(L_LINE);
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';

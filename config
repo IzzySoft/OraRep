@@ -41,5 +41,7 @@ TOP_N_TABLES=10
 # --------------------------------------------------------------[ Features ]---
 # Include Resource Plan Report? [0|1]
 MK_RSRC=1
+# Include TableSpace Quotas? [0|1]
+MK_TSQUOT=1
 
 # ===================================================================[ EOF ]===

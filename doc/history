@@ -110,3 +110,4 @@ v0.2.2 (15.01.2004)
 v0.2.3
 + added extended resource plan report for Oracle 9i
 * made resource plan report an optional element (see the "config" file)
++ added TableSpace Quotas
