@@ -599,7 +599,7 @@ BEGIN
 	    '<CODE>CHECK_POINT_TIMEOUT</CODE>';
   print(L_LINE);
   L_LINE := 'and <CODE>CHECK_POINT_INTERVAL</CODE> parameters to help the DBWR '||
-            'process to keep up.</TD></TR>';
+            'process to keep up. Increasing the buffer cache may also be helpful.</TD></TR>';
   print(L_LINE);
   get_wait('buffer busy waits',S4,S1,S2,S3);
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">buffer busy waits</DIV></TD><TD ALIGN="right">'||S1||
