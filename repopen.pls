@@ -26,8 +26,12 @@ BEGIN
   L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A>'||
             ' ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]';
   print(L_LINE);
-  L_LINE := ' [ <A HREF="#events">Events</A> ] [ <A HREF="#waitobj">Wait Objects</A> ]'||
-            ' [ <A HREF="#invobj">Invalid Objects</A> ]'||
+  L_LINE := ' [ <A HREF="#events">Events</A> ]';
+  IF have_waits()
+  THEN 
+    L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';
+  END IF;
+  L_LINE := L_LINE||' [ <A HREF="#invobj">Invalid Objects</A> ]'||
 	    ' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>';
   print(L_LINE);
   L_LINE := TABLE_CLOSE;
