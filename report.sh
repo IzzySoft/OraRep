@@ -16,12 +16,12 @@
 #                                                              Itzchak Rehberg
 #
 #
-version='0.1.4'
+version='0.1.5'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
   echo ============================================================================
-  echo "OraRap v$version                (c) 2003 by Itzchak Rehberg (devel@izzysoft.de)"
+  echo "OraRep v$version                (c) 2003 by Itzchak Rehberg (devel@izzysoft.de)"
   echo ----------------------------------------------------------------------------
   echo This script is intended to generate a HTML report for a given instance. Look
   echo inside the script header for closer details, and check for the configuration
@@ -159,14 +159,14 @@ DECLARE
     BEGIN
        SELECT TO_CHAR(total_waits,'9,999,999,990') totals,
               TO_CHAR(time_waited,'9,999,999,990') timew,
-	      TO_CHAR(DECODE(NVL(total_waits,0),0,0,time_waited/total_waits),
-	              '9,999,990.000') average,
+	      TO_CHAR(DECODE(NVL(total_waits,0),0,0,1000*time_waited/total_waits),
+	              '9,999,990.0') average,
 	      TO_CHAR(total_timeouts,'9,999,999,990') timeouts
 	 INTO S01,S02,S04,S03
          FROM v\$system_event WHERE event=eventname;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
-       S04 := '0.000'; S01 := '0'; S02 := '0'; S03 := '0';
+       S04 := '0.0'; S01 := '0'; S02 := '0'; S03 := '0';
     END;
 
   PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, rval OUT VARCHAR2) IS
@@ -500,7 +500,7 @@ BEGIN
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events (from v'||CHR(36)||'system_event)</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>';
   print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">Total WaitTime (s)</TH><TH CLASS="th_sub">Avg Waited (s)</TH>'||
+  L_LINE := '<TH CLASS="th_sub">Total WaitTime (s)</TH><TH CLASS="th_sub">Avg Waited (ms)</TH>'||
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   print(L_LINE);
   get_wait('free buffer waits',S4,S1,S2,S3);
