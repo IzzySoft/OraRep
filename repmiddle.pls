@@ -183,12 +183,12 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>This event frequently occurs when the log buffers are '||
-            'filling faster than LGWR can write them to disk. The two obvious '||
-            'solutions are to either ';
+  L_LINE := '</TD><TD><A HREF="JavaScript:popup('||CHR(39)||'logbufferspace'||
+            CHR(39)||')">This event</A> frequently occurs when the log buffers are '||
+            'filling faster than LGWR can write them to disk.';
   print(L_LINE);
-  L_LINE := 'increase the amount of log buffers or to change your Redo log '||
-            'layout and/or IO strategy.</TD></TR>';
+  L_LINE := 'The two obvious solutions are to either increase the amount of '||
+            'log buffers or to change your Redo log layout and/or IO strategy.</TD></TR>';
   print(L_LINE);
   get_wait('log file parallel write',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file parallel write</TD><TD ALIGN="right">'||S1||
