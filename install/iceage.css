@@ -16,7 +16,7 @@ CODE {
  font-style:italic;
  font-size:115%;
 }
-.small, span.small {
+.small, span.small, div.small {
  font-family: sans-serif;
  font-size:10px;
 }
@@ -85,7 +85,10 @@ TH {
 
 /* ------------------------------------------------------[ Table Cells ]--- */
 TD { font-size:80%; }
-TD.small { font-size:70%; }
+TD.small {
+ font-size:80%;
+ font-family: sans-serif;
+}
 TD.smallname {
  font-size:70%;
  font-weight:bold;
