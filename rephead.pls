@@ -176,7 +176,7 @@ DECLARE
       SELECT name,
              TO_CHAR(size_for_estimate,'999,990') estsize,
              TO_CHAR(buffers_for_estimate,'999,999,990') estbuff,
-             TO_CHAR(100*estd_physical_read_factor,'9,990.0') estrf,
+             TO_CHAR((-1)*(100-(100*estd_physical_read_factor)),'9,990.0') estrf,
              TO_CHAR(estd_physical_reads,'999,999,999,990') estread
         FROM v$db_cache_advice
        WHERE estd_physical_reads IS NOT NULL
