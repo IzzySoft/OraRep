@@ -598,6 +598,23 @@ BEGIN
   L_LINE := 'increase the amount of log buffers or to change your Redo log '||
             'layout and/or IO strategy.</TD></TR>';
   print(L_LINE);
+  get_wait('log file parallel write',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>log file parallel write</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD ROWSPAN="2">Indicator for Redo log layout and/or IO strategy<BR>'||
+            'As the wait times on these events become higher, you will notice '||
+            'additional Wait Events such as ';
+  print(L_LINE);
+  L_LINE := '<I>log buffer space</I>, <I>log file switch (archiving needed)</I>, '||
+            'etc.</TD></TR>';
+  print(L_LINE);
+  get_wait('log file single write',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>log file parallel write</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3||'</TD></TR>';
+  print(L_LINE);
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
 
