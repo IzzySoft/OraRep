@@ -80,15 +80,24 @@ DECLARE
        S04 := '0.0'; S01 := '0'; S02 := '0'; S03 := '0';
     END;
 
-  PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, rval OUT VARCHAR2) IS
+  PROCEDURE sysstat_per(aval IN VARCHAR2, bval IN VARCHAR2, alert IN NUMBER, warn IN NUMBER, rval OUT VARCHAR2, tdclass OUT VARCHAR2) IS
     BEGIN
       SELECT value INTO I1 FROM v$sysstat WHERE name=aval;
       SELECT value INTO I2 FROM v$sysstat WHERE name=bval;
       IF NVL(I2,0) = 0
       THEN
-        rval := '&nbsp;';
+        tdclass := '';
+	rval := '&nbsp;';
       ELSE
-        rval := TO_CHAR(I1/I2,'999,999,990.99');
+        I3 := I1/I2;
+        rval := TO_CHAR(I3,'999,999,990.99');
+	IF I3 > NVL(alert,0) THEN
+	  tdclass := ' CLASS="alert';
+	ELSIF I3 > NVL(warn,0) THEN
+	  tdclass := ' CLASS="warn"';
+	ELSE
+	  tdclass := '';
+	END IF;
       END IF;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
