@@ -14,7 +14,7 @@
  <P>A possible solution is to adjust the frequency of your checkpoints by
   tuning the <CODE>CHECK_POINT_TIMEOUT</CODE> and
   <CODE>CHECK_POINT_INTERVAL</CODE> parameters to help the DBWR process to keep
-  up. Increasing the buffer cache may also be helpful.';
+  up. Increasing the buffer cache may also be helpful.</P>
 
 </TD></TR></TABLE>
 

@@ -1,17 +1,7 @@
 
   FUNCTION have_enqs RETURN BOOLEAN IS
---    CI NUMBER;
     BEGIN
       RETURN have_xxx('v$enqueue_stat','eq_type','cum_wait_time > 0');
---      SELECT COUNT(event) INTO CI FROM v$session_wait
---       WHERE event IN ('buffer busy waits','free buffer waits',
---                       'db file sequential read','db file scattered read');
---      IF CI > 0
---      THEN
---        RETURN TRUE;
---      ELSE
---        RETURN FALSE;
---      END IF;
     EXCEPTION
       WHEN OTHERS THEN RETURN FALSE;
     END;
@@ -28,55 +18,17 @@
        WHERE cum_wait_time >0
        ORDER BY cum_wait_time DESC;
 
---    PROCEDURE print(line IN VARCHAR2) IS
---      BEGIN
---        dbms_output.put_line(line);
---      EXCEPTION
---        WHEN OTHERS THEN
---          dbms_output.put_line('*!* Problem in print() *!*');
---      END;
     BEGIN
-      L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="waitobj">Enqueue Waits</A></TH></TR>';
+      L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="waitobj">Enqueue Waits'||
+                '</A>&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'enqwaits'||CHR(39)||
+		')"><IMG SRC="/icons/unknown.gif" BORDER="0" HEIGTH="12" '||
+		'VALIGN="middle"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="6"><DIV ALIGN="center">The following queues '||
                 'caused waits during the recent uptime of this instance.<BR>'||
 		'Ordered by cumulative wait time (desc)';
       print(L_LINE);
-      L_LINE := '<TABLE BORDER="0"><TR><TD CLASS="smallname">CF</TD><TD '||
-                'CLASS="small"><B>Control file schema global enqueue</TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">CU</TD><TD CLASS="small"><B>Cursor '||
-                'Bind</B></TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">DX</TD><TD CLASS="small"><B>'||
-                'Distributed Transactions</B></TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">HW</TD><TD CLASS="small"><B>'||
-                'Space Management</B> operations on a specific segment'||
-		'</TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">SQ</TD><TD CLASS="small"><B>'||
-                'SeQuences</B> not being cached, having a to small cache size '||
-		'or being aged out of the shared pool. ';
-      print(L_LINE);
-      L_LINE := 'Consider pinning sequences or increasing the '||
-                'shared_pool_size.</TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">ST</TD><TD CLASS="small"><B>'||
-                'Space management locks</B> could be caused by using permanent '||
-		'tablespaces for sorting (rather than temporary), or ';
-      print(L_LINE);
-      L_LINE := 'by dynamic allocation resulting from inadequate storage clauses. '||
-                'In the latter case, using locally-managed tablespaces may help '||
-		'avoiding this problem.</TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TR><TD CLASS="smallname">TM</TD><TD CLASS="small"><B>'||
-                'Table locks</B> point to the possibility of e.g. foreign key '||
-		'constraints not being indexed</TD></TR>';
-      print(L_LINE);
-      L_LINE := ' <TD CLASS="smallname">TX</TD><TD CLASS="small"><B>'||
-                'Transaction locks</B> indicate multiple users try modifying '||
-		'the same row of a table (row-level-lock)</TD></TR></TABLE></DIV></TD></TR>';
+      L_LINE := '</DIV></TD></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TH CLASS="th_sub">Queue</TH><TH CLASS="th_sub">'||
                 'Total Requests</TH><TH CLASS="th_sub">Total Waits</TH>'||

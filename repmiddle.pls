@@ -136,15 +136,11 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>This event occurs whenever one Oracle process is requesting '||
-            'a "willing to wait" latch from another process. The event only occurs '||
-	    'if the spin_count has been exhausted, ';
+  L_LINE := '</TD><TD><A HREF="JavaScript:popup('||CHR(39)||'latchfree'||
+            CHR(39)||')">Latch free</A> waits can occur for a variety of '||
+	    'reasons including library cache issues, ';
   print(L_LINE);
-  L_LINE := 'and the waiting process goes to sleep. Latch free waits can occur '||
-            'for a variety of reasons including library cache issues, OS process '||
-	    'intervention ';
-  print(L_LINE);
-  L_LINE := '(processes being put to sleep by the OS, etc.), and so on.</TD></TR>';
+  L_LINE := 'OS process intervention, and so on.</TD></TR>';
   print(L_LINE);
   get_wait('LGWR wait for redo copy',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>LGWR wait for redo copy</TD><TD ALIGN="right">'||S1||

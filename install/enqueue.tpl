@@ -13,7 +13,7 @@
   Since this event also indicates that there are too many DML or DDL locks (or,
   maybe, a large number of sequences), increasing the
   <CODE>ENQUEUE_RESOURCES</CODE> parameter in the <CODE>init.ora</CODE> may
-  help reduce these waits as well.
+  help reduce these waits as well.</P>
 
 </TD></TR></TABLE>
 
