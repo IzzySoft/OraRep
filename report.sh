@@ -523,6 +523,18 @@ BEGIN
             '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
             'is high see the first block of Miscellaneous below)</FONT></TD></TR>';
   print(L_LINE);
+  get_wait('undo segment extension',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>undo segment extension</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  print(L_LINE);
+  L_LINE := '</TD><TD>Whenever the database must extend or shrink a rollback '||
+            'segment, this wait event occurs while the rollback segment is being '||
+            'manipulated. ';
+  print(L_LINE);
+  L_LINE := 'High wait times here could indicate a problem with the extent size, '||
+            'the value of MINEXTENTS, or possibly IO related problems.</TD></TR>';
+  print(L_LINE);
   get_wait('enqueue',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>enqueue</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
