@@ -25,9 +25,9 @@
     CURSOR C_Free IS
       SELECT owner,table_name,pct_free,pct_used,
              num_freelist_blocks freelists,
-	     TO_CHAR(avg_space_freelist_blocks,'999,990') freespace,
+	     avg_space_freelist_blocks freespace,
 	     TO_CHAR(avg_row_len,'999,990') rowlen,
-	     TO_CHAR(b.block_size,'999,990') blocksize
+	     b.block_size blocksize
         FROM all_tables a, dba_tablespaces b
        WHERE num_freelist_blocks IS NOT NULL
          AND avg_space_freelist_blocks IS NOT NULL
@@ -58,8 +58,8 @@
                   '</TD><TD>'||rec.rowlen||'</TD><TD>'||rec.pct_used||
                   '</TD><TD ALIGN="right">'||rec.pct_free||'</TD><TD ALIGN="right">';
         print(L_LINE);
-        L_LINE := rec.freelists||'</TD><TD ALIGN="right">'||rec.freespace||
-	          '</TD><TD ALIGN="right">'||rec.blocksize||'</TD></TR>';
+        L_LINE := rec.freelists||'</TD><TD ALIGN="right">'||format_fsize(rec.freespace)||
+	          '</TD><TD ALIGN="right">'||format_fsize(rec.blocksize)||'</TD></TR>';
         print(L_LINE);
       END LOOP;
       IF S1 = 'x' THEN

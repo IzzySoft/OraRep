@@ -15,7 +15,7 @@
 	     to_char((getmisses/gets)*100,'990.00') ratio
         FROM v$rowcache WHERE gets>0;
     CURSOR C_POOL IS
-      SELECT pool,to_char(bytes/1024,'99,999,999.00') kbytes
+      SELECT pool,bytes
         FROM v$sgastat WHERE name='free memory';
     CURSOR C_BUF IS
       SELECT name,
@@ -30,7 +30,10 @@
     PROCEDURE poolsize(aval IN VARCHAR2, rval OUT VARCHAR2) IS
       BEGIN
         SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-               0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+              0,DECODE(SIGN(LENGTH(ROUND(value/1000))-1),
+                0,to_char(nvl(value,0)/1024,'999,999,990.00')||' K',
+                to_char(nvl(value,0)/1024/1024,'999,999,990.00')||' M'),
+              1,value,'&nbsp;')
           INTO rval
 	  FROM v$parameter
          WHERE name=aval;
@@ -62,7 +65,7 @@
       print(L_LINE);
       FOR Rec_POOL IN C_POOL LOOP
         L_LINE := ' <TR><TD>'||Rec_POOL.pool||'</TD><TD ALIGN="right">'||
-                  Rec_POOL.kbytes||' kB</TD></TR>';
+                  format_fsize(Rec_POOL.bytes)||'</TD></TR>';
         print(L_LINE);
       END LOOP;
       print(TABLE_CLOSE);

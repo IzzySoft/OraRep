@@ -176,3 +176,7 @@ v0.2.8 (16.03.2004)
 + made the remaining values for warnings/alerts (Go4Colors) configurable
 * some updates to the (HTML) documentation
 * some formatting (stylesheet) updates
+
+v0.2.9
+-------------------
++ enhanced formatting of time and size values throughout the report

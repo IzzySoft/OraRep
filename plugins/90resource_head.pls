@@ -49,8 +49,11 @@
   PROCEDURE rsrc_directives IS
     CURSOR C_Dirs IS
       SELECT plan,group_or_subplan sub,cpu_p1,cpu_p2,cpu_p3,cpu_p4,cpu_p5,cpu_p6,
-             cpu_p7,cpu_p8,active_sess_pool_p1,queueing_p1,
+             cpu_p7,cpu_p8,
+             NVL(TO_CHAR(active_sess_pool_p1),'&nbsp;') active_sess_pool_p1,
+             NVL(TO_CHAR(queueing_p1),'&nbsp;') queueing_p1,
 	     NVL(switch_group,'&nbsp;') switch_group,
+             -- NVL(TO_CHAR(switch_time),'&nbsp;')
              switch_time,max_est_exec_time,undo_pool,mandatory,comments
         FROM dba_rsrc_plan_directives
        WHERE type='CONSUMER_GROUP'
@@ -99,10 +102,10 @@
         print(L_LINE);
         L_LINE := '</TD><TD ALIGN="right">'||rec.queueing_p1||
                   '</TD><TD ALIGN="right">'||rec.switch_group||
-		  '</TD><TD ALIGN="right">'||rec.switch_time;
+		  '</TD><TD ALIGN="right">'||format_stime(rec.switch_time,1);
         print(L_LINE);
-        L_LINE := '</TD><TD ALIGN="right">'||rec.max_est_exec_time||
-                  '</TD><TD ALIGN="right">'||rec.undo_pool||
+        L_LINE := '</TD><TD ALIGN="right">'||format_stime(rec.max_est_exec_time,1)||
+                  '</TD><TD ALIGN="right">'||format_fsize(rec.undo_pool)||
                   '</TD><TD ALIGN="center">'||rec.mandatory;
         print(L_LINE);
         L_LINE := '</TD><TD>'||rec.comments||'</TD></TR>';

@@ -15,7 +15,7 @@
 	     TO_CHAR(succ_req#,'999,999,999,990') succreq,
 	     TO_CHAR(failed_req#,'999,999,999,990') failreq,
 	     TO_CHAR(100*(failed_req#/total_req#),'990.00') pctfail,
-	     TO_CHAR(cum_wait_time,'999,999,999,990') cumwait
+	     cum_wait_time cumwait
         FROM v$enqueue_stat
        WHERE cum_wait_time >0
        ORDER BY cum_wait_time DESC;
@@ -48,7 +48,7 @@
 	L_LINE := '</TD><TD ALIGN="right">'||rec.succreq||
 	          '</TD><TD ALIGN="right">'||rec.failreq||
 		  '</TD><TD ALIGN="right">'||rec.pctfail||
-		  '</TD><TD ALIGN="right">'||rec.cumwait||'</TD></TR>';
+		  '</TD><TD ALIGN="right">'||format_stime(rec.cumwait,1000)||'</TD></TR>';
         print(L_LINE);
       END LOOP;
       L_LINE := TABLE_CLOSE;

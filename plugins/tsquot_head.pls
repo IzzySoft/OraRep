@@ -2,7 +2,7 @@
   PROCEDURE ts_quotas IS
     CURSOR C_Quot IS
       SELECT q.tablespace_name ts,username,
-             TO_CHAR(bytes/1024/1024,'999,990')||' M' used,
+             bytes used,
 	     DECODE(SIGN(max_bytes),-1,'Unlimited',
 	            TO_CHAR(max_bytes/1024/1024,'999,990')||' M') avail,
 	     DECODE (t.status,NULL,' CLASS="warn"','') dropped
@@ -25,8 +25,8 @@
       print(L_LINE);
       FOR rec IN C_Quot LOOP
         L_LINE := ' <TR'||rec.dropped||'><TD>'||rec.ts||'</TD><TD>'||rec.username||
-	          '</TD><TD ALIGN="right">'||rec.used||'</TD><TD ALIGN="right">'||
-                  rec.avail||'</TD></TR>';
+	          '</TD><TD ALIGN="right">'||format_fsize(rec.used)||
+                  '</TD><TD ALIGN="right">'||rec.avail||'</TD></TR>';
         print(L_LINE);
       END LOOP;
       print(TABLE_CLOSE);
