@@ -81,6 +81,8 @@ else
   ENQHEAD=$BINDIR/plugins/dummy.pls
   ENQBODY=$BINDIR/plugins/dummy.pls
 fi
+  RSRCHEAD=$BINDIR/plugins/81resource_head.pls
+  RSRCBODY=$BINDIR/plugins/81resource_body.pls
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$1
@@ -109,7 +111,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $BINDIR/repopen.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $BINDIR/repopen.pls $RSRCBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $BINDIR/repopen.pls $RSRCBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT
