@@ -3,35 +3,152 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
-v0.1.0 (19.01.2003)
+v0.3.1
 -------------------
-* initial version (first release)
++ script now accepts the command line parameters "-r" to use an alternative
+  report dir and "-o" to use an alternativ output file name
 
-v0.1.1 (28.10.2003)  small fixes:
+v0.3.0 (30.04.2004)
 -------------------
-! fixed a "division by zero" error rarely occuring on freepct check for tables
-+ added progInfo footer with link to web site of IzzySoft (e.g. for retrieving
-  updates of this little tool ;)
-+ added instance startup time and uptime to Common Instance Information
-! fixed "invalid number error" occuring when sizes in the DB haven't been
-  declared in bytes but as e.g. "5M"
-! in datafile statistics, when a datafile was filled more than 99.99%, the
-  pctused column got the value '######' for this row
+! report was broken again for Oracle < v9 due to use of CASE (introduced
+  with Oracle v9)
+* some formatting updates (numbers not displayed correctly when value to high)
 
-v0.1.2 (31.10.2003)  small enhancements:
+v0.2.9 (23.03.2004)
 -------------------
-+ in the "Data Files" block, statistics are now grouped by data files instead
-  of listing up each segment separately
-+ some comments/recommendations are now more precise
-+ for the wait events, objects that caused them (at the time the report was
-  generated) are listed
-+ added more hints/comments
-+ added version info to the syntax header
++ enhanced formatting of time and size values throughout the report
+* outsourced the formatting functions (for common use with OSPRep)
+* Modularization: Wait Events (v$system_event), SYSSTAT Info, User Info,
+  DBLinks, Invalid Objects, Miscellaneous segment
++ added alternative StyleSheet: iceage.css
 
-v0.1.3 (06.11.2003) small enhancements:
+v0.2.8 (16.03.2004)
 -------------------
-+ Selected Wait Events block now contains more detailed stats like AvgWaitTime
-+ Added "Invalid Objects" block
++ added closer information on "Go4Colors" to the HTML documentation
++ made the remaining values for warnings/alerts (Go4Colors) configurable
+* some updates to the (HTML) documentation
+* some formatting (stylesheet) updates
+
+v0.2.7 (10.02.2004)
+-------------------
++ in the TS Quotas block we now highlight rows (quotas) with non-existing
+  tablespaces: these emerge when dropping a tablespace where quotas where
+  explicitely given by the "ALTER USER...QUOTA..." command, and the quotas
+  would automatically activated if a tablespace with that name would be created
+* No more empty TSQuotas table (hopefully)
+! some blocks have not been closed correctly when an error occured
+
+v0.2.6 (04.02.2004)
+-------------------
++ "Go4Colors Mode": where we can clearly identify problems (e.g. by ratios),
+  the concerning values are now highlighted with red (alert) or yellow (warning)
+  background color of the table cell
+! report.sh was broken for Oracle versions <9
+* some formatting on the help files plus more detailled information on
+  cursor_sharing
++ write enabled data files that have not AUTOEXTEND ON set and filled more than
+  85% / 95% are now also highlighted with Go4Colors
+
+v0.2.5 (29.01.2004)
+-------------------
++ added documentation (HTML)
+* sometimes the "Wait Objects" table was created empty (Oracle removed the
+  entries between the first check [for the link in the header] and creation
+  of the table). Put a note in instead in these cases ;)
++ added some more details on the buffer waits, plus the optional buffer waits
+  block
++ added "Chained-Fetch-Ratio" to "Sysstat Info" block
++ added block on "FreeList Contention"
+
+v0.2.4 (23.01.2004)
+-------------------
+* Modularization: made some blocks optional (see the "config" file):
+  Rollback Segment Stats, Data Files, Memory Values, common Pool information,
+  Enqueue Waits
++ new command line parameter "-c" to specify alternative config file
+* some code cleanup
+
+v0.2.3 (20.01.2004)
+-------------------
++ added extended resource plan report for Oracle 9i
+* made resource plan report an optional element (see the "config" file)
++ added TableSpace Quotas (optional)
++ added DBA Profiles (optional)
++ enhanced command line syntax: now you can override some of the default
+  options from the "config" file (e.g. user, passwd) at the command line
+  (thanx to Manuel Soriano for this suggestion incl. code)
+
+v0.2.2 (15.01.2004)
+-------------------
++ more details on row locks and I/O wait objects
++ more details on avoiding buffer busy waits
++ added PctWait and PctFailed to enqueue waits (Oracle 9+)
++ added profile and initial resource group to user info
++ added reports on resource management
+
+v0.2.1 (13.01.2004)
+-------------------
++ added hints on ASSM to avoid freelist contention (buffer busy waits)
+* some formatting issues
++ added (external) help on row locks
+* buffer pool stats table is now only drawn if data exist for it
++ added link to advices to page head (if exists)
+
+v0.2.0 (05.01.2004)
+-------------------
++ more detailed hints on the enqueue wait event
+* some cosmetical changes to some of the external help files (formating issues)
++ more details on the log buffer size
++ advices for rollback segments plus external help
++ adding external help file on user information
+* some cosmetical changes (text formatting)
+
+v0.1.9 (17.12.2003)
+-------------------
++ added own help icon (used one from the Apache installation up to now)
++ made the description for row migration more verbose (don't worry, it is
+  in an external help file now ;)
++ added to the description for the wait events "latch free", "buffer busy
+  waits", "enqueue", "free buffer waits", latch waits, "log buffer space",
+  and "log file switch"
+
+v0.1.8 (10.12.2003)
+-------------------
++ restricted the count of tables with less than 10% free blocks (reported at
+  the very end of the page) to TOP_N_TABLES (new config var)
++ added enqueue stats
++ added enqueue type descs plus tuning hints
++ outsourced long hints/descs to external help files via popup on demand
++ updated installation instructions in doc/readme.txt
+
+v0.1.7 (03.12.2003)
+-------------------
++ make use of the much more detailed information on objects causing waits
+  in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg
++ added DB Cache advice (needs "db_cache_advice=ready" in the init.ora to
+  show results), Shared Pool Advice and PGA Target Advice (the latter two only
+  show results with Oracle 9 Release 2 and higher, since the views are not
+  available in earlier versions)
++ Supressed empty tables which sometimes appeared when no data available for
+  certain stats; the according link on top of the page is also removed in
+  these cases
+
+v0.1.6 (27.11.2003)
+-------------------
++ added DBLinks w/ check whether active or not
++ added "buffer busy waits" plus more description
++ made the disksort stats (in SYSSTAT Info) more precise
++ made description on migrated rows more precise
++ updated desc for free buffer waits
++ separated the config from the script to ease updates
+
+v0.1.5 (18.11.2003)
+-------------------
++ in "Selected Wait Events", Avg Waited is now more precise
+  (while the system view only tells full seconds, we calculate it now
+  ourselves - it's now reported in milliseconds instead of only full seconds)
++ many numerical values are now presented in a better readable format
++ added RPP column for Library Cache stats
 
 v0.1.4 (13.11.2003)
 -------------------
@@ -49,148 +166,32 @@ v0.1.4 (13.11.2003)
 + optimization: created procedure poolsize() for "Pool Sizes"
 * moved some hardcoded font formatting to stylesheet
 
-v0.1.5 (18.11.2003)
+v0.1.3 (06.11.2003) small enhancements:
 -------------------
-+ in "Selected Wait Events", Avg Waited is now more precise
-  (while the system view only tells full seconds, we calculate it now
-  ourselves - it's now reported in milliseconds instead of only full seconds)
-+ many numerical values are now presented in a better readable format
-+ added RPP column for Library Cache stats
++ Selected Wait Events block now contains more detailed stats like AvgWaitTime
++ Added "Invalid Objects" block
 
-v0.1.6 (27.11.2003)
+v0.1.2 (31.10.2003)  small enhancements:
 -------------------
-+ added DBLinks w/ check whether active or not
-+ added "buffer busy waits" plus more description
-+ made the disksort stats (in SYSSTAT Info) more precise
-+ made description on migrated rows more precise
-+ updated desc for free buffer waits
-+ separated the config from the script to ease updates
++ in the "Data Files" block, statistics are now grouped by data files instead
+  of listing up each segment separately
++ some comments/recommendations are now more precise
++ for the wait events, objects that caused them (at the time the report was
+  generated) are listed
++ added more hints/comments
++ added version info to the syntax header
 
-v0.1.7 (03.12.2003)
+v0.1.1 (28.10.2003)  small fixes:
 -------------------
-+ make use of the much more detailed information on objects causing waits
-  in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg
-+ added DB Cache advice (needs "db_cache_advice=ready" in the init.ora to
-  show results), Shared Pool Advice and PGA Target Advice (the latter two only
-  show results with Oracle 9 Release 2 and higher, since the views are not
-  available in earlier versions)
-+ Supressed empty tables which sometimes appeared when no data available for
-  certain stats; the according link on top of the page is also removed in
-  these cases
+! fixed a "division by zero" error rarely occuring on freepct check for tables
++ added progInfo footer with link to web site of IzzySoft (e.g. for retrieving
+  updates of this little tool ;)
++ added instance startup time and uptime to Common Instance Information
+! fixed "invalid number error" occuring when sizes in the DB haven't been
+  declared in bytes but as e.g. "5M"
+! in datafile statistics, when a datafile was filled more than 99.99%, the
+  pctused column got the value '######' for this row
 
-v0.1.8 (10.12.2003)
+v0.1.0 (19.01.2003)
 -------------------
-+ restricted the count of tables with less than 10% free blocks (reported at
-  the very end of the page) to TOP_N_TABLES (new config var)
-+ added enqueue stats
-+ added enqueue type descs plus tuning hints
-+ outsourced long hints/descs to external help files via popup on demand
-+ updated installation instructions in doc/readme.txt
-
-v0.1.9 (17.12.2003)
--------------------
-+ added own help icon (used one from the Apache installation up to now)
-+ made the description for row migration more verbose (don't worry, it is
-  in an external help file now ;)
-+ added to the description for the wait events "latch free", "buffer busy
-  waits", "enqueue", "free buffer waits", latch waits, "log buffer space",
-  and "log file switch"
-
-v0.2.0 (05.01.2004)
--------------------
-+ more detailed hints on the enqueue wait event
-* some cosmetical changes to some of the external help files (formating issues)
-+ more details on the log buffer size
-+ advices for rollback segments plus external help
-+ adding external help file on user information
-* some cosmetical changes (text formatting)
-
-v0.2.1 (13.01.2004)
--------------------
-+ added hints on ASSM to avoid freelist contention (buffer busy waits)
-* some formatting issues
-+ added (external) help on row locks
-* buffer pool stats table is now only drawn if data exist for it
-+ added link to advices to page head (if exists)
-
-v0.2.2 (15.01.2004)
--------------------
-+ more details on row locks and I/O wait objects
-+ more details on avoiding buffer busy waits
-+ added PctWait and PctFailed to enqueue waits (Oracle 9+)
-+ added profile and initial resource group to user info
-+ added reports on resource management
-
-v0.2.3 (20.01.2004)
--------------------
-+ added extended resource plan report for Oracle 9i
-* made resource plan report an optional element (see the "config" file)
-+ added TableSpace Quotas (optional)
-+ added DBA Profiles (optional)
-+ enhanced command line syntax: now you can override some of the default
-  options from the "config" file (e.g. user, passwd) at the command line
-  (thanx to Manuel Soriano for this suggestion incl. code)
-
-v0.2.4 (23.01.2004)
--------------------
-* Modularization: made some blocks optional (see the "config" file):
-  Rollback Segment Stats, Data Files, Memory Values, common Pool information,
-  Enqueue Waits
-+ new command line parameter "-c" to specify alternative config file
-* some code cleanup
-
-v0.2.5 (29.01.2004)
--------------------
-+ added documentation (HTML)
-* sometimes the "Wait Objects" table was created empty (Oracle removed the
-  entries between the first check [for the link in the header] and creation
-  of the table). Put a note in instead in these cases ;)
-+ added some more details on the buffer waits, plus the optional buffer waits
-  block
-+ added "Chained-Fetch-Ratio" to "Sysstat Info" block
-+ added block on "FreeList Contention"
-
-v0.2.6 (04.02.2004)
--------------------
-+ "Go4Colors Mode": where we can clearly identify problems (e.g. by ratios),
-  the concerning values are now highlighted with red (alert) or yellow (warning)
-  background color of the table cell
-! report.sh was broken for Oracle versions <9
-* some formatting on the help files plus more detailled information on
-  cursor_sharing
-+ write enabled data files that have not AUTOEXTEND ON set and filled more than
-  85% / 95% are now also highlighted with Go4Colors
-
-v0.2.7 (10.02.2004)
--------------------
-+ in the TS Quotas block we now highlight rows (quotas) with non-existing
-  tablespaces: these emerge when dropping a tablespace where quotas where
-  explicitely given by the "ALTER USER...QUOTA..." command, and the quotas
-  would automatically activated if a tablespace with that name would be created
-* No more empty TSQuotas table (hopefully)
-! some blocks have not been closed correctly when an error occured
-
-v0.2.8 (16.03.2004)
--------------------
-+ added closer information on "Go4Colors" to the HTML documentation
-+ made the remaining values for warnings/alerts (Go4Colors) configurable
-* some updates to the (HTML) documentation
-* some formatting (stylesheet) updates
-
-v0.2.9 (23.03.2004)
--------------------
-+ enhanced formatting of time and size values throughout the report
-* outsourced the formatting functions (for common use with OSPRep)
-* Modularization: Wait Events (v$system_event), SYSSTAT Info, User Info,
-  DBLinks, Invalid Objects, Miscellaneous segment
-+ added alternative StyleSheet: iceage.css
-
-v0.3.0 (30.04.2004)
--------------------
-! report was broken again for Oracle < v9 due to use of CASE (introduced
-  with Oracle v9)
-* some formatting updates (numbers not displayed correctly when value to high)
-
-v0.3.1
--------------------
-+ script now accepts the "-r" command line parameter to override the report dir
+* initial version (first release)
