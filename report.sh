@@ -20,7 +20,7 @@ if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
   echo ============================================================================
-  echo "report.sh    (c) 2003 by Itzchak Rehberg & IzzySoft (izzysoft@buntspecht.de)"
+  echo "report.sh       (c) 2003 by Itzchak Rehberg & IzzySoft (devel@izzysoft.de)"
   echo ----------------------------------------------------------------------------
   echo This script is intended to generate a HTML report for a given instance. Look
   echo inside the script header for closer details, and check for the configuration
@@ -50,6 +50,7 @@ if [ -n "$2" ]; then
 fi
 
 # ====================================================[ Script starts here ]===
+version='0.1.1'
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 $ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
@@ -530,6 +531,11 @@ BEGIN
   dbms_output.put_line(L_LINE);
 
   -- Page Ending
+  L_LINE := '<HR>'||CHR(10)||TABLE_OPEN||CHR(10)||
+            '<TR><TD><FONT SIZE="-2">OraRep v$version &copy; 2003 by Itzchak Rehberg '||
+            '&amp; <A HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft</A></FONT></TD></TR>';
+  dbms_output.put_line(L_LINE);
+  dbms_output.put_line(TABLE_CLOSE);
   L_LINE := '</BODY></HTML>'||CHR(10);
   dbms_output.put_line(L_LINE);
 
