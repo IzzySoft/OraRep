@@ -8,6 +8,7 @@ BEGIN
   MK_INVALIDS := have_invalids();
   MK_TABSCAN  := have_tablescans();
   MK_EXTNEED  := have_extentneed();
+  MK_BUFFP    := have_buffp_stats();
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
@@ -39,8 +40,11 @@ BEGIN
             '[ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> '||
             '] [ <A HREF="#memory">Memory</A> ]';
   print(L_LINE);
-  L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A>'||
-            ' ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]';
+  L_LINE :=   ' [ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ]';
+  IF MK_BUFFP THEN
+    L_LINE := L_LINE||' [ <A HREF="#bufferpool">Buffer Pool</A> ]';
+  END IF;
+  L_LINE := L_LINE||' [ <A HREF="#sysstat">SysStat</A> ]';
   print(L_LINE);
   L_LINE := ' [ <A HREF="#events">Events</A> ]';
   IF MK_WAITOBJ
@@ -284,23 +288,25 @@ BEGIN
   print(L_LINE);
 
   -- Buffer Pool Statistics
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="bufferpool">Buffer Pool Statistics</A></TH></TR>';
-  print(L_LINE);
-  L_LINE := ' <TR><TD COLSPAN="5">Ratio = physical_reads/(consistent_gets+db_block_gets)'||
-            ' should be &lt; 0.9:';
-  print(L_LINE);
-  L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">'||
-            'physical_reads</TH><TH CLASS="th_sub">consistent_gets</TH>'||
-            '<TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>';
-  print(L_LINE);
-  FOR Rec_BUF IN C_BUF LOOP
-    L_LINE := ' <TR><TD>'||Rec_BUF.name||'</TD><TD ALIGN="right">'||
-              Rec_BUF.physical_reads||'</TD><TD ALIGN="right">'||
-              Rec_BUF.consistent_gets||'</TD><TD ALIGN="right">'||
-              Rec_BUF.db_block_gets||'</TD><TD ALIGN="right">'||
-              Rec_BUF.ratio||'</TD></TR>';
+  IF MK_BUFFP THEN
+    L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="bufferpool">Buffer Pool Statistics</A></TH></TR>';
     print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
+    L_LINE := ' <TR><TD COLSPAN="5">Ratio = physical_reads/(consistent_gets+db_block_gets)'||
+              ' should be &lt; 0.9:';
+    print(L_LINE);
+    L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">'||
+              'physical_reads</TH><TH CLASS="th_sub">consistent_gets</TH>'||
+              '<TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>';
+    print(L_LINE);
+    FOR Rec_BUF IN C_BUF LOOP
+      L_LINE := ' <TR><TD>'||Rec_BUF.name||'</TD><TD ALIGN="right">'||
+                Rec_BUF.physical_reads||'</TD><TD ALIGN="right">'||
+                Rec_BUF.consistent_gets||'</TD><TD ALIGN="right">'||
+                Rec_BUF.db_block_gets||'</TD><TD ALIGN="right">'||
+                Rec_BUF.ratio||'</TD></TR>';
+      print(L_LINE);
+    END LOOP;
+    L_LINE := TABLE_CLOSE;
+    print(L_LINE);
+  END IF;
   get_dbc_advice();

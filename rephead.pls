@@ -11,6 +11,7 @@ DECLARE
   MK_INVALIDS BOOLEAN;
   MK_TABSCAN BOOLEAN;
   MK_EXTNEED BOOLEAN;
+  MK_BUFFP BOOLEAN;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -249,6 +250,11 @@ DECLARE
   FUNCTION have_extentneed RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx ('dba_tables','owner','0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)');
+    END;
+
+  FUNCTION have_buffp_stats RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx('v$buffer_pool_statistics','name','consistent_gets+db_block_gets>0');
     END;
 
   -- recommend more rollback segments?

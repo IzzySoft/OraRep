@@ -97,3 +97,4 @@ v0.2.1
 + added hints on ASSM to avoid freelist contention (buffer busy waits)
 * some formatting issues
 + added (external) help on row locks
+* buffer pool stats table is now only drawn if data exist for it
