@@ -81,4 +81,6 @@ v0.1.9
 + added own help icon (used one from the Apache installation up to now)
 + made the description for row migration more verbose (don't worry, it is
   in an external help file now ;)
-+ added to the description for the "latch free" wait event
++ added to the description for the wait events "latch free", "buffer busy
+  waits", "enqueue", "free buffer waits", latch waits, "log buffer space",
+  and "log file switch"
