@@ -182,6 +182,17 @@ DECLARE
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
     END;
 
+  PROCEDURE poolsize(aval IN VARCHAR2, rval OUT VARCHAR2) IS
+    BEGIN
+      SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+             0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+        INTO rval
+	FROM v\$parameter
+       WHERE name=aval;
+    EXCEPTION
+      WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
+    END;
+
   PROCEDURE print(line IN VARCHAR2) IS
     BEGIN
       dbms_output.put_line(line);
@@ -353,30 +364,18 @@ BEGIN
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="poolsize">Pool Sizes</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Space</TH></TR>';
   print(L_LINE);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='shared_pool_size';
+  poolsize('shared_pool_size',S1);
   L_LINE := ' <TR><TD>Shared_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='shared_pool_reserved_size';
+  poolsize('shared_pool_reserved_size',S1);
   L_LINE := L_LINE||' <TR><TD>Shared_Pool_Reserved_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='large_pool_size';
+  poolsize('large_pool_size',S1);
   L_LINE := L_LINE||' <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
   print(L_LINE);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='java_pool_size';
+  poolsize('java_pool_size',S1);
   L_LINE := ' <TR><TD>Java_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='sort_area_size';
+  poolsize('sort_area_size',S1);
   L_LINE := L_LINE||' <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
-  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
-         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
-         INTO S1 FROM v\$parameter WHERE name='sort_area_retained_size';
+  poolsize('sort_area_retained_size',S1);
   L_LINE := L_LINE||' <TR><TD>Sort_Area_Retained_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
   print(L_LINE);
 
