@@ -73,3 +73,6 @@ v0.1.8
 + restricted the count of tables with less than 10% free blocks (reported at
   the very end of the page) to TOP_N_TABLES (new config var)
 + added enqueue stats
++ added enqueue type descs plus tuning hints
++ outsourced long hints/descs to external help files via popup on demand
++ updated installation instructions in doc/readme.txt
