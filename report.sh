@@ -112,7 +112,11 @@ DECLARE
     SELECT d.segment_name,d.status,to_char(r.rssize/1024,'99,999,999.00') rssize,
            to_char(nvl(r.optsize/1024,'0'),'99,999,999.00') optsize,
            to_char(r.hwmsize/1024,'99,999,999.00') hwmsize,r.xacts,
-           r.waits,r.shrinks,r.wraps,r.aveshrink,r.aveactive
+           to_char(r.waits,'9,999,990') waits,
+	   to_char(r.shrinks,'9,999,990') shrinks,
+	   to_char(r.wraps,'9,999,990') wraps,
+	   to_char(r.aveshrink,'9,999,999,990') aveshrink,
+	   to_char(r.aveactive,'9,999,999,990') aveactive
       FROM dba_rollback_segs d,v\$rollstat r
      WHERE d.segment_id=r.usn
      ORDER BY d.segment_name;
