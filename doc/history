@@ -58,8 +58,13 @@ v0.1.6 (27.11.2003)
 + updated desc for free buffer waits
 + separated the config from the script to ease updates
 
-v0.1.7
+v0.1.7 (03.12.2003)
 + make use of the much more detailed information on objects causing waits
   in Oracle 9 Release 2 -- for this, outsourced the block and did some ReOrg
 + added DB Cache advice (needs "db_cache_advice=ready" in the init.ora to
-  show results)
+  show results), Shared Pool Advice and PGA Target Advice (the latter two only
+  show results with Oracle 9 Release 2 and higher, since the views are not
+  available in earlier versions)
++ Supressed empty tables which sometimes appeared when no data available for
+  certain stats; the according link on top of the page is also removed in
+  these cases
