@@ -5,12 +5,12 @@
 </HEAD><BODY>
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD>
- <P>If you had many <I>db file scattered reads</I> above and now find some
+ <P>If you had many <CODE>db file * reads</CODE> above and now find some
   entries with segment type = table in here, these may need
   some|more|better|other indices. Use <I>Statspack</I> or <I>Oracle Enterprise
   Manager Diagnostics Pack</I> to find out more.</P>
- <P>Other things that may help to avoid some of the <I>db file * read</I> wait
-  events are:
+ <P>Other things that may help to avoid some of the <CODE>db file * read</CODE>
+  wait events are:
  <UL>
   <LI>Tune the SQL statements used by your applications and users (most
       important!)</LI>
