@@ -121,10 +121,16 @@ DECLARE
      WHERE d.segment_id=r.usn
      ORDER BY d.segment_name;
   CURSOR C_LIB IS
-    SELECT namespace,gets,pins,reloads,
+    SELECT namespace,
+           to_char(gets,'9,999,999,990') gets,
+	   to_char(pins,'9,999,999,990') pins,
+	   to_char(reloads,'9,999,999,990') reloads,
            to_char(gethitratio*100,'990.00') ratio FROM v\$librarycache;
   CURSOR C_ROW IS
-    SELECT parameter,gets,getmisses,to_char((getmisses/gets)*100,'990.00') ratio
+    SELECT parameter,
+           to_char(gets,'9,999,999,990') gets,
+	   to_char(getmisses,'9,999,999,990') getmisses,
+	   to_char((getmisses/gets)*100,'990.00') ratio
       FROM v\$rowcache WHERE gets>0;
   CURSOR C_MEM IS
     SELECT name,to_char(nvl(value,0)/1024,'999,999,990.00') value FROM v\$sga;
@@ -409,11 +415,11 @@ BEGIN
   L_LINE := ' <TR><TD COLSPAN="5">If one of the following conditions is <B><I>NOT</B></I> '||
             'met this indicates that SHARED_POOL_SIZE may have to be increased:';
   print(L_LINE);
-  L_LINE := ' <BR><LI>(reloads/pins)*100 < 1</LI><BR><LI>gethitratio > 0.9</LI></TD><TR>'||
+  L_LINE := ' <BR><LI>(reloads/pins)*100 < 1</LI><BR><LI>gethitratio > 90%</LI></TD><TR>'||
             ' <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>';
   print(L_LINE);
   L_LINE := ' <TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD>'||
-            '<TD CLASS="td_name">GetHitRatio</TD></TR>';
+            '<TD CLASS="td_name">GetHitRatio (%)</TD></TR>';
   print(L_LINE);
   FOR Rec_LIB IN C_LIB LOOP
     L_LINE := ' <TR><TD>'||Rec_LIB.namespace||'</TD><TD ALIGN="right">'||
