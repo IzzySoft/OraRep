@@ -70,6 +70,8 @@ MK_MEMVAL=0
 MK_POOL=1
 # Include the Buffer Ratios? [0|1]
 MK_BUFFRAT=1
+# Include the SysStat Info segment? [0|1]
+MK_SYSSTAT=1
 # Include the Selected WaitEvents segment? [0|1]
 MK_WTEVT=1
 # Include FreeListContention (possible affected tables)? [0|1]

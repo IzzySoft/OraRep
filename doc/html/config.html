@@ -144,6 +144,12 @@
            the "Selected Wait Events" block. You should activate this if you
            encounter many <code>buffer busy waits</code> and want to know what
            tuning actions are reasonable.</td></tr>
+   <tr><td class="td_name"><code>MK_SYSSTAT</code></td>
+       <td class="text">The "SYSSTAT Info" segment lists up some ratios calculated
+           from values of <code>v$sysstat</code> (as the name suggests), such as
+           the Chained-Fetch-Ratio and the percentage of disk sorts. Since this
+           gives you a general idea of the systems performance, it is recommended
+           to enable this segment.</td></tr>
    <tr><td class="td_name"><code>MK_WTEVT</code></td>
        <td class="text">The "Wait Events" segment created when this option is
            enabled displays selected wait events from <code>v$system_event</code>

@@ -17,6 +17,7 @@ BEGIN
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
   MK_BUFFRAT   := :MK_BUFFRAT;
+  MK_SYSSTAT   := :MK_SYSSTAT;
   MK_WTEVT     := :MK_WTEVT;
   MK_FLC       := :MK_FLC;
   MK_ENQ       := :MK_ENQ;
@@ -100,10 +101,18 @@ BEGIN
   IF MK_ADVICE THEN
     L_LINE := L_LINE||' [ <A HREF="#advices">Advices</A> ]';
   END IF;
-  L_LINE := L_LINE||' [ <A HREF="#sysstat">SysStat</A> ]';
-  print(L_LINE);
+  IF MK_SYSSTAT = 1 THEN
+    L_LINE := L_LINE||' [ <A HREF="#sysstat">SysStat</A> ]';
+  END IF;
+  IF LENGTH(L_LINE) > 0 THEN
+    print(L_LINE);
+  END IF;
 
-  L_LINE := ' [ <A HREF="#events">Events</A> ]';
+  IF MK_WTEVT = 1 THEN
+    L_LINE := ' [ <A HREF="#events">Events</A> ]';
+  ELSE
+    L_LINE := '';
+  END IF;
   IF MK_BUFFRAT = 1 THEN 
     L_LINE := L_LINE||' [ <A HREF="#buffwait">Buffer Waits</A> ]';
   END IF;
