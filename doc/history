@@ -104,3 +104,4 @@ v0.2.2
 + more details on row locks and I/O wait objects
 + more details on avoiding buffer busy waits
 + added PctWait and PctFailed to enqueue waits (Oracle 9+)
++ added profile and initial resource group to user info

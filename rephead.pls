@@ -26,7 +26,8 @@ DECLARE
     SELECT username,account_status,NVL(to_char(lock_date,'DD.MM.YYYY'),'-')
            locked,NVL(to_char(expiry_date,'DD.MM.YYYY'),'-') expires,
            default_tablespace dts,temporary_tablespace tts,
-           to_char(created,'DD.MM.YYYY') created
+           to_char(created,'DD.MM.YYYY') created,profile,
+           initial_rsrc_consumer_group resource_group
       FROM dba_users;
   CURSOR C_ADM IS
     SELECT grantee,admin_option FROM dba_role_privs WHERE granted_role='DBA';

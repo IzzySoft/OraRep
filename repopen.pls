@@ -92,7 +92,7 @@ BEGIN
   print('<HR>');
 
   -- User Information
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="7"><A NAME="users">User Information</A>'||
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="9"><A NAME="users">User Information</A>'||
             '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'userinfo'||CHR(39)||
 	    ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
 	    'VALIGN="middle"></A></TH></TR>';
@@ -101,13 +101,17 @@ BEGIN
             ' Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">';
   print(L_LINE);
   L_LINE := 'Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">'||
-            'Temporary TS</TH><TH CLASS="th_sub">Created</TH></TR>';
+            'Temporary TS</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">'||
+            'Profile</TH><TH CLASS="th_sub">Init.ResourceGroup</TH></TR>';
   print(L_LINE);
   FOR Rec_USER IN C_USER LOOP
     L_LINE := ' <TR><TD>'||Rec_USER.username||'</TD><TD>'||Rec_USER.account_status||
               '</TD><TD>'||Rec_USER.locked||'</TD><TD>'||Rec_USER.expires||
               '</TD><TD>'||Rec_USER.dts||'</TD><TD>'||Rec_USER.tts||'</TD><TD>'||
-              Rec_USER.created||'</TD></TR>';
+              Rec_USER.created;
+    print(L_LINE);
+    L_LINE := '</TD><TD>'||Rec_USER.profile||'</TD><TD>'||Rec_USER.resource_group||
+              '</TD></TR>';
     print(L_LINE);
   END LOOP;
   L_LINE := TABLE_CLOSE;
