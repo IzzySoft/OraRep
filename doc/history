@@ -85,10 +85,13 @@ v0.1.9 (17.12.2003)
   waits", "enqueue", "free buffer waits", latch waits, "log buffer space",
   and "log file switch"
 
-v0.2.0
+v0.2.0 (05.01.2004)
 + more detailed hints on the enqueue wait event
 * some cosmetical changes to some of the external help files (formating issues)
 + more details on the log buffer size
 + advices for rollback segments plus external help
 + adding external help file on user information
 * some cosmetical changes (text formatting)
+
+v0.2.1
++ added hints on ASSM to avoid freelist contention (buffer busy waits)

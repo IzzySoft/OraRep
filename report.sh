@@ -19,7 +19,7 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.2.0'
+version='0.2.1'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
