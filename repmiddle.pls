@@ -160,7 +160,9 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
+  L_LINE := '</TD><TD>Higher values for <A HREF="JavaScript:popup('||CHR(39)||
+            'logfileswitch'||CHR(39)||')">this event</A> indicate that either '||
+            'your ReDo logs are too small or there are not enough log file groups</TD></TR>';
   print(L_LINE);
   get_wait('log file switch completion',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch completion</TD><TD ALIGN="right">'||S1||

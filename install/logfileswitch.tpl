@@ -1,0 +1,35 @@
+<HTML><HEAD>
+ <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15"/>
+ <LINK REL='stylesheet' TYPE='text/css' HREF='../{css}'/>
+ <TITLE>OraHelp: Log File Switch</TITLE>
+</HEAD><BODY>
+
+<TABLE WIDTH="95%" ALIGN="center"><TR><TD>
+ <H3>What does this event mean?</H3>
+ <P>In both events, <CODE>log file switch (archiving needed)<CODE> and
+    <CODE>log file switch (checkpoint incomplete)<CODE>, the LGWR is unable
+    to switch into the next online redo log, and all the commit requests wait
+    for this event.</P>
+ <H3>What actions can be taken?</H3>
+ <P>For the log file switch (archiving needed) event, examine why the archiver
+    is unable to archive the logs in a timely fashion. It could be due to the
+    following:<UL>
+    <LI>Archive destination is running out of free space.</LI>
+    <LI>Archiver is not able to read redo logs fast enough (contention with
+        the LGWR).</LI>
+    <LI>Archiver is not able to write fast enough (contention on the archive
+        destination, or not enough ARCH processes).</LI></UL>
+ <P>Depending on the nature of bottleneck, you might need to redistribute I/O
+    or add more space to the archive destination to alleviate the problem. For
+    the log file switch (checkpoint incomplete) event:<UL>
+    <LI>Check if DBWR is slow, possibly due to an overloaded or slow I/O
+        system. Check the DBWR write times, check the I/O system, and
+        distribute I/O if necessary.</LI>
+    <LI>Check if there are too few, or too small redo logs. If you have a few
+        and/or small redo logs (for example two x 100k logs), and your system
+        produces enough redo to cycle through all of the logs before DBWR has
+        been able to complete the checkpoint, then increase the size and/or
+        number of redo logs.</LI></UL></P>
+</TD></TR></TABLE>
+
+</BODY></HTML>
