@@ -145,3 +145,5 @@ v0.2.5
 * sometimes the "Wait Objects" table was created empty (Oracle removed the
   entries between the first check [for the link in the header] and creation
   of the table). Put a note in instead in these cases ;)
++ added some more details on the buffer waits, plus the optional buffer waits
+  block
