@@ -90,7 +90,10 @@ DECLARE
     SELECT distinct t.name tablespace,d.name datafile,status,enabled,
            to_char(d.bytes/1024,'99,999,999.00') kbytes,
            to_char(free.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
+           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,
+	   to_char(phyrds,'9,999,999,990') phyrds,
+           to_char(phywrts,'9,999,999,990') phywrts,
+	   to_char(avgiotim,'9,999,999,990') avgiotim
       FROM v\$filestat,v\$datafile d,v\$tablespace t,dba_free_space f,
            (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
      WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#
@@ -98,7 +101,10 @@ DECLARE
     SELECT distinct t.name tablespace,d.name datafile,status,enabled,
            to_char(d.bytes/1024,'99,999,999.00') kbytes,
            to_char(free.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
+           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,
+	   to_char(phyrds,'9,999,999,990') phyrds,
+           to_char(phywrts,'9,999,999,990') phywrts,
+	   to_char(avgiotim,'9,999,999,990') avgiotim
       FROM v\$filestat,v\$tempfile d,v\$tablespace t,dba_free_space f,
            (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
      WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
