@@ -60,6 +60,7 @@
 		  '</TR>';
         print(L_LINE);
 	print('</TABLE></TD></TR>'||TABLE_CLOSE);
-      WHEN OTHERS THEN NULL;
+      WHEN OTHERS THEN
+	print('</TABLE></TD></TR>'||TABLE_CLOSE);
     END;
 

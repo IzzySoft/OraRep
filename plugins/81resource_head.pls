@@ -20,7 +20,7 @@
       END LOOP;
       print(TABLE_CLOSE);
     EXCEPTION
-      WHEN OTHERS THEN NULL;
+      WHEN OTHERS THEN print(TABLE_CLOSE);
     END;
 
   PROCEDURE rsrc_privs IS
@@ -43,7 +43,7 @@
       END LOOP;
       print(TABLE_CLOSE);
     EXCEPTION
-      WHEN OTHERS THEN NULL;
+      WHEN OTHERS THEN print(TABLE_CLOSE);
     END;
 
   PROCEDURE rsrc_directives IS
@@ -92,5 +92,5 @@
       END LOOP;
       print(TABLE_CLOSE);
     EXCEPTION
-      WHEN OTHERS THEN NULL;
+      WHEN OTHERS THEN print(TABLE_CLOSE);
     END;

@@ -7,6 +7,11 @@ BEGIN
   MK_RSRC      := :MK_RSRC;
   MK_DBAPROF   := :MK_DBAPROF;
   MK_TSQUOT    := :MK_TSQUOT;
+  IF MK_TSQUOT = 1 THEN
+    IF NOT have_quotas() THEN
+      MK_TSQUOT := 0;
+    END IF;
+  END IF;
   MK_FILES     := :MK_FILES;
   MK_RBS       := :MK_RBS;
   MK_MEMVAL    := :MK_MEMVAL;

@@ -31,6 +31,6 @@
       END LOOP;
       print(TABLE_CLOSE);
     EXCEPTION
-      WHEN OTHERS THEN NULL;
+      WHEN OTHERS THEN print(TABLE_CLOSE);
     END;
 

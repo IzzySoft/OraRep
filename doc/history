@@ -167,3 +167,5 @@ v0.2.7
   tablespaces: these emerge when dropping a tablespace where quotas where
   explicitely given by the "ALTER USER...QUOTA..." command, and the quotas
   would automatically activated if a tablespace with that name would be created
+* No more empty TSQuotas table (hopefully)
+! some blocks have not been closed correctly when an error occured

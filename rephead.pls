@@ -205,6 +205,12 @@ DECLARE
       RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
     END;
 
+  FUNCTION have_quotas RETURN BOOLEAN IS
+    CI NUMBER;
+    BEGIN
+      RETURN have_xxx('dba_ts_quotas','*','1=1');
+    END;
+
   FUNCTION str_gt(str IN VARCHAR2, num IN NUMBER) RETURN BOOLEAN IS
     BEGIN
       RETURN NVL(TO_NUMBER(str,'999,999,999,999,999.99'),0)/UTH > num;

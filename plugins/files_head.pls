@@ -70,7 +70,6 @@
       END LOOP;
       print(TABLE_CLOSE);
     EXCEPTION
-      WHEN OTHERS THEN print ('<B>Error in Rec_FILE ('||SQLERRM||')</B><BR>');
-      -- NULL;
+      WHEN OTHERS THEN print(TABLE_CLOSE);
     END;
 
