@@ -2,7 +2,7 @@
 # $Id$
 #
 # =============================================================================
-# Simple Database Analysis Report (c) 2003 by IzzySoft (izzysoft@buntspecht.de)
+# Simple Database Analysis Report      (c) 2003 by IzzySoft (devel@izzysoft.de)
 # -----------------------------------------------------------------------------
 # This report script creates a HTML document containing an overview on the
 # database, whichs SID you either provide at the command line or configure it
@@ -14,7 +14,10 @@
 # to the expensive AddOns available at Oracle. Any hints on errors or bugs as
 # well as recommendations for additions are always welcome.
 #                                                              Itzchak Rehberg
-#
+# -----------------------------------------------------------------------------
+# Don't edit this file (at least not if you don't know what it's all about).
+# If you look for the configuration options, this is the wrong place - they
+# are kept in the file "config" in the same directory as this script resides.
 #
 version='0.1.6'
 if [ -z "$1" ]; then
@@ -32,17 +35,8 @@ if [ -z "$1" ]; then
   echo
   exit 1
 fi
-
-# =================================================[ Configuration Section ]===
-# SID of the database to analyse
-export ORACLE_SID=$1
-# in which directory should the report ($ORACLE_SID.html) be placed
-REPDIR=/var/www/html/reports
-# StyleSheet to use
-CSS=../main.css
-# login information
-user=sys
-password="pyha#"
+BINDIR=${0%/*}
+. $BINDIR/config $*
 
 # If called from another script, we may have to change to another directory
 # before generating the reports

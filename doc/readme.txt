@@ -50,9 +50,9 @@ than it does report :-)
 ---------------
 
 Just copy all files from the root directory of this archive to a suitable
-place and adjust the configuration in the head of the script to reflect your
-settings. Place the main.css file from the reports/ sub directory in your web
-tree at the location you configured within the script.
+place and adjust the configuration (to be found in the file "config") to
+reflect your settings. Place the main.css file from the reports/ sub directory
+in your web tree at the location you configured within the config file.
 To run the script, start report.sh - calling it with no parameters tells
 you its syntax. It will run with just giving it the ORACLE_SID of the database
 to report on as only parameter - provided, your Oracle environment is set up
