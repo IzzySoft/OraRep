@@ -27,6 +27,10 @@ BEGIN
   MK_ADVICE   := have_advice();
   TPH_NOLOG   := :TPH_NOLOG;
   WPH_NOLOG   := :WPH_NOLOG;
+  WR_BUFF     := :WR_BUFF;
+  AR_BUFF     := :AR_BUFF;
+  WR_FILEUSED := :WR_FILEUSED;
+  AR_FILEUSED := :AR_FILEUSED;
   IF MK_ENQ = 1 THEN
     MK_ENQS := have_enqs();
   ELSE

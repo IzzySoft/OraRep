@@ -88,6 +88,18 @@
        <td class="text">Similiar to the idea of <code>TPH_NOLOG</code> above,
            this value is not used for timeouts but for the total waits. I.e.,
            the value specified here should be higher than the one above.</td></tr>
+   <tr><td class="td_name"><code>WR_BUFF</code></td>
+       <td class="text" ROWSPAN="2">Issue a warning when the Buffer Pool Ratio
+           (see "Buffer Pool Statistics" section of the report) exceed the
+           <code>WR_BUFF</code>, and an alert if it exceeds the <code>AR_BUFF</code>
+           value.</td></tr>
+   <tr><td class="td_name"><code>AR_BUFF</code></td></tr>
+   <tr><td class="td_name"><code>WR_FILEUSED</code></td>
+       <td class="text" ROWSPAN="2">For a datafile having <code>auto extend</code>
+           turned off, issue a warning when more than <code>WR_FILEUSED</code> %
+           and an alert when more than <code>AR_FILEUSED</code> % of the file are
+           in use (see the "Data Files" section of the report).</td></tr>
+   <tr><td class="td_name"><code>AR_FILEUSED</code></td></tr>
    <tr><td class="td_name" align="center" COLSPAN="2">SQL</td></tr>
    <tr><td class="td_name"><code>TOP_N_WAITS</code></td>
        <td class="text" rowspan="2">How many items to list up in the "Top N"

@@ -40,6 +40,13 @@ CSS=../main.css
 # No logfile available to switch to
 TPH_NOLOG=5/6
 WPH_NOLOG=5.5
+# Ratios: WR_* is the Warning ratio, AR_* the Alert ratio.
+# Buffer Pool Ratio
+WR_BUFF=0.7
+AR_BUFF=0.9
+# non-autoextensible datafile filled x %
+WR_FILEUSED=85
+AR_FILEUSED=95
 
 # -------------------------------------------------------------------[ SQL ]---
 # Top settings: Display Top N Statements
@@ -60,7 +67,7 @@ MK_RBS=0
 # Include the "Memory Values" block? [0|1]
 MK_MEMVAL=0
 # Include Common Pool Stats block? [0|1]
-MK_POOL=0
+MK_POOL=1
 # Include the Buffer Ratios? [0|1]
 MK_BUFFRAT=1
 # Include FreeListContention (possible affected tables)? [0|1]

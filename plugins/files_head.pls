@@ -11,8 +11,8 @@
 	     to_char(avgiotim,'9,999,999,990') avgiotim,
 	     decode(instr(d.enabled,'WRITE'),0,'',
 	      decode(df.autoextensible,'YES','',
-	       decode(SIGN(85-(100*(1-(free.bytes/d.bytes)))),
-	              1,'',DECODE(SIGN(95-(100*(1-(free.bytes/d.bytes)))),
+	       decode(SIGN(WR_FILEUSED-(100*(1-(free.bytes/d.bytes)))),
+	              1,'',DECODE(SIGN(AR_FILEUSED-(100*(1-(free.bytes/d.bytes)))),
 		      1,' CLASS="warn"',' CLASS="alert"')))) full
         FROM v$filestat,v$datafile d,v$tablespace t,dba_free_space f,
              (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free,
@@ -29,8 +29,8 @@
 	     to_char(avgiotim,'9,999,999,990') avgiotim,
 	     decode(instr(d.enabled,'WRITE'),0,'',
 	      decode(df.autoextensible,'YES','',
-	       decode(SIGN(85-(100*(1-(free.bytes/d.bytes)))),
-	              1,'',DECODE(SIGN(95-(100*(1-(free.bytes/d.bytes)))),
+	       decode(SIGN(WR_FILEUSED-(100*(1-(free.bytes/d.bytes)))),
+	              1,'',DECODE(SIGN(AR_FILEUSED-(100*(1-(free.bytes/d.bytes)))),
 		      1,' CLASS="warn"',' CLASS="alert"')))) full
         FROM v$filestat,v$tempfile d,v$tablespace t,dba_free_space f,
              (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free,
@@ -43,7 +43,7 @@
                 '<TR><TD ALIGN="center" COLSPAN="10">Alerts and warnings '||
                 '(highlighted table cells) indicate a write enabled ';
       print(L_LINE);
-      L_LINE := 'non-autoextensible data file filled &gt; 85% / 95%</TD></TR>'||CHR(10)||
+      L_LINE := 'non-autoextensible data file filled &gt; '||WR_FILEUSED||'% / '||AR_FILEUSED||'%</TD></TR>'||CHR(10)||
                 ' <TR><TH CLASS="th_sub">Tablespace</TH><TH CLASS="th_sub">'||
                 'Datafile</TH><TH CLASS="th_sub">Status</TH><TH CLASS="th_sub">';
       print(L_LINE);

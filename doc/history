@@ -173,3 +173,4 @@ v0.2.7 (10.02.2004)
 v0.2.8
 -------------------
 + added closer information on "Go4Colors" to the HTML documentation
++ made the remaining values for warnings/alerts (Go4Colors) configurable

@@ -119,9 +119,9 @@
                   '<TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>';
         print(L_LINE);
         FOR Rec_BUF IN C_BUF LOOP
-	  IF Rec_BUF.numratio > 0.9 THEN
+	  IF Rec_BUF.numratio > AR_BUFF THEN
 	    S1 := ' CLASS="alert"';
-	  ELSIF Rec_BUF.numratio > 0.7 THEN
+	  ELSIF Rec_BUF.numratio > WR_BUFF THEN
 	    S1 := ' CLASS="warn"';
 	  ELSE
 	    S1 := '';
