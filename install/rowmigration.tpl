@@ -27,7 +27,7 @@
   described above: the updated row may have to be migrated.</P>
  <H3>So how to fix this?</H3>
   <P>For this, you first have to analyse your tables:
-  <TABLE ALIGN="center"><TR><TD>
+  <TABLE ALIGN="center" STYLE="border:0"><TR><TD>
   <DIV CLASS="code" STYLE="width:42em">
   ANALYZE TABLE tablename COMPUTE STATISTICS;<BR>
   SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='tablename';

@@ -19,10 +19,10 @@
   adjustment.</P>
  <TABLE WIDTH="95%" ALIGN="center" BORDER="1">
    <TR><TD CLASS="td_name" ROWSPAN="2">Recommended values:</TD>
-       <TD CLASS="text">[# of CPUs] &lt;= <code>INI_TRANS</code> &lt; 100</TD></TR>
-   <TR><TD><code>MAX_TRANS</code> &lt; 100</TD>
+       <TD CLASS="inner" STYLE="text-align:justify">[# of CPUs] &lt;= <code>INI_TRANS</code> &lt; 100</TD></TR>
+   <TR><TD CLASS="inner" STYLE="text-align:justify"><code>MAX_TRANS</code> &lt; 100</TD>
    <TR><TD CLASS="td_name">Side-Effects:</TD>
-       <TD CLASS="text">If the value for either of these parameters is too high,
+       <TD CLASS="inner" STYLE="text-align:justify">If the value for either of these parameters is too high,
            Oracle will use more space for the transaction layer block header
 	   and less for the data layer variable header; this can result in more
 	   I/O.</TD></TR>

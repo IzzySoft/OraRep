@@ -24,8 +24,8 @@
   <P>If this event occurs frequently, then examine the session waits for DBWR
    to see whether there is anything delaying DBWR:</P>
  <TABLE ALIGN="center" WIDTH="95%" BORDER="1">
-  <TR><TH>Reason</TH><TH>Action</TH></TR>
-  <TR><TD>Writes</TD><TD CLASS="text">If it is waiting for writes, then
+  <TR><TH CLASS="th_sub">Reason</TH><TH CLASS="th_sub">Action</TH></TR>
+  <TR><TD CLASS="inner">Writes</TD><TD CLASS="inner" STYLE="text-align:justify">If it is waiting for writes, then
       determine what is delaying the writes and fix it. Check the following:<UL>
        <LI>Examine <CODE>V$FILESTAT</CODE> to see where most of the writes
            are happening</LI>
@@ -37,12 +37,12 @@
        <LI>Spread the I/O activity across large number of spindles (disks)
            and controllers.</LI>
       </UL></TD></TR>
-  <TR><TD>Cache is too small</TD><TD CLASS="text">It is possible DBWR is very
+  <TR><TD CLASS="inner">Cache is too small</TD><TD CLASS="inner" STYLE="text-align:justify">It is possible DBWR is very
       active because of the cache is too small. Investigate whether this is a
       probably cause by looking to see if the buffer cache hit ratio is low.
       Also use the <CODE>V$DB_CACHE_ADVICE</CODE> view to determine whether a
       larger cache size would be advantageous.</TD></TR>
-  <TR><TD>Cache is too big</TD><TD CLASS="text">If the cache size is adequate
+  <TR><TD CLASS="inner">Cache is too big</TD><TD CLASS="inner" STYLE="text-align:justify">If the cache size is adequate
       and the I/O is already evenly spread, then you can potentially modify the
       behaviour of DBWR by using asynchronous I/O or by using multiple database
       writers.<BR>

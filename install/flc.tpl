@@ -42,15 +42,15 @@
  Following is an explanation of the columns:</P>
  <TABLE ALIGN="center" BORDER="1">
   <TR><TH CLASS="th_sub">Column</TH><TH CLASS="th_sub">Description</TH></TR>
-  <TR><TD>Owner</TD><TD>The schema this table belongs to</TD></TR>
-  <TR><TD>Table</TD><TD>Name of the table</TD></TR>
-  <TR><TD>AvgRowLen</TD><TD>Average Size of each table row (in bytes)</TD></TR>
-  <TR><TD>PctUsed</TD><TD ROWSPAN="2">Table settings, adjustable via the
+  <TR><TD CLASS="inner">Owner</TD><TD CLASS="inner">The schema this table belongs to</TD></TR>
+  <TR><TD CLASS="inner">Table</TD><TD CLASS="inner">Name of the table</TD></TR>
+  <TR><TD CLASS="inner">AvgRowLen</TD><TD CLASS="inner">Average Size of each table row (in bytes)</TD></TR>
+  <TR><TD CLASS="inner">PctUsed</TD><TD ROWSPAN="2" CLASS="inner">Table settings, adjustable via the
       <CODE>ALTER TABLE</CODE> command</TD></TR>
-  <TR><TD>PctFree</TD></TR>
-  <TR><TD>FreeLists</TD><TD>Available freelists for this table</TD></TR>
-  <TR><TD>AvgFreeSpace</TD><TD>Average size (bytes) available per block</TD></TR>
-  <TR><TD>BlockSize</TD><TD>Block size used for the tablespace</TD></TR>
+  <TR><TD CLASS="inner">PctFree</TD></TR>
+  <TR><TD CLASS="inner">FreeLists</TD><TD CLASS="inner">Available freelists for this table</TD></TR>
+  <TR><TD CLASS="inner">AvgFreeSpace</TD><TD CLASS="inner">Average size (bytes) available per block</TD></TR>
+  <TR><TD CLASS="inner">BlockSize</TD><TD CLASS="inner">Block size used for the tablespace</TD></TR>
  </TABLE>
 
 <H3>The result set</H3>

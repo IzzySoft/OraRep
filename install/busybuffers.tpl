@@ -24,11 +24,11 @@
 
  <H3>What types of buffers is waited for?</H3>
  <TABLE ALIGN="center" BORDER="1" WIDTH="90%">
-  <TR><TH>Block</TH><TH>Description</TH></TR>
-  <TR><TD>segment header</TD><TD CLASS="text">The problem is probably a freelist
+  <TR><TH CLASS="th_sub">Block</TH><TH CLASS="th_sub">Description</TH></TR>
+  <TR><TD CLASS="inner">segment header</TD><TD CLASS="inner" STYLE="text-align:justify">The problem is probably a freelist
       contention. Use freelists or increase the amount of freelists. Use
       freelist groups (this may have markable effects even in single instances).</TD></TR>
-  <TR><TD>data block</TD><TD CLASS="text">Increasing the size of the
+  <TR><TD CLASS="inner">data block</TD><TD CLASS="inner" STYLE="text-align:justify">Increasing the size of the
       <CODE>db_buffer_cache</CODE> can help to reduce these waits; but this can
       also point to freelist contention:<BR>Change <CODE>PCTFREE</CODE> and/or
       <CODE>PCTUSED</CODE>: Check, whether there are indices where many
@@ -39,15 +39,15 @@
       <CODE>PCT_USED</CODE>, turn the <I>MK_FLC</I> option on in your
       <CODE>config</CODE> file and then refer to the <A HREF="flc.html">FreeList
       Contention</A> block of the report.</TD></TR>
-  <TR><TD>undo header</TD><TD CLASS="text">If you don't use Undo TableSpaces,
+  <TR><TD CLASS="inner">undo header</TD><TD CLASS="inner" STYLE="text-align:justify">If you don't use Undo TableSpaces,
       you probably have too few rollback segments. In this case, add more
       rollback segments and/or increase the number of transactions per rollback
       segment.</TD></TR>
-  <TR><TD>undo block</TD><TD CLASS="text">This may also point to to few rollback
+  <TR><TD CLASS="inner">undo block</TD><TD CLASS="inner" STYLE="text-align:justify">This may also point to to few rollback
       segments (see "undo header" above), but as well to their size: you may
       want to increase the size of the rollback segments. For "Parallel Server",
       you can also define more PCM locks in &lt;Parameter:GC_ROLLBACK_LOCKS&gt;</TD></TR>
-  <TR><TD>free list</TD><TD CLASS="text">Add more freelists or increase the
+  <TR><TD CLASS="inner">free list</TD><TD CLASS="inner" STYLE="text-align:justify">Add more freelists or increase the
       number of free lists. For "Parallel Server", make sure that each instance
       has its own freelist group(s).</TD></TR>
  </TABLE>
@@ -61,7 +61,7 @@
   Segment Space Management. This is defined at tablespace level on creation of
   the same - which means, you cannot change it for existing tablespaces but
   must create a new tablespace and move all objects there:</P>
-  <TABLE ALIGN="center"><TR><TD>
+  <TABLE ALIGN="center" STYLE="border:0"><TR><TD>
     <DIV CLASS="code" STYLE="width:28em">
     CREATE TABLESPACE index01<BR>
     DATAFILE '/disk1/oraData/index01.dbf' SIZE 750M<BR>
@@ -77,7 +77,7 @@
    <CODE>idxmove.sh</CODE> script from the DBAHelper archive to move all objects
    to this tablespace. When those scripts successfully finished their work,
    check for objects that may have remained in the original tablespace:</P>
-  <TABLE ALIGN="center"><TR><TD>
+  <TABLE ALIGN="center" STYLE="border:0"><TR><TD>
     <DIV CLASS="code" STYLE="width:26em">
     SELECT *<BR>
     FROM dba_segments<BR>
