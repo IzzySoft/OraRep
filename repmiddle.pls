@@ -52,17 +52,9 @@
   SELECT value INTO I1 FROM v$sysstat WHERE name='table fetch continued row';
   S1 := to_char(I1,'999,999,990.99');
   L_LINE := ' <TR><TD>table fetch continued row</TD><TD ALIGN="right">'||S1||
-            '</TD><TD>How many migrated rows did we encounter during this '||
-            'instances life time? Since these can cause acute performance ';
-  print(L_LINE);
-  L_LINE := 'degration, they should be corrected immediately if they are being '||
-            'reported. For this, you may have to analyse your tables:';
-  print(L_LINE);
-  L_LINE := '<PRE>ANALYZE TABLE tablename COMPUTE STATISTICS;'||CHR(10)||
-            'SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='||
-            CHR(39)||'tablename'||CHR(39)||';</PRE>'||
-            '<I>utlchain.sql</I> then may help you to automatically eliminate '||
-            'migration (correct PCTFREE before running that!).</TD></TR>';
+            '</TD><TD>How many <A HREF="JavaScript:popup('||
+	    CHR(39)||'rowmigration'||CHR(39)||')">migrated rows</A> did we '||
+	    'encounter during this instances life time?</TD></TR>';
   print(L_LINE);
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
