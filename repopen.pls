@@ -17,6 +17,7 @@ BEGIN
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
   MK_BUFFRAT   := :MK_BUFFRAT;
+  MK_WTEVT     := :MK_WTEVT;
   MK_FLC       := :MK_FLC;
   MK_ENQ       := :MK_ENQ;
   MK_WAITOBJ  := have_waits();

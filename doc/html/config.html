@@ -144,6 +144,11 @@
            the "Selected Wait Events" block. You should activate this if you
            encounter many <code>buffer busy waits</code> and want to know what
            tuning actions are reasonable.</td></tr>
+   <tr><td class="td_name"><code>MK_WTEVT</code></td>
+       <td class="text">The "Wait Events" segment created when this option is
+           enabled displays selected wait events from <code>v$system_event</code>
+           together with some descriptions and help. I consider this as one of the
+           central segments and thus recommend to enable it.</td></tr>
    <tr><td class="td_name"><code>MK_FLC</code></td>
        <td class="text">The "FreeList Contention" block should help you to
            identify tables having problems with the <code>PCTFREE</code> and
