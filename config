@@ -2,7 +2,7 @@
 # $Id$
 #
 # =============================================================================
-# Simple Database Analysis Report      (c) 2003 by IzzySoft (devel@izzysoft.de)
+# Simple Database Analysis Report (c) 2003-2004 by IzzySoft (devel@izzysoft.de)
 # -----------------------------------------------------------------------------
 # This report script creates a HTML document containing an overview on the
 # database, whichs SID you either provide at the command line or configure it
