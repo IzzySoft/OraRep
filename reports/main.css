@@ -45,6 +45,9 @@ td.alert {
  background-color:#ff5555;
  font-weight:bold
 }
+td.warn {
+ background-color:Yellow;
+}
 .code {
   font-family: monospace; 
   font-size: 8pt; 
