@@ -5,7 +5,7 @@
 </HEAD><BODY>
 
 <TABLE WIDTH="95%" ALIGN="center"><TR><TD>
- <P>Below you find a description on selected queue types:</P>
+ <P>Below you find a description on selected enqueue types:</P>
  <TABLE BORDER="0">
   <TR><TD CLASS="smallname">BL</TD>
       <TD><B>Buffer Cache Managment</B></TD></TR>
@@ -84,5 +84,7 @@
   <TR><TD CLASS="smallname">US</TD>
       <TD><B>Undo Segment</B>, serialization</TD></TR>
  </TABLE>
+ <P>For more information on enqueue waits, see <A HREF="enqueue.html">Enqueues</A>.</P>
 
+</TD></TR></TABLE>
 </BODY></HTML>

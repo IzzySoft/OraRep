@@ -161,8 +161,12 @@ BEGIN
   print('<HR>');
 
   -- Rollback Segments
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="11"><A NAME="rbs">Rollback Segments</A></TH></TR>'||CHR(10)||
-            ' <TR><TH CLASS="th_sub">Segment</TH><TH CLASS="th_sub">Status</TH>'||
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="11"><A NAME="rbs">Rollback Segments</A>'||
+            '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'rollstat'||CHR(39)||
+	    ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
+	    'VALIGN="middle"></A></TH></TR>';
+  print(L_LINE);
+  L_LINE := ' <TR><TH CLASS="th_sub">Segment</TH><TH CLASS="th_sub">Status</TH>'||
             '<TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">OptSize (kB)</TH>';
   print(L_LINE);
   L_LINE := '<TH CLASS="th_sub">HWMSize (kB)</TH><TH CLASS="th_sub">Waits</TH>'||
@@ -185,6 +189,7 @@ BEGIN
   END LOOP;
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
+  more_rbs;
   print('<HR>');
 
   -- Memory

@@ -250,3 +250,49 @@ DECLARE
     BEGIN
       RETURN have_xxx ('dba_tables','owner','0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1)');
     END;
+
+  -- recommend more rollback segments?
+  PROCEDURE more_rbs IS
+    GETS NUMBER; TABOPEN NUMBER; WPG NUMBER;
+    CURSOR cr (N_GETS NUMBER) IS
+     SELECT class, "COUNT" numcount, TO_CHAR("COUNT"/N_GETS,'990.00') pct
+       FROM v$waitstat
+      WHERE class IN ('system undo header','system undo block','undo header','undo block')
+        AND "COUNT" > N_GETS/100;
+    BEGIN
+      TABOPEN := 0;
+      SELECT sum(value) INTO GETS FROM v$sysstat
+       WHERE name IN ('db block gets','consistent gets');
+      FOR rec IN cr(GETS) LOOP
+        IF TABOPEN = 0 THEN
+          TABOPEN := 1;
+          L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="3">You may need more rollback segments:</TH></TR>'||
+                    CHR(10)||' <TR><TD COLSPAN="3"><DIV ALIGN="center">Wait counts should not exceed '||
+                    '1% of logical reads - but we found:</DIV></TD></TR>';
+          print(L_LINE);
+          L_LINE := ' <TR><TH CLASS="th_sub">Class</TH><TH CLASS="th_sub">'||
+                    'Count</TH><TH CLASS="th_sub">% of log.Reads</TH></TR>';
+          print(L_LINE);
+        END IF;
+        L_LINE := ' <TR><TD CLASS="td_name">'||rec.class||'</TD><TD>'||
+                  rec.numcount||'</TD><TD><DIV ALIGN="right">'||rec.pct||
+                  '</TD></TR>';
+        print(L_LINE);
+      END LOOP;
+      SELECT 100*(SUM(waits)/SUM(gets)) INTO WPG
+        FROM v$rollstat;
+      IF WPG > 1 THEN
+        IF TABOPEN = 0 THEN
+          TABOPEN := 1;
+          L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="3">You may need more rollback segments:</TH></TR>';
+          print(L_LINE);
+        END IF;
+        L_LINE := ' <TR><TD COLSPAN="3"><DIV ALIGN="center">The number of waits per request for '||
+                  'data should not exceed 1%, but it is actually '||
+                  TO_CHAR(WPG,'990.00')||'%</DIV></TD></TR>';
+        print(L_LINE);
+      END IF;
+      print('</TABLE>');
+    EXCEPTION
+      WHEN NO_DATA_FOUND THEN NULL;
+    END;

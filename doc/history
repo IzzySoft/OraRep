@@ -77,7 +77,7 @@ v0.1.8 (10.12.2003)
 + outsourced long hints/descs to external help files via popup on demand
 + updated installation instructions in doc/readme.txt
 
-v0.1.9
+v0.1.9 (17.12.2003)
 + added own help icon (used one from the Apache installation up to now)
 + made the description for row migration more verbose (don't worry, it is
   in an external help file now ;)
@@ -89,3 +89,4 @@ v0.2.0
 + more detailed hints on the enqueue wait event
 * some cosmetical changes to some of the external help files (formating issues)
 + more details on the log buffer size
++ advices for rollback segments plus external help
