@@ -3,6 +3,7 @@ BEGIN
   CSS := :CSS;
   SCRIPTVER := :SCRIPTVER;
   TOP_N_WAITS := :TOP_N_WAITS;
+  MK_WAITOBJ := have_waits();
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);
@@ -27,7 +28,7 @@ BEGIN
             ' ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]';
   print(L_LINE);
   L_LINE := ' [ <A HREF="#events">Events</A> ]';
-  IF have_waits()
+  IF MK_WAITOBJ
   THEN 
     L_LINE := L_LINE||' [ <A HREF="#waitobj">Wait Objects</A> ]';
   END IF;

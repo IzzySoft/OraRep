@@ -34,8 +34,6 @@
           dbms_output.put_line('*!* Problem in print() *!*');
       END;
     BEGIN
-     IF have_waits()
-     THEN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="waitobj">Objects causing Wait Events</A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one of the '||
@@ -68,7 +66,6 @@
       END LOOP;
       L_LINE := TABLE_CLOSE;
       print(L_LINE);
-     END IF;
     EXCEPTION
       WHEN OTHERS THEN NULL;
     END;

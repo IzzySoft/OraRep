@@ -1,4 +1,7 @@
   -- Top N Wait Objects
-  P_81Waits;
-  print('<HR>');
+  IF MK_WAITOBJ
+  THEN
+    P_81Waits;
+    print('<HR>');
+  END IF;
 
