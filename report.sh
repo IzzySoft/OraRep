@@ -40,8 +40,8 @@ REPDIR=report
 # StyleSheet to use
 CSS=main.css
 # login information
-user=oracle
-password=internal
+user=internal
+password="oracle"
 
 # If called from another script, we may have to change to another directory
 # before generating the reports
@@ -54,8 +54,9 @@ version='0.1.1'
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 $ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-CONNECT $user/$password
+CONNECT $user/$password@$1
 Set TERMOUT OFF
+Set SCAN OFF
 Set SERVEROUTPUT On Size 1000000
 Set LINESIZE 300
 Set TRIMSPOOL On 
@@ -89,7 +90,7 @@ DECLARE
     SELECT distinct t.name tablespace,d.name datafile,status,enabled,
            to_char(d.bytes/1024,'99,999,999.00') kbytes,
            to_char(f.bytes/1024,'99,999,999.00') freekbytes,
-           to_char(100*(1-(f.bytes/d.bytes)),'90.00') usedpct,phyrds,phywrts,avgiotim
+           to_char(100*(1-(f.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
       FROM v\$filestat,v\$datafile d,v\$tablespace t,dba_free_space f
      WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file#;
   CURSOR C_RBS IS
@@ -109,7 +110,10 @@ DECLARE
   CURSOR C_MEM IS
     SELECT name,to_char(nvl(value,0)/1024,'999,999,990.00') value FROM v\$sga;
   CURSOR C_MEMPOOL IS
-    SELECT name,to_char(nvl(value,0)/1024,'999,999,990.00') value FROM v\$parameter WHERE name LIKE '%pool%';
+    SELECT name,DECODE(
+            SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+            0,to_char(nvl(value,0)/1024,'999,999,990.00')||' kB',1,value,'0 kB') value
+      FROM v\$parameter WHERE name LIKE '%pool%';
   CURSOR C_POOL IS
     SELECT pool,to_char(bytes/1024,'99,999,999.00') kbytes
       FROM v\$sgastat WHERE name='free memory';
@@ -172,8 +176,12 @@ BEGIN
   SELECT SUM(bytes) INTO I2 from v\$datafile;
   I3 := (I1+I2)/1048576;
   S1 := to_char(I3,'999,999,999.99');
+  SELECT to_char(startup_time,'DD.MM.YYYY HH24:MI'),to_char(sysdate - startup_time,'9990.00')
+    INTO S2,S3 FROM v\$instance;
   L_LINE := ' <TR><TD class="td_name">FileSize (Data+Log)</TD><TD>'||S1||' MB</TD></TR>'||CHR(10)||
-            ' <TR><TD class="td_name">Report generated:</TD><TD>'||S5||'</TD></TR>'||CHR(10)||
+            ' <TR><TD class="td_name">Startup / Uptime</TD><TD>'||S2||' / '||S3||' d</TD></TR>';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' <TR><TD class="td_name">Report generated:</TD><TD>'||S5||'</TD></TR>'||CHR(10)||
             TABLE_CLOSE;
   dbms_output.put_line(L_LINE);
   dbms_output.put_line('<HR>');
@@ -272,7 +280,7 @@ BEGIN
   END LOOP;
   FOR Rec_MEMPOOL IN C_MEMPOOL LOOP
     L_LINE := ' <TR><TD>'||Rec_MEMPOOL.name||'</TD><TD ALIGN="right">'||
-              Rec_MEMPOOL.value||' kB</TD></TR>';
+              Rec_MEMPOOL.value||'</TD></TR>';
     dbms_output.put_line(L_LINE);
   END LOOP;
   L_LINE := TABLE_CLOSE;
@@ -283,25 +291,31 @@ BEGIN
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="poolsize">Pool Sizes</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Space</TH></TR>';
   dbms_output.put_line(L_LINE);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='shared_pool_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := ' <TR><TD>Shared_Pool_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='shared_pool_reserved_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := L_LINE||' <TR><TD>Shared_Pool_Reserved_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='large_pool_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := L_LINE||' <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='shared_pool_size';
+  L_LINE := ' <TR><TD>Shared_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='shared_pool_reserved_size';
+  L_LINE := L_LINE||' <TR><TD>Shared_Pool_Reserved_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='large_pool_size';
+  L_LINE := L_LINE||' <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
   dbms_output.put_line(L_LINE);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='java_pool_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := ' <TR><TD>Java_Pool_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='sort_area_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := L_LINE||' <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
-  SELECT value/1024 INTO I1 FROM v\$parameter WHERE name='sort_area_retained_size';
-  S1 := to_char(I1,'999,999,999.99');
-  L_LINE := L_LINE||' <TR><TD>Sort_Area_Retained_Size</TD><TD ALIGN="right">'||S1||' kB</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='java_pool_size';
+  L_LINE := ' <TR><TD>Java_Pool_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='sort_area_size';
+  L_LINE := L_LINE||' <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
+  SELECT DECODE(SIGN( LENGTH(value) - LENGTH(TRANSLATE(value,'0123456789GMKgmk','0123456789')) ),
+         0,to_char(value/1024,'999,999,990.00')||' kB','&nbsp;')
+         INTO S1 FROM v\$parameter WHERE name='sort_area_retained_size';
+  L_LINE := L_LINE||' <TR><TD>Sort_Area_Retained_Size</TD><TD ALIGN="right">'||S1||'</TD></TR>'||CHR(10);
   dbms_output.put_line(L_LINE);
 
   L_LINE := ' <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Free Space</TH></TR>';
@@ -531,8 +545,10 @@ BEGIN
   dbms_output.put_line(L_LINE);
 
   -- Page Ending
-  L_LINE := '<HR>'||CHR(10)||TABLE_OPEN||CHR(10)||
-            '<TR><TD><FONT SIZE="-2">OraRep v$version &copy; 2003 by Itzchak Rehberg '||
+  L_LINE := '<HR>'||CHR(10)||TABLE_OPEN;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '<TR><TD><FONT SIZE="-2">Created by OraRep v$version &copy; 2003 by '||
+	    '<A HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg</A> '||
             '&amp; <A HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft</A></FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
   dbms_output.put_line(TABLE_CLOSE);
