@@ -90,3 +90,5 @@ v0.2.0
 * some cosmetical changes to some of the external help files (formating issues)
 + more details on the log buffer size
 + advices for rollback segments plus external help
++ adding external help file on user information
+* some cosmetical changes (text formatting)
