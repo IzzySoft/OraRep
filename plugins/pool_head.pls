@@ -77,7 +77,7 @@
       L_LINE := ' <TR><TD COLSPAN="6">The following cases are indicators '||
                 'that <CODE>SHARED_POOL_SIZE</CODE> may have to be increased:';
       print(L_LINE);
-      L_LINE := ' <BR><UL><LI>RPP (100*reloads/pins) &gt; 1</LI><LI>gethitratio &lt; 90%</LI></UL></TD><TR>'||
+      L_LINE := ' <BR><UL><LI>RPP (100*reloads/pins) &gt; 1</LI><LI>gethitratio &lt; 90%</LI></UL></TD></TR>'||
                 ' <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>';
       print(L_LINE);
       L_LINE := ' <TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD>'||

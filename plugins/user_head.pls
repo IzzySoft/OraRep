@@ -1,7 +1,8 @@
   PROCEDURE userinfo IS
     CURSOR C_USER IS
-      SELECT username,account_status,NVL(to_char(lock_date,'DD.MM.YYYY'),'-')
-             locked,NVL(to_char(expiry_date,'DD.MM.YYYY'),'-') expires,
+      SELECT username,replace(account_status,'&','&amp;') account_status,
+             NVL(to_char(lock_date,'DD.MM.YYYY'),'-') locked,
+	     NVL(to_char(expiry_date,'DD.MM.YYYY'),'-') expires,
              default_tablespace dts,temporary_tablespace tts,
              to_char(created,'DD.MM.YYYY') created,profile,
              initial_rsrc_consumer_group resource_group
@@ -9,8 +10,8 @@
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="9">User Information'||
                 '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'userinfo'||CHR(39)||
-	        ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-	        'VALIGN="middle"></A></TH></TR>';
+	        ')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+	        'ALIGN="top" ALT="Help"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account'||
                 ' Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">';

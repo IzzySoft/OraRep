@@ -42,7 +42,7 @@
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="8"><A NAME="freelist">FreeList Contention</A>'||
                 '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||
                 'flc'||CHR(39)||')"><IMG SRC="help/help.gif" '||
-		'BORDER="0" HEIGTH="12" VALIGN="middle" STYLE="margin-right:5"></A></TH></TR>';
+		'BORDER="0" HEIGHT="16" ALIGN="top" ALT="Help" STYLE="margin-right:5"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">'||
                 'Table</TH><TH CLASS="th_sub">AvgRowLen</TH><TH CLASS="th_sub">';

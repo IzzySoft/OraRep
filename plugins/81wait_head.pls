@@ -31,7 +31,7 @@
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="waitobj">Objects causing Wait Events</A>'||
                 '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||
                 'waitobj'||CHR(39)||')"><IMG SRC="help/help.gif" '||
-		'BORDER="0" HEIGTH="12" VALIGN="middle" STYLE="margin-right:5"></A></TH></TR>';
+		'BORDER="0" HEIGHT="16" ALIGN="top" ALT="Help" STYLE="margin-right:5"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one '||
                 'of the events ';

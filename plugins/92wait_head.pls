@@ -60,16 +60,16 @@
      IF have_swaits(statname) THEN
       IF name = 'BufferBusy' THEN
         HelpLink := '<A HREF="JavaScript:popup('||CHR(39)||'busybuffers'||
-                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-                    'VALIGN="middle" STYLE="margin-right:5"></A>';
+                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+                    'ALIGN="top" ALT="Help" STYLE="margin-right:5"></A>';
       ELSIF name = 'IO' THEN
         HelpLink := '<A HREF="JavaScript:popup('||CHR(39)||'waitobj'||
-                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-                    'VALIGN="middle" STYLE="margin-right:5"></A>';
+                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+                    'ALIGN="top" ALT="Help" STYLE="margin-right:5"></A>';
       ELSIF name = 'RowLock' THEN
         HelpLink := '<A HREF="JavaScript:popup('||CHR(39)||'rowlocks'||
-                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-                    'VALIGN="middle" STYLE="margin-right:5"></A>';
+                    CHR(39)||')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+                    'ALIGN="top" ALT="Help" STYLE="margin-right:5"></A>';
       ELSE
         HelpLink := '';
       END IF;

@@ -97,7 +97,7 @@
      print(L_LINE);
      FOR rec IN cpt LOOP
        L_LINE := ' <TR><TD ALIGN="right">'||format_fsize(rec.pga_size)||
-                 '</TH><TD ALIGN="right">'||rec.size_factor||
+                 '</TD><TD ALIGN="right">'||rec.size_factor||
                  '%</TD><TD ALIGN="right">'||format_fsize(rec.bytes)||
 		 '</TD><TD ALIGN="right">'||format_fsize(rec.extra_bytes);
        print(L_LINE);

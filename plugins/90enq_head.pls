@@ -23,8 +23,8 @@
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="8"><A NAME="enqwaits">Enqueue Waits'||
                 '</A>&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'enqwaits'||CHR(39)||
-		')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-		'VALIGN="middle"></A></TH></TR>';
+		')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+		'ALIGN="top" ALT="Help"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="8"><DIV ALIGN="center">The following queues '||
                 'caused waits during the recent uptime of this instance.<BR>'||

@@ -31,7 +31,7 @@ TMPDIR=/tmp
 # in which directory should the report ($ORACLE_SID.html) be placed
 REPDIR=/var/www/html/oracle/reports
 # StyleSheet to use
-CSS=../main.css
+CSS=../iceage.css
 
 # --------------------------------------------------------------[ Warnings ]---
 # At what treshholds we should issue warnings (yellow background). TPH_* stands

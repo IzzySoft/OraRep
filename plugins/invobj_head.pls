@@ -11,7 +11,7 @@
         L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="5"><A NAME="invobj">Invalid Objects</A></TH></TR>'||CHR(10)||
                   ' <TR><TD COLSPAN="5">The following objects may need your investigation. These are not';
         print(L_LINE);
-        print(' necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>');
+        print(' necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TD></TR>');
         L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Type</TH>'||
                   '<TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>';
         print(L_LINE);

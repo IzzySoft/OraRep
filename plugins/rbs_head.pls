@@ -40,7 +40,9 @@
                   TO_CHAR(WPG,'990.00')||'%</DIV></TD></TR>';
         print(L_LINE);
       END IF;
-      print('</TABLE>');
+      IF TABOPEN = 1 THEN
+        print('</TABLE>');
+      END IF;
     EXCEPTION
       WHEN NO_DATA_FOUND THEN NULL;
     END;
@@ -63,8 +65,8 @@
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="11"><A NAME="rbs">Rollback Segments</A>'||
                 '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'rollstat'||CHR(39)||
-	        ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-	        'VALIGN="middle"></A></TH></TR>';
+	        ')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
+	        'ALIGN="top" ALT="Help"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TH CLASS="th_sub">Segment</TH><TH CLASS="th_sub">Status</TH>'||
                 '<TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">OptSize (kB)</TH>';
