@@ -2,7 +2,7 @@
 # $Id$
 #
 # =============================================================================
-# Simple Database Analysis Report      (c) 2003 by IzzySoft (devel@izzysoft.de)     
+# Simple Database Analysis Report (c) 2003 by IzzySoft (izzysoft@buntspecht.de)
 # -----------------------------------------------------------------------------
 # This report script creates a HTML document containing an overview on the
 # database, whichs SID you either provide at the command line or configure it
@@ -477,7 +477,6 @@ BEGIN
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   dbms_output.put_line(L_LINE);
   SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='db file sequential read';
---  L_LINE := ' <TR><TD>db file sequential read</TD><TD ALIGN="right">'||S1||
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">db file sequential read</DIV></TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
@@ -504,7 +503,15 @@ BEGIN
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   dbms_output.put_line(L_LINE);
-  L_LINE := '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
+  L_LINE := '</TD><TD>This event occurs whenever one Oracle process is requesting '||
+            'a "willing to wait" latch from another process. The event only occurs '||
+	    'if the spin_count has been exhausted, ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'and the waiting process goes to sleep. Latch free waits can occur '||
+            'for a variety of reasons including library cache issues, OS process '||
+	    'intervention ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := '(processes being put to sleep by the OS, etc.), and so on.</TD></TR>';
   dbms_output.put_line(L_LINE);
   I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
   BEGIN
@@ -516,7 +523,12 @@ BEGIN
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   dbms_output.put_line(L_LINE);
-  L_LINE := '</TD><TD>'||CHR(38)||'nbsp;</TD></TR>';
+  L_LINE := '</TD><TD>This only needs your attention when many timeouts occur. '||
+            'A large amount of waits/wait times does not necessarily indicate a '||
+	    'problem - normally it just says ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'that LGWR waited for incomplete copies into the Redo buffers that '||
+            'it intends to write.</TD></TR>';
   dbms_output.put_line(L_LINE);
   I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
   BEGIN
