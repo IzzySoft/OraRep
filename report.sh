@@ -16,7 +16,7 @@
 #                                                              Itzchak Rehberg
 #
 #
-version='0.1.3'
+version='0.1.4'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -92,6 +92,14 @@ DECLARE
            to_char(free.bytes/1024,'99,999,999.00') freekbytes,
            to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
       FROM v\$filestat,v\$datafile d,v\$tablespace t,dba_free_space f,
+           (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
+     WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#
+     UNION
+    SELECT distinct t.name tablespace,d.name datafile,status,enabled,
+           to_char(d.bytes/1024,'99,999,999.00') kbytes,
+           to_char(free.bytes/1024,'99,999,999.00') freekbytes,
+           to_char(100*(1-(free.bytes/d.bytes)),'990.00') usedpct,phyrds,phywrts,avgiotim
+      FROM v\$filestat,v\$tempfile d,v\$tablespace t,dba_free_space f,
            (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
      WHERE v\$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
   CURSOR C_RBS IS
