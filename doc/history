@@ -152,7 +152,9 @@ v0.2.5 (29.01.2004)
 
 v0.2.6
 -------------------
-+ started on the "Go4Colors Mode": where we can clearly identify problems (e.g.
-  by ratios), the concerning values are now highlighted with red (alert) or
-  yellow (warning) background color of the table cell
++ "Go4Colors Mode": where we can clearly identify problems (e.g. by ratios),
+  the concerning values are now highlighted with red (alert) or yellow (warning)
+  background color of the table cell
 ! report.sh was broken for Oracle versions <9
+* some formatting on the help files plus more detailled information on
+  cursor_sharing
