@@ -21,7 +21,7 @@
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="6"><A NAME="waitobj">Enqueue Waits'||
                 '</A>&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'enqwaits'||CHR(39)||
-		')"><IMG SRC="/icons/unknown.gif" BORDER="0" HEIGTH="12" '||
+		')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
 		'VALIGN="middle"></A></TH></TR>';
       print(L_LINE);
       L_LINE := ' <TR><TD COLSPAN="6"><DIV ALIGN="center">The following queues '||

@@ -20,3 +20,4 @@ for i in *.tpl; do
   sed $SEDC $i >$TARGET
   chmod o+r $TARGET
 done
+cp help.gif $REPDIR/help/
