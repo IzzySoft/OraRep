@@ -100,7 +100,7 @@ v0.2.1 (13.01.2004)
 * buffer pool stats table is now only drawn if data exist for it
 + added link to advices to page head (if exists)
 
-v0.2.2
+v0.2.2 (15.01.2004)
 + more details on row locks and I/O wait objects
 + more details on avoiding buffer busy waits
 + added PctWait and PctFailed to enqueue waits (Oracle 9+)
