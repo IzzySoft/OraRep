@@ -130,3 +130,10 @@ v0.2.3 (20.01.2004)
 + enhanced command line syntax: now you can override some of the default
   options from the "config" file (e.g. user, passwd) at the command line
   (thanx to Manuel Soriano for this suggestion incl. code)
+
+v0.2.4
+-------------------
+* Modularization: made some blocks optional (see the "config" file):
+  Rollback Segment Stats, Data Files, Memory Values, common Pool information,
+  Enqueue Waits
++ new command line parameter "-c" to specify alternative config file
