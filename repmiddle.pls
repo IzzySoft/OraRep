@@ -99,16 +99,21 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>Indicator for I/O problems on index accesses<BR><DIV CLASS="small">'||
-	    '(Consider increasing the buffer cache when value is high)</DIV></TD></TR>';
+  L_LINE := '</TD><TD>Indicator for <A HREF="JavaScript:popup('||CHR(39)||
+            'waitobj'||CHR(39)||')">I/O problems</A> on index accesses<BR>'||
+            '<DIV CLASS="small">(Consider increasing the buffer cache when '||
+            'value is high)</DIV></TD></TR>';
   print(L_LINE);
   get_wait('db file scattered read',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>db file scattered read</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>Indicator for I/O problems on full table scans<BR><DIV CLASS="small">'||
-            '(On increasing <CODE STYLE="font-size:125%">DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> if this value '||
+  L_LINE := '</TD><TD>Indicator for <A HREF="JavaScript:popup('||CHR(39)||
+            'waitobj'||CHR(39)||')">I/O problems</A> on full table scans<BR>'||
+            '<DIV CLASS="small">(On increasing <CODE STYLE="font-size:125%">';
+  print(L_LINE);
+  L_LINE := 'DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> if this value '||
             'is high see the first block of Miscellaneous below)</DIV></TD></TR>';
   print(L_LINE);
   get_wait('undo segment extension',S4,S1,S2,S3);
