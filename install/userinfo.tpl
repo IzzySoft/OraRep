@@ -21,7 +21,11 @@
   tablespaces set to SYSTEM (if not explicitely specified otherwise), causing
   fragmentation of the system tablespace resulting in a performance decrease
   as well - so when creating a new user you should make sure to explicitely
-  set at least the temporary tablespace to a non-permanent tablespace.</P>
+  set at least the temporary tablespace to a non-permanent tablespace. Starting
+  with Oracle 9i, the DBA can (and should!) create a default temporary TS using
+  the command <CODE>CREATE DEFAULT TEMPORARY TABLESPACE</CODE>. Oracle then will
+  implicitly assume this setting for all <CODE>CREATE USER</CODE> statements
+  having no explicit temporary TS.</P>
 </TD></TR></TABLE>
 
 </BODY></HTML>
