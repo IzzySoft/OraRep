@@ -158,3 +158,5 @@ v0.2.6
 ! report.sh was broken for Oracle versions <9
 * some formatting on the help files plus more detailled information on
   cursor_sharing
++ write enabled data files that have not AUTOEXTENT ON set and filled more than
+  85% / 95% are now also highlighted with Go4Colors
