@@ -20,6 +20,17 @@ BEGIN
             CHR(10)||' <TITLE>'||R_TITLE||'</TITLE>';
   print(L_LINE);
   L_LINE := ' <LINK REL="stylesheet" TYPE="text/css" HREF="'||CSS||'">'||CHR(10)||
+            ' <SCRIPT LANGUAGE="JavaScript">'||CHR(10)||
+	    '   function popup(page) {'||CHR(10)||
+	    '     url = "help/" + page + ".html";';
+  print(L_LINE);
+  L_LINE := '     pos = (screen.width/2)-400;'||CHR(10)||
+            '     helpwin = eval("window.open(url,'||CHR(39)||'help'||CHR(39)||
+	    ','||CHR(39)||'toolbar=no,location=no,titlebar=no,directories=no,'||
+	    'status=yes,copyhistory=no,width=600,height=400,top=0,left="+pos+"'||
+	    CHR(39)||')");';
+  print(L_LINE);
+  L_LINE := '   }'||CHR(10)||' </SCRIPT>'||CHR(10)||
             '</HEAD><BODY>'||CHR(10)||'<H2>'||R_TITLE||'</H2>'||CHR(10);
   print(L_LINE);
 

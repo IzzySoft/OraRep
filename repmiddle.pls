@@ -101,7 +101,8 @@
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
   L_LINE := '</TD><TD>Indicates contention for a buffer in the SGA. You may need '||
-            'to increase the <CODE>INITRANS</CODE> parameter for a specific table ';
+            'to increase the <A HREF="JavaScript:popup('||
+	    CHR(39)||'initrans'||CHR(39)||')"><CODE>INITRANS</CODE></A> parameter for a specific table ';
   print(L_LINE);
   L_LINE := 'or index if the event is identified as belonging to either a table '||
             'or index.</TD></TR>';
@@ -145,7 +146,8 @@
 	    'themselves against a common row?) ';
   print(L_LINE);
   L_LINE := 'or possibly the physical design (high activity on child tables '||
-            'with unindexed foreign keys, inadequate INITRANS or MAXTRANS '||
+            'with unindexed foreign keys, inadequate <A HREF="JavaScript:popup('||
+	    CHR(39)||'initrans'||CHR(39)||')"><CODE>INITRANS</CODE></A> or MAXTRANS '||
 	    'values, etc.).';
   print(L_LINE);
   L_LINE := 'Since this event also indicates that there are too many DML or DDL '||
