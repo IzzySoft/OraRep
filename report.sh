@@ -146,6 +146,21 @@ DECLARE
      WHERE status='INVALID'
      ORDER BY owner;
 
+  PROCEDURE get_wait(eventname IN VARCHAR2, I01 OUT INTEGER, S01 OUT VARCHAR2,
+                     S02 OUT VARCHAR2, S03 OUT VARCHAR2) IS
+    BEGIN
+       SELECT TO_CHAR(total_waits,'9,999,999,990') totals,
+               TO_CHAR(time_waited,'9,999,999,990') timew,
+	      average_wait,
+	      TO_CHAR(total_timeouts,'99,999,990') timeouts
+	 INTO S01,S02,I01,S03
+         FROM v\$system_event WHERE event=eventname;
+    EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+       I01 := 0; S01 := '0'; S02 := '0'; S03 := '0';
+    END;
+
+
 BEGIN
   -- Configuration
   dbms_output.enable(1000000);
@@ -476,7 +491,7 @@ BEGIN
   L_LINE := '<TH CLASS="th_sub">Total WaitTime</TH><TH CLASS="th_sub">Avg Waited</TH>'||
             '<TH CLASS="th_sub">Timeouts</TH>'||'<TH CLASS="th_sub">Description</TH></TR>';
   dbms_output.put_line(L_LINE);
-  SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='db file sequential read';
+  get_wait('db file sequential read',I1,S1,S2,S3);
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">db file sequential read</DIV></TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
@@ -484,7 +499,7 @@ BEGIN
   L_LINE := '</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">'||
 	    '(Consider increasing the buffer cache when value is high)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
-  SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='db file scattered read';
+  get_wait('db file scattered read',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>db file scattered read</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
@@ -493,12 +508,20 @@ BEGIN
             '(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value '||
             'is high see the first block of Miscellaneous below)</FONT></TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
-  BEGIN
-    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='latch free';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
+  get_wait('enqueue',I1,S1,S2,S3);
+  L_LINE := ' <TR><TD>enqueue</TD><TD ALIGN="right">'||S1||
+            '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
+	    '<TD ALIGN="right">'||S3;
+  dbms_output.put_line(L_LINE);
+  L_LINE := '</TD><TD>This type of event may be an indication that something is '||
+            'either wrong with the code (should multiple sessions be serializing '||
+	    'themselves against a common row?) ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'or possibly the physical design (high activity on child tables '||
+            'with unindexed foreign keys, inadequate INITRANS or MAXTRANS '||
+	    'values, etc.</TD></TR>';
+  dbms_output.put_line(L_LINE);
+  get_wait('latch free',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>latch free</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
@@ -513,12 +536,7 @@ BEGIN
   dbms_output.put_line(L_LINE);
   L_LINE := '(processes being put to sleep by the OS, etc.), and so on.</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
-  BEGIN
-    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='LGWR wait for redo copy';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
+  get_wait('LGWR wait for redo copy',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>LGWR wait for redo copy</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
@@ -530,36 +548,21 @@ BEGIN
   L_LINE := 'that LGWR waited for incomplete copies into the Redo buffers that '||
             'it intends to write.</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
-  BEGIN
-    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='log file switch (checkpoint incomplete)';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
+  get_wait('log file switch (checkpoint incomplete)',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   dbms_output.put_line(L_LINE);
   L_LINE := '</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
-  BEGIN
-    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='log file switch completion';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
+  get_wait('log file switch completion',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>log file switch completion</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   dbms_output.put_line(L_LINE);
   L_LINE := '</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>';
   dbms_output.put_line(L_LINE);
-  I1 := 0; S1 := '0'; S2 := '0'; S3 := '0';
-  BEGIN
-    SELECT TO_CHAR(total_waits,'9,999,999,990'),TO_CHAR(time_waited,'9,999,999,990'),average_wait,TO_CHAR(total_timeouts,'99,999,990') INTO S1,S2,I1,S3 FROM v\$system_event WHERE event='log buffer wait';
-  EXCEPTION
-    WHEN NO_DATA_FOUND THEN NULL;
-  END;
+  get_wait('log buffer wait',I1,S1,S2,S3);
   L_LINE := ' <TR><TD>log buffer wait</TD><TD ALIGN="right">'||S1||
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||I1||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
