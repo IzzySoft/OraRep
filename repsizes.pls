@@ -25,38 +25,6 @@
   print(L_LINE);
   print('<HR>');
 
-  -- Rollback Segments
-  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="11"><A NAME="rbs">Rollback Segments</A>'||
-            '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'rollstat'||CHR(39)||
-	    ')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" '||
-	    'VALIGN="middle"></A></TH></TR>';
-  print(L_LINE);
-  L_LINE := ' <TR><TH CLASS="th_sub">Segment</TH><TH CLASS="th_sub">Status</TH>'||
-            '<TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">OptSize (kB)</TH>';
-  print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">HWMSize (kB)</TH><TH CLASS="th_sub">Waits</TH>'||
-            '<TH CLASS="th_sub">XActs</TH><TH CLASS="th_sub">Shrinks</TH>'||
-            '<TH CLASS="th_sub">Wraps</TH><TH CLASS="th_sub">AveShrink</TH>';
-  print(L_LINE);
-  L_LINE := '<TH CLASS="th_sub">AveActive</TH></TR>';
-  print(L_LINE);
-  FOR Rec_RBS IN C_RBS LOOP
-    L_LINE := ' <TR><TD>'||Rec_RBS.segment_name||'</TD><TD>'||Rec_RBS.status||
-              '</TD><TD ALIGN="right">'||Rec_RBS.rssize||'</TD><TD ALIGN="right">'||
-              Rec_RBS.optsize||'</TD><TD ALIGN="right">'||Rec_RBS.hwmsize||
-              '</TD><TD ALIGN="right">'||Rec_RBS.waits;
-    print(L_LINE);
-    L_LINE := '</TD><TD ALIGN="right">'||Rec_RBS.xacts||'</TD><TD ALIGN="right">'||
-              Rec_RBS.shrinks||'</TD><TD ALIGN="right">'||Rec_RBS.wraps||
-              '</TD><TD ALIGN="right">'||Rec_RBS.aveshrink||'</TD><TD ALIGN="right">'||
-              Rec_RBS.aveactive||'</TD></TR>';
-    print(L_LINE);
-  END LOOP;
-  L_LINE := TABLE_CLOSE;
-  print(L_LINE);
-  more_rbs;
-  print('<HR>');
-
   -- Memory
   L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="2"><A NAME="memory">Memory Values</A></TH></TR>'||CHR(10)||
             ' <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Size</TH></TR>';

@@ -16,6 +16,7 @@ DECLARE
   MK_RSRC NUMBER;
   MK_DBAPROF NUMBER;
   MK_TSQUOT NUMBER;
+  MK_RBS NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(200);
   S3 VARCHAR(200);
@@ -56,18 +57,6 @@ DECLARE
       FROM v$filestat,v$tempfile d,v$tablespace t,dba_free_space f,
            (SELECT file_id,SUM(bytes) bytes FROM dba_free_space GROUP BY file_id) free
      WHERE v$filestat.file#=d.file# AND d.ts#=t.ts# AND f.file_id=d.file# AND free.file_id=d.file#;
-  CURSOR C_RBS IS
-    SELECT d.segment_name,d.status,to_char(r.rssize/1024,'99,999,990.00') rssize,
-           to_char(nvl(r.optsize/1024,'0'),'99,999,990.00') optsize,
-           to_char(r.hwmsize/1024,'99,999,990.00') hwmsize,r.xacts,
-           to_char(r.waits,'9,999,990') waits,
-	   to_char(r.shrinks,'9,999,990') shrinks,
-	   to_char(r.wraps,'9,999,990') wraps,
-	   to_char(r.aveshrink,'9,999,999,990') aveshrink,
-	   to_char(r.aveactive,'9,999,999,990') aveactive
-      FROM dba_rollback_segs d,v$rollstat r
-     WHERE d.segment_id=r.usn
-     ORDER BY d.segment_name;
   CURSOR C_LIB IS
     SELECT namespace,
            to_char(gets,'9,999,999,990') gets,
@@ -261,48 +250,3 @@ DECLARE
       RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
     END;
 
-  -- recommend more rollback segments?
-  PROCEDURE more_rbs IS
-    GETS NUMBER; TABOPEN NUMBER; WPG NUMBER;
-    CURSOR cr (N_GETS NUMBER) IS
-     SELECT class, "COUNT" numcount, TO_CHAR("COUNT"/N_GETS,'990.00') pct
-       FROM v$waitstat
-      WHERE class IN ('system undo header','system undo block','undo header','undo block')
-        AND "COUNT" > N_GETS/100;
-    BEGIN
-      TABOPEN := 0;
-      SELECT sum(value) INTO GETS FROM v$sysstat
-       WHERE name IN ('db block gets','consistent gets');
-      FOR rec IN cr(GETS) LOOP
-        IF TABOPEN = 0 THEN
-          TABOPEN := 1;
-          L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="3">You may need more rollback segments:</TH></TR>'||
-                    CHR(10)||' <TR><TD COLSPAN="3"><DIV ALIGN="center">Wait counts should not exceed '||
-                    '1% of logical reads - but we found:</DIV></TD></TR>';
-          print(L_LINE);
-          L_LINE := ' <TR><TH CLASS="th_sub">Class</TH><TH CLASS="th_sub">'||
-                    'Count</TH><TH CLASS="th_sub">% of log.Reads</TH></TR>';
-          print(L_LINE);
-        END IF;
-        L_LINE := ' <TR><TD CLASS="td_name">'||rec.class||'</TD><TD>'||
-                  rec.numcount||'</TD><TD><DIV ALIGN="right">'||rec.pct||
-                  '</TD></TR>';
-        print(L_LINE);
-      END LOOP;
-      SELECT 100*(SUM(waits)/SUM(gets)) INTO WPG
-        FROM v$rollstat;
-      IF WPG > 1 THEN
-        IF TABOPEN = 0 THEN
-          TABOPEN := 1;
-          L_LINE := TABLE_OPEN||' <TR><TH COLSPAN="3">You may need more rollback segments:</TH></TR>';
-          print(L_LINE);
-        END IF;
-        L_LINE := ' <TR><TD COLSPAN="3"><DIV ALIGN="center">The number of waits per request for '||
-                  'data should not exceed 1%, but it is actually '||
-                  TO_CHAR(WPG,'990.00')||'%</DIV></TD></TR>';
-        print(L_LINE);
-      END IF;
-      print('</TABLE>');
-    EXCEPTION
-      WHEN NO_DATA_FOUND THEN NULL;
-    END;

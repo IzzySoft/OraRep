@@ -19,7 +19,7 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.2.3'
+version='0.2.4'
 if [ -z "$1" ]; then
   SCRIPT=${0##*/}
   echo
@@ -118,6 +118,10 @@ if [ $MK_DBAPROF -eq 1 ]; then
   PROFHEAD=$BINDIR/plugins/prof_head.pls
   PROFBODY=$BINDIR/plugins/prof_body.pls
 fi
+if [ $MK_RBS -eq 1 ]; then
+  RBSHEAD=$BINDIR/plugins/rbs_head.pls
+  RBSBODY=$BINDIR/plugins/rbs_body.pls
+fi
 
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$ORACLE_CONNECT
@@ -135,6 +139,7 @@ variable TOP_N_TABLES NUMBER;
 variable MK_RSRC NUMBER;
 variable MK_TSQUOT NUMBER;
 variable MK_DBAPROF NUMBER;
+variable MK_RBS NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
@@ -143,6 +148,7 @@ BEGIN
   :MK_RSRC     := $MK_RSRC;
   :MK_DBAPROF  := $MK_DBAPROF;
   :MK_TSQUOT   := $MK_TSQUOT;
+  :MK_RBS      := $MK_RBS;
 END;
 /
 SPOOL $REPDIR/${ORACLE_SID}.html
@@ -152,7 +158,7 @@ ENDSQL
 #$ORACLE_HOME/bin/sqlplus -s $user/$password <<EOF
 #$ORACLE_HOME/bin/sqlplus -s /NOLOG <<EOF
 
-#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
-cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
+#cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls >rep.out
+cat $SQLSET $BINDIR/rephead.pls $WAITHEAD $ENQHEAD $SPADVHEAD $RSRCHEAD $PROFHEAD $TSQUOTHEAD $RBSHEAD $BINDIR/repopen.pls $RSRCBODY $PROFBODY $TSQUOTBODY $RBSBODY $BINDIR/repsizes.pls $SPADVBODY $BINDIR/repmiddle.pls $WAITBODY $ENQBODY $BINDIR/repclose.pls | $ORACLE_HOME/bin/sqlplus -s /NOLOG
 rm $SQLSET
 rm $TMPOUT
