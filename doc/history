@@ -150,7 +150,7 @@ v0.2.5 (29.01.2004)
 + added "Chained-Fetch-Ratio" to "Sysstat Info" block
 + added block on "FreeList Contention"
 
-v0.2.6
+v0.2.6 (04.02.2004)
 -------------------
 + "Go4Colors Mode": where we can clearly identify problems (e.g. by ratios),
   the concerning values are now highlighted with red (alert) or yellow (warning)
