@@ -59,7 +59,7 @@
     SELECT TO_CHAR(pga_target_for_estimate,'99,999,999,990') pga_size,
            TO_CHAR((-1)*(100-(100*pga_target_factor)),'9,990.0') size_factor,
            TO_CHAR(bytes_processed,'9,999,999,999,990') bytes,
-	   TO_CHAR(estd_extra_bytes_rw,'999,999,999,990') extra_bytes,
+	   TO_CHAR(estd_extra_bytes_rw,'9,999,999,999,990') extra_bytes,
 	   TO_CHAR(estd_pga_cache_hit_percentage,'9,990.0') pct_hits,
 	   TO_CHAR(estd_overalloc_count,'99,999') over
       FROM v$pga_target_advice;
