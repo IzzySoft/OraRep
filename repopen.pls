@@ -27,7 +27,7 @@ BEGIN
   L_LINE := '     pos = (screen.width/2)-400;'||CHR(10)||
             '     helpwin = eval("window.open(url,'||CHR(39)||'help'||CHR(39)||
 	    ','||CHR(39)||'toolbar=no,location=no,titlebar=no,directories=no,'||
-	    'status=yes,copyhistory=no,width=600,height=400,top=0,left="+pos+"'||
+	    'status=yes,copyhistory=no,scrollbars=yes,width=600,height=400,top=0,left="+pos+"'||
 	    CHR(39)||')");';
   print(L_LINE);
   L_LINE := '   }'||CHR(10)||' </SCRIPT>'||CHR(10)||
