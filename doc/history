@@ -76,3 +76,9 @@ v0.1.8 (10.12.2003)
 + added enqueue type descs plus tuning hints
 + outsourced long hints/descs to external help files via popup on demand
 + updated installation instructions in doc/readme.txt
+
+v0.1.9
++ added own help icon (used one from the Apache installation up to now)
++ made the description for row migration more verbose (don't worry, it is
+  in an external help file now ;)
++ added to the description for the "latch free" wait event
