@@ -72,20 +72,12 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>This wait event occurs when the database attemts to locate '||
-	    'a clean block buffer but cannot because there are too many outstanding '||
-	    'dirty blocks waiting to be written. ';
+  L_LINE := '</TD><TD><A HREF="JavaScript:popup('||CHR(39)||'freebuffers'||CHR(39)||')">'||
+            'This wait event</A> occurs when the database attemts to locate '||
+	    'a clean block buffer but cannot ';
   print(L_LINE);
-  L_LINE := 'This could be an indication that either your database is having an '||
-            'IO problem (check the other IO related wait events to validate this) '||
-	    'or your database is very busy ';
-  print(L_LINE);
-  L_LINE := 'and you simply don''t have enough block buffers to go around. A possible '||
-            'solution is to adjust the frequency of your checkpoints by tuning the '||
-	    '<CODE>CHECK_POINT_TIMEOUT</CODE>';
-  print(L_LINE);
-  L_LINE := 'and <CODE>CHECK_POINT_INTERVAL</CODE> parameters to help the DBWR '||
-            'process to keep up. Increasing the buffer cache may also be helpful.</TD></TR>';
+  L_LINE := 'because there are too many outstanding dirty blocks waiting to '||
+            'be written.</TD></TR>';
   print(L_LINE);
   get_wait('buffer busy waits',S4,S1,S2,S3);
   L_LINE := ' <TR><TD><DIV STYLE="width:22ex">buffer busy waits</DIV></TD><TD ALIGN="right">'||S1||
@@ -133,20 +125,11 @@
             '</TD><TD ALIGN="right">'||S2||'</TD><TD ALIGN="right">'||S4||'</TD>'||
 	    '<TD ALIGN="right">'||S3;
   print(L_LINE);
-  L_LINE := '</TD><TD>This type of event may be an indication that something is '||
-            'either wrong with the code (should multiple sessions be serializing '||
-	    'themselves against a common row?) ';
+  L_LINE := '</TD><TD><A HREF="JavaScript:popup('||CHR(39)||'enqueue'||CHR(39)||
+            ')">This type</A> of event may be an indication that something is '||
+            'either wrong with the code ';
   print(L_LINE);
-  L_LINE := 'or possibly the physical design (high activity on child tables '||
-            'with unindexed foreign keys, inadequate <A HREF="JavaScript:popup('||
-	    CHR(39)||'initrans'||CHR(39)||')"><CODE>INITRANS</CODE></A> or MAXTRANS '||
-	    'values, etc.).';
-  print(L_LINE);
-  L_LINE := 'Since this event also indicates that there are too many DML or DDL '||
-            'locks (or, maybe, a large number of sequences), increasing the '||
-	    '<CODE>ENQUEUE_RESOURCES</CODE>';
-  print(L_LINE);
-  L_LINE := 'parameter in the <CODE>init.ora</CODE> will help reduce these waits.</TD></TR>';
+  L_LINE := 'or possibly the physical design.</TD></TR>';
   print(L_LINE);
   get_wait('latch free',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>latch free</TD><TD ALIGN="right">'||S1||
