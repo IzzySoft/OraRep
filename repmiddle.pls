@@ -54,6 +54,13 @@
 	    CHR(39)||'rowmigration'||CHR(39)||')">migrated rows</A> did we '||
 	    'encounter during this instances life time?</TD></TR>';
   print(L_LINE);
+  SELECT value INTO I2 FROM v$sysstat WHERE name='table fetch by rowid';
+  I3 := (I1/I2)*100;
+  S1 := to_char(I3,'999,990.00');
+  L_LINE := ' <TR><TD>Chained-Fetch-Ratio</TD><TD ALIGN="right">'||S1||
+            '%</TD><TD>Percentage of fetched "continued rows" per "rowid" fetch. '||
+	    'If this value is very low, do not care about the previous value ;)</TD></TR>';
+  print(L_LINE);
   L_LINE := TABLE_CLOSE;
   print(L_LINE);
   print('<HR>');

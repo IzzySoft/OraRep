@@ -147,3 +147,4 @@ v0.2.5
   of the table). Put a note in instead in these cases ;)
 + added some more details on the buffer waits, plus the optional buffer waits
   block
++ added "Chained-Fetch-Ratio" to "Sysstat Info" block
