@@ -5,10 +5,11 @@
              TO_CHAR(bytes/1024/1024,'999,990')||' M' used,
 	     DECODE(SIGN(max_bytes),-1,'Unlimited',
 	            TO_CHAR(max_bytes/1024/1024,'999,990')||' M') avail,
-	     DECODE((SELECT 'x' FROM dba_tablespaces t WHERE t.tablespace_name=q.tablespace_name),
-	            NULL,' CLASS="warn"','') dropped
-        FROM dba_ts_quotas q
-       ORDER BY tablespace_name,username;
+	     DECODE (t.status,NULL,' CLASS="warn"','') dropped
+        FROM dba_ts_quotas q,dba_tablespaces t
+       WHERE t.tablespace_name(+)=q.tablespace_name
+         AND username IS NOT NULL
+       ORDER BY ts,username;
 
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="4"><A NAME="ts_quotas">TableSpace '||
