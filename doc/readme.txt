@@ -20,3 +20,6 @@ v0.1.1 (28.10.2003)  small fixes:
 v0.1.2 (xx.xx.2003)  small enhancements:
 + in the "Data Files" block, statistics are now grouped by data files instead
   of listing up each segment separately
++ some comments/recommendations are now more precise
++ for the wait events, objects that caused them (at the time the report was
+  generated) are listed

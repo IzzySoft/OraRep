@@ -130,6 +130,15 @@ DECLARE
            to_char(100*empty_blocks/(blocks+empty_blocks),'990.00') freepct
       FROM dba_tables
      WHERE 0.1>DECODE(SIGN(blocks+empty_blocks),1,empty_blocks/(blocks+empty_blocks),1);
+  CURSOR C_WAIT IS
+    SELECT owner,segment_name,segment_type
+      FROM (SELECT p1 file#,p2 block#
+              FROM v\$session_wait
+	     WHERE event IN ('buffer busy waits','db file sequential read',
+	                     'db file scattered read','free buffer waits')) b,
+	   dba_extents a
+     WHERE a.file_id=b.file#
+       AND b.block# BETWEEN a.block_id AND (a.block_id+blocks-1);
 
 BEGIN
   -- Configuration
@@ -463,7 +472,10 @@ BEGIN
   dbms_output.put_line(L_LINE);
   SELECT total_waits INTO I1 FROM v\$system_event WHERE event='db file scattered read';
   L_LINE := ' <TR><TD>v'||CHR(36)||'system_event: db file scattered read</TD><TD ALIGN="right">'||I1||
-            '</TD><TD>Indicator for I/O problems on full table scans</TD></TR>';
+            '</TD><TD>Indicator for I/O problems on full table scans<BR>(on increasing ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := '<I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value is high see the first '||
+	    'block of Miscellaneous below)</TD></TR>';
   dbms_output.put_line(L_LINE);
   I1 := 0;
   BEGIN
@@ -514,6 +526,30 @@ BEGIN
   dbms_output.put_line(L_LINE);
   L_LINE := TABLE_CLOSE;
   dbms_output.put_line(L_LINE);
+
+  -- Who caused the wait events?
+  L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="3"><A NAME="waitobj">Objects causing Wait Events</A></TH></TR>';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' <TR><TD COLSPAN="3">On the following segments we noticed one of the '||
+            'events <I>buffer busy waits</I>, <I>db file sequential read</I>, '||
+	    '<I>db file scattered read</I> or <I>free buffer waits</I> at the '||
+	    'time the report was generated.';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'If you had many <I>db file scattered reads</I> above and now find '||
+            'some entries with segment type = table in here, these may need '||
+	    'some|more|better|other indices. </TD></TR>';
+  dbms_output.put_line(L_LINE);
+  L_LINE := ' <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">'||
+            'Segment Name</TH><TH CLASS="th_sub">Segment Type</TH></TR>';
+  dbms_output.put_line(L_LINE);
+  FOR Rec_WAIT IN C_WAIT LOOP
+    L_LINE := ' <TR><TD>'||Rec_WAIT.owner||'</TD><TD ALIGN="right">'||
+              Rec_WAIT.segment_name||'</TD><TD ALIGN="right">'||
+              Rec_WAIT.segment_type||'</TD></TR>';
+    dbms_output.put_line(L_LINE);
+  END LOOP;
+  L_LINE := TABLE_CLOSE;
+  dbms_output.put_line(L_LINE);
   dbms_output.put_line('<HR>');
 
   -- Miscellaneous
@@ -523,7 +559,12 @@ BEGIN
   L_LINE := ' <TR><TD COLSPAN="2" CLASS="td_name">If we have many full table '||
             'scans, we may have to optimize <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I>. '||
             'Beneath the statistic below, we need the block count of the largest '||
-            'table to find the best value.</TD></TR>';
+            'table to find the best value. ';
+  dbms_output.put_line(L_LINE);
+  L_LINE := 'A common recommendation is to set <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> '||
+            'to the highest possible value for maximum performance, which is '||
+	    '32 (256k) in most environments. The absolute maximum of 128 (1M) is '||
+	    'mostly only available on raw devices.</TD></TR>';
   dbms_output.put_line(L_LINE);
   FOR Rec_SCAN IN C_SCAN LOOP
     L_LINE := ' <TR><TD>'||Rec_SCAN.name||'</TD><TD ALIGN="right">'||
