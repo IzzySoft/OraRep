@@ -146,7 +146,7 @@
   print(L_LINE);
   L_LINE := 'or possibly the physical design (high activity on child tables '||
             'with unindexed foreign keys, inadequate INITRANS or MAXTRANS '||
-	    'values, etc.';
+	    'values, etc.).';
   print(L_LINE);
   L_LINE := 'Since this event also indicates that there are too many DML or DDL '||
             'locks (or, maybe, a large number of sequences), increasing the '||
