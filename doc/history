@@ -169,3 +169,7 @@ v0.2.7 (10.02.2004)
   would automatically activated if a tablespace with that name would be created
 * No more empty TSQuotas table (hopefully)
 ! some blocks have not been closed correctly when an error occured
+
+v0.2.8
+-------------------
++ added closer information on "Go4Colors" to the HTML documentation
