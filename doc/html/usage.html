@@ -59,13 +59,13 @@
   there is no general recipe to success on the evaluation of the reports (not
   even on the configuration of OraRep). Nevertheless, there are some values we
   may identify problems generally (e.g. by ratios). For these you can use the
-  "Go4Colors Mode", i.e. just scroll through the report and look for table
-  cells having red (alert) or yellow (warning) background color and investigate
-  their values first (the colors mentioned refer to the default stylesheet
-  shipped with OraRep - if you modified this or use another one, the colors
-  may be different or not even available if the classes are missing).<br>
-  Moreover, there are several places of the report that may deserve closer
-  attention even on the first evaluation and/or by the novice admin:
+  "<a href="#go4colors">Go4Colors</a> Mode", i.e. just scroll through the report
+  and look for table cells having red (alert) or yellow (warning) background
+  color and investigate their values first (the colors mentioned refer to the
+  default stylesheet shipped with OraRep - if you modified this or use another
+  one, the colors may be different or not even available if the classes are
+  missing).<br>Moreover, there are several places of the report that may deserve
+  closer attention even on the first evaluation and/or by the novice admin:
  </td></tr>
  <tr><td class="text">
   <table align="center" width="95%">
@@ -111,6 +111,40 @@
   Performance Tuning, there are other sources on this. If OraRep (with its
   documentation, reports and hints) got you started on this topic, or gave you
   new/more ideas about it, I did a good job :-)
+ </td></tr>
+ <tr><th class="th_sub"><a name="go4colors"></a>Go4Colors</th></tr>
+ <tr><td class="text">
+  The "Go4Colors Mode" is intended to highlight possible problems in order to
+  not overlook them. As a side effect, the DBA that supervises many instances
+  has a quick way to determine whether there are possible problems that need
+  his attention without reading the whole report. However, one should not rely
+  on these colors alone, since they are mostly based on arbitrary values: again
+  we have no perfect recipe on what "regular values" should look like - and a
+  value suitable in an OLTP environment already could indicate issues for tuning
+  in a batch environment, and vice versa.
+ </td></tr>
+ <tr><td class="text">
+  Normally, a table cell with yellow background indicates a "warning", red
+  background means "alert". But again, you shouldn't take these indicators
+  literally: everything very much depends on your environment. So even a cell
+  with red background doesn't mean you have to panic!
+ </td></tr>
+ <tr><td class="text">
+  Some values that lead to a "warning" or "alert" are configurable (see
+  <a href="config.html#opt">configuration</a> section of this document), others
+  need no values (e.g. Quotas for non-existing tablespaces are marked with the
+  "warning" color), and some are at this time hard coded, but may be made
+  configurable with a future release. These are:
+ </td></tr>
+ <tr><td class="text">
+  <table align="center" border="1">
+   <tr><th class="th_sub2">Parameter</th><th class="th_sub2">Warning</th>
+       <th class="th_sub2">Alert</th></tr>
+   <tr><td class="td_name" colspan="3" align="center">Instance Efficiency</td></tr>
+   <tr><td class="td_name">Buffer Pool Ratio</td><td class="warn">&gt; 0.7</td><td class="alert">&gt; 0.9</td></tr>
+   <tr><td class="td_name">Datafile Used<br><font size="-2">(if non-autoextensible)</font></td>
+       <td class="warn">&gt; 85</td><td class="alert">&gt; 95</td></tr>
+  </table>
  </td></tr>
 </table>
 
