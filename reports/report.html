@@ -6,7 +6,8 @@
 <H2>Report for oradb</H2>
 
 <TABLE ALIGN="center" BORDER="1"><TR><TD><FONT SIZE=-2>[ <A HREF="#users">Users</A> ] [ <A HREF="#datafiles">Datafiles</A> ] [ <A HREF="#rbs">Rollback</A> ] [ <A HREF="#memory">Memory</A> ]
-[ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ] [ <A HREF="#events">Events</A> ] [ <A HREF="#misc">Misc</A> ]</TD></TR>
+[ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]
+[ <A HREF="#events">Events</A> ] [ <A HREF="#invobj">Invalid Objects</A> ] [ <A HREF="#misc">Misc</A> ]</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -15,10 +16,10 @@
  <TR><TD class="td_name">Instance:</TD><TD>ORADB</TD></TR>
 <TR><TD class="td_name">Version:</TD><TD>9.0.1.0.0</TD></TR>
  <TR><TD class="td_name">Archiver:</TD><TD>STARTED</TD></TR>
-<TR><TD class="td_name">ArchivedLogSize:</TD><TD>      47,598.81 MB</TD></TR>
-<TR><TD class="td_name">FileSize (Data+Log)</TD><TD>      50,920.00 MB</TD></TR>
- <TR><TD class="td_name">Startup / Uptime</TD><TD>06.05.2003 13:16 /   177.58 d</TD></TR>
-<TR><TD class="td_name">Report generated:</TD><TD>31.10.2003 03:05</TD></TR>
+<TR><TD class="td_name">ArchivedLogSize:</TD><TD>       2,699.99 MB</TD></TR>
+<TR><TD class="td_name">FileSize (Data+Log)</TD><TD>       2,822.10 MB</TD></TR>
+ <TR><TD class="td_name">Startup / Uptime</TD><TD>13.05.2003 15:26 /   176.49 d</TD></TR>
+<TR><TD class="td_name">Report generated:</TD><TD>06.11.2003 03:09</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -26,16 +27,21 @@
 <TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="7"><A NAME="users">User Information</A></TH></TR>
  <TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">
 Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">Temporary TS</TH><TH CLASS="th_sub">Created</TH></TR>
-<TR><TD>SYS</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>19.11.2002</TD></TR>
-<TR><TD>SYSTEM</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>19.11.2002</TD></TR>
-<TR><TD>OUTLN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>19.11.2002</TD></TR>
-<TR><TD>DBSNMP</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>19.11.2002</TD></TR>
-<TR><TD>USER</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>19.11.2002</TD></TR>
-<TR><TD>INLN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>20.11.2002</TD></TR>
-<TR><TD>USER_BCF</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>20.11.2002</TD></TR>
-<TR><TD>USER_CON</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>14.01.2003</TD></TR>
-<TR><TD>PDB</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>PDB</TD><TD>TEMP</TD><TD>05.03.2003</TD></TR>
-<TR><TD>ORACLE</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>02.06.2003</TD></TR>
+<TR><TD>SYS</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>03.07.2002</TD></TR>
+<TR><TD>SYSTEM</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>03.07.2002</TD></TR>
+<TR><TD>OUTLN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>03.07.2002</TD></TR>
+<TR><TD>DBSNMP</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>03.07.2002</TD></TR>
+<TR><TD>USER</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>18.02.2003</TD></TR>
+<TR><TD>TOOLS</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>18.02.2003</TD></TR>
+<TR><TD>TRANSPORT</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>23.04.2003</TD></TR>
+<TR><TD>INLN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>04.07.2002</TD></TR>
+<TR><TD>UTIL</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>24.03.2003</TD></TR>
+<TR><TD>SPECIAL</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>23.04.2003</TD></TR>
+<TR><TD>ORAXS</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>24.03.2003</TD></TR>
+<TR><TD>ORAXZ</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>24.04.2003</TD></TR>
+<TR><TD>TERM</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>14.05.2003</TD></TR>
+<TR><TD>DIRECT</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>TNG</TD><TD>TEMP</TD><TD>26.05.2003</TD></TR>
+<TR><TD>CTN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>MARKTAB</TD><TD>TEMP</TD><TD>13.10.2003</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -51,22 +57,20 @@ Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">Temporary T
  <TR><TH CLASS="th_sub">Tablespace</TH><TH CLASS="th_sub">Datafile</TH><TH CLASS="th_sub">Status</TH><TH CLASS="th_sub">
 Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><TH CLASS="th_sub">Used (%)</TH><TH CLASS="th_sub">Phys.Reads</TH><TH CLASS="th_sub">Phys.Writes</TH>
 <TH CLASS="th_sub">Avg.I/O Time</TH></TR>
-<TR><TD>PDB</TD><TD>/opt/oracle/oraData/ORADB/v02/pdb.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right"> 35,123,200.00</TD><TD ALIGN="right">     62,784.00
-</TD><TD ALIGN="right">  99.82</TD><TD ALIGN="right">139112097</TD><TD ALIGN="right">22456051</TD><TD ALIGN="right">-331663744</TD></TR>
-<TR><TD>SYSTEM</TD><TD>/opt/oracle/oraData/ORADB/v01/system.dbf</TD><TD>SYSTEM</TD><TD>READ WRITE</TD><TD ALIGN="right">    153,600.00</TD><TD ALIGN="right">      8,640.00
-</TD><TD ALIGN="right">  94.38</TD><TD ALIGN="right">199352</TD><TD ALIGN="right">100757</TD><TD ALIGN="right">-1274141394</TD></TR>
-<TR><TD>UNDOTBS</TD><TD>/opt/oracle/oraData/ORADB/v01/undotbs.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">    808,960.00</TD><TD ALIGN="right">    782,016.00
-</TD><TD ALIGN="right">   3.33</TD><TD ALIGN="right">929249</TD><TD ALIGN="right">12356874</TD><TD ALIGN="right">-453915363</TD></TR>
-<TR><TD>USER</TD><TD>/opt/oracle/oraData/ORADB/v03/user.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">     51,200.00</TD><TD ALIGN="right">      8,576.00
-</TD><TD ALIGN="right">  83.25</TD><TD ALIGN="right">59004206</TD><TD ALIGN="right">5111275</TD><TD ALIGN="right">-1394155246</TD></TR>
-<TR><TD>USER_FIX</TD><TD>/opt/oracle/oraData/ORADB/v03/user_fix.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">  6,789,120.00</TD><TD ALIGN="right">     38,848.00
-</TD><TD ALIGN="right">  99.43</TD><TD ALIGN="right">396956</TD><TD ALIGN="right">724879</TD><TD ALIGN="right">-1078336760</TD></TR>
-<TR><TD>USER_IDX</TD><TD>/opt/oracle/oraData/ORADB/v02/user_idx.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">  4,741,120.00</TD><TD ALIGN="right">      5,376.00
-</TD><TD ALIGN="right">  99.89</TD><TD ALIGN="right">103324745</TD><TD ALIGN="right">20366755</TD><TD ALIGN="right">-756300397</TD></TR>
-<TR><TD>USER_MV</TD><TD>/opt/oracle/oraData/ORADB/v02/user_mv.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">  2,529,280.00</TD><TD ALIGN="right">     50,752.00
-</TD><TD ALIGN="right">  97.99</TD><TD ALIGN="right">25754349</TD><TD ALIGN="right">6127562</TD><TD ALIGN="right">-2118791950</TD></TR>
-<TR><TD>USER_TAB</TD><TD>/opt/oracle/oraData/ORADB/v02/user_tab.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">  1,638,400.00</TD><TD ALIGN="right">      5,760.00
-</TD><TD ALIGN="right">  99.65</TD><TD ALIGN="right">1508294</TD><TD ALIGN="right">848413</TD><TD ALIGN="right">122748997</TD></TR>
+<TR><TD>MARKINX</TD><TD>/opt/oracle/oraData/ORADB/v02/MARKINX.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">    524,288.00</TD><TD ALIGN="right">    502,144.00
+</TD><TD ALIGN="right">   4.22</TD><TD ALIGN="right">803</TD><TD ALIGN="right">3152</TD><TD ALIGN="right">1084725621</TD></TR>
+<TR><TD>MARKTAB</TD><TD>/opt/oracle/oraData/ORADB/v02/MARKTAB.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">  1,048,576.00</TD><TD ALIGN="right">  1,027,648.00
+</TD><TD ALIGN="right">   2.00</TD><TD ALIGN="right">489</TD><TD ALIGN="right">1983</TD><TD ALIGN="right">383038759</TD></TR>
+<TR><TD>TNG</TD><TD>/opt/oracle/oraData/ORADB/v01/tng.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">    450,560.00</TD><TD ALIGN="right">    386,880.00
+</TD><TD ALIGN="right">  14.13</TD><TD ALIGN="right">805578</TD><TD ALIGN="right">470087</TD><TD ALIGN="right">680998567</TD></TR>
+<TR><TD>SYSTEM</TD><TD>/opt/oracle/oraData/ORADB/v01/system01.dbf</TD><TD>SYSTEM</TD><TD>READ WRITE</TD><TD ALIGN="right">    204,904.00</TD><TD ALIGN="right">        112.00
+</TD><TD ALIGN="right">  99.95</TD><TD ALIGN="right">55156</TD><TD ALIGN="right">52652</TD><TD ALIGN="right">-1580357513</TD></TR>
+<TR><TD>TOOLS</TD><TD>/opt/oracle/oraData/ORADB/v02/tools01.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">      1,024.00</TD><TD ALIGN="right">        960.00
+</TD><TD ALIGN="right">   6.25</TD><TD ALIGN="right">12</TD><TD ALIGN="right">18</TD><TD ALIGN="right">-984450757</TD></TR>
+<TR><TD>UNDOTBS</TD><TD>/opt/oracle/oraData/ORADB/v01/undotbs01.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">    327,680.00</TD><TD ALIGN="right">    326,336.00
+</TD><TD ALIGN="right">   0.41</TD><TD ALIGN="right">576</TD><TD ALIGN="right">515529</TD><TD ALIGN="right">694221631</TD></TR>
+<TR><TD>USERS</TD><TD>/opt/oracle/oraData/ORADB/v02/users01.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">     25,600.00</TD><TD ALIGN="right">     25,536.00
+</TD><TD ALIGN="right">   0.25</TD><TD ALIGN="right">12</TD><TD ALIGN="right">18</TD><TD ALIGN="right">-984450757</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -75,42 +79,42 @@ Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><T
  <TR><TH CLASS="th_sub">Segment</TH><TH CLASS="th_sub">Status</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">OptSize (kB)</TH>
 <TH CLASS="th_sub">HWMSize (kB)</TH><TH CLASS="th_sub">Waits</TH><TH CLASS="th_sub">XActs</TH><TH CLASS="th_sub">Shrinks</TH><TH CLASS="th_sub">Wraps</TH><TH CLASS="th_sub">AveShrink</TH>
 <TH CLASS="th_sub">AveActive</TH></TR>
-<TR><TD>SYSTEM</TD><TD>ONLINE</TD><TD ALIGN="right">        496.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">        496.00</TD><TD ALIGN="right">0
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">1</TD><TD ALIGN="right">0</TD><TD ALIGN="right">6553</TD></TR>
-<TR><TD>_SYSSMU1$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    975,984.00</TD><TD ALIGN="right">763
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">2890</TD><TD ALIGN="right">15448</TD><TD ALIGN="right">200644</TD><TD ALIGN="right">2731105</TD></TR>
-<TR><TD>_SYSSMU10$</TD><TD>ONLINE</TD><TD ALIGN="right">      8,304.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    983,152.00</TD><TD ALIGN="right">697
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">3149</TD><TD ALIGN="right">16320</TD><TD ALIGN="right">345078</TD><TD ALIGN="right">6400567</TD></TR>
-<TR><TD>_SYSSMU2$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    991,408.00</TD><TD ALIGN="right">843
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">3581</TD><TD ALIGN="right">17016</TD><TD ALIGN="right">830610</TD><TD ALIGN="right">1216515</TD></TR>
-<TR><TD>_SYSSMU3$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    958,576.00</TD><TD ALIGN="right">744
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">3441</TD><TD ALIGN="right">16471</TD><TD ALIGN="right">407652</TD><TD ALIGN="right">1066910</TD></TR>
-<TR><TD>_SYSSMU4$</TD><TD>ONLINE</TD><TD ALIGN="right">      8,304.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    876,656.00</TD><TD ALIGN="right">538
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">2922</TD><TD ALIGN="right">12959</TD><TD ALIGN="right">463484</TD><TD ALIGN="right">3052270</TD></TR>
-<TR><TD>_SYSSMU5$</TD><TD>ONLINE</TD><TD ALIGN="right">      2,160.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    123,056.00</TD><TD ALIGN="right">122
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">1434</TD><TD ALIGN="right">5662</TD><TD ALIGN="right">562997</TD><TD ALIGN="right">1471039</TD></TR>
-<TR><TD>_SYSSMU6$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    800,944.00</TD><TD ALIGN="right">596
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">3196</TD><TD ALIGN="right">14453</TD><TD ALIGN="right">371931</TD><TD ALIGN="right">1327277</TD></TR>
-<TR><TD>_SYSSMU7$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    993,392.00</TD><TD ALIGN="right">571
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">2692</TD><TD ALIGN="right">13781</TD><TD ALIGN="right">1105007</TD><TD ALIGN="right">2672740</TD></TR>
-<TR><TD>_SYSSMU8$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    933,872.00</TD><TD ALIGN="right">796
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">3526</TD><TD ALIGN="right">16761</TD><TD ALIGN="right">659597</TD><TD ALIGN="right">976742</TD></TR>
-<TR><TD>_SYSSMU9$</TD><TD>ONLINE</TD><TD ALIGN="right">      1,136.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">    942,192.00</TD><TD ALIGN="right">779
-</TD><TD ALIGN="right">0</TD><TD ALIGN="right">2601</TD><TD ALIGN="right">15151</TD><TD ALIGN="right">1552580</TD><TD ALIGN="right">1172812</TD></TR>
+<TR><TD>SYSTEM</TD><TD>ONLINE</TD><TD ALIGN="right">        392.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">        392.00</TD><TD ALIGN="right">0
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD></TR>
+<TR><TD>_SYSSMU1$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     27,768.00</TD><TD ALIGN="right">74
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">242</TD><TD ALIGN="right">1599</TD><TD ALIGN="right">1099488</TD><TD ALIGN="right">3188926</TD></TR>
+<TR><TD>_SYSSMU10$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     17,400.00</TD><TD ALIGN="right">41
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">237</TD><TD ALIGN="right">1610</TD><TD ALIGN="right">907549</TD><TD ALIGN="right">757348</TD></TR>
+<TR><TD>_SYSSMU2$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     30,840.00</TD><TD ALIGN="right">72
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">240</TD><TD ALIGN="right">1637</TD><TD ALIGN="right">1280136</TD><TD ALIGN="right">904492</TD></TR>
+<TR><TD>_SYSSMU3$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     20,600.00</TD><TD ALIGN="right">56
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">218</TD><TD ALIGN="right">1502</TD><TD ALIGN="right">822807</TD><TD ALIGN="right">1514893</TD></TR>
+<TR><TD>_SYSSMU4$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     27,768.00</TD><TD ALIGN="right">35
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">237</TD><TD ALIGN="right">1615</TD><TD ALIGN="right">1174394</TD><TD ALIGN="right">1354970</TD></TR>
+<TR><TD>_SYSSMU5$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     27,640.00</TD><TD ALIGN="right">70
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">220</TD><TD ALIGN="right">1469</TD><TD ALIGN="right">1387277</TD><TD ALIGN="right">3674807</TD></TR>
+<TR><TD>_SYSSMU6$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     19,448.00</TD><TD ALIGN="right">48
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">227</TD><TD ALIGN="right">1595</TD><TD ALIGN="right">890365</TD><TD ALIGN="right">2507994</TD></TR>
+<TR><TD>_SYSSMU7$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     22,520.00</TD><TD ALIGN="right">66
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">250</TD><TD ALIGN="right">1692</TD><TD ALIGN="right">1125646</TD><TD ALIGN="right">648053</TD></TR>
+<TR><TD>_SYSSMU8$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     22,520.00</TD><TD ALIGN="right">27
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">230</TD><TD ALIGN="right">1507</TD><TD ALIGN="right">1113257</TD><TD ALIGN="right">1578491</TD></TR>
+<TR><TD>_SYSSMU9$</TD><TD>ONLINE</TD><TD ALIGN="right">        120.00</TD><TD ALIGN="right">           .00</TD><TD ALIGN="right">     23,544.00</TD><TD ALIGN="right">70
+</TD><TD ALIGN="right">0</TD><TD ALIGN="right">259</TD><TD ALIGN="right">1717</TD><TD ALIGN="right">1094122</TD><TD ALIGN="right">514761</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
 <HR>
 <TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="2"><A NAME="memory">Memory Values</A></TH></TR>
  <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Size</TH></TR>
-<TR><TD>Fixed Size</TD><TD ALIGN="right">         273.20 kB</TD></TR>
-<TR><TD>Variable Size</TD><TD ALIGN="right">     147,456.00 kB</TD></TR>
-<TR><TD>Database Buffers</TD><TD ALIGN="right">     212,992.00 kB</TD></TR>
+<TR><TD>Fixed Size</TD><TD ALIGN="right">         273.05 kB</TD></TR>
+<TR><TD>Variable Size</TD><TD ALIGN="right">     163,840.00 kB</TD></TR>
+<TR><TD>Database Buffers</TD><TD ALIGN="right">      65,536.00 kB</TD></TR>
 <TR><TD>Redo Buffers</TD><TD ALIGN="right">         520.00 kB</TD></TR>
 <TR><TD>shared_pool_size</TD><TD ALIGN="right">      65,536.00 kB</TD></TR>
 <TR><TD>shared_pool_reserved_size</TD><TD ALIGN="right">       3,276.80 kB</TD></TR>
-<TR><TD>large_pool_size</TD><TD ALIGN="right">5M</TD></TR>
-<TR><TD>java_pool_size</TD><TD ALIGN="right">      49,152.00 kB</TD></TR>
+<TR><TD>large_pool_size</TD><TD ALIGN="right">       1,024.00 kB</TD></TR>
+<TR><TD>java_pool_size</TD><TD ALIGN="right">      65,536.00 kB</TD></TR>
 <TR><TD>buffer_pool_keep</TD><TD ALIGN="right">0 kB</TD></TR>
 <TR><TD>buffer_pool_recycle</TD><TD ALIGN="right">0 kB</TD></TR>
 <TR><TD>global_context_pool_size</TD><TD ALIGN="right">0 kB</TD></TR>
@@ -122,16 +126,15 @@ Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><T
  <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Space</TH></TR>
 <TR><TD>Shared_Pool_Size</TD><TD ALIGN="right">      65,536.00 kB</TD></TR>
  <TR><TD>Shared_Pool_Reserved_Size</TD><TD ALIGN="right">       3,276.80 kB</TD></TR>
- <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">&nbsp;</TD></TR>
+ <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">       1,024.00 kB</TD></TR>
 
-<TR><TD>Java_Pool_Size</TD><TD ALIGN="right">      49,152.00 kB</TD></TR>
- <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">          64.00 kB</TD></TR>
+<TR><TD>Java_Pool_Size</TD><TD ALIGN="right">      65,536.00 kB</TD></TR>
+ <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">         512.00 kB</TD></TR>
  <TR><TD>Sort_Area_Retained_Size</TD><TD ALIGN="right">           0.00 kB</TD></TR>
 
 <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Free Space</TH></TR>
-<TR><TD>shared pool</TD><TD ALIGN="right">      5,170.97 kB</TD></TR>
-<TR><TD>large pool</TD><TD ALIGN="right">  4,189,714.16 kB</TD></TR>
-<TR><TD>java pool</TD><TD ALIGN="right">     49,152.00 kB</TD></TR>
+<TR><TD>shared pool</TD><TD ALIGN="right">      9,847.12 kB</TD></TR>
+<TR><TD>java pool</TD><TD ALIGN="right">     59,812.00 kB</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -140,46 +143,46 @@ Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><T
 <TR><TD COLSPAN="5">If one of the following conditions is <B><I>NOT</B></I> met this indicates that SHARED_POOL_SIZE may have to be increased:
 <BR><LI>(reloads/pins)*100 < 1</LI><BR><LI>gethitratio > 0.9</LI></TD><TR> <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>
 <TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD><TD CLASS="td_name">GetHitRatio</TD></TR>
-<TR><TD>SQL AREA</TD><TD ALIGN="right">14869105</TD><TD ALIGN="right">51371481</TD><TD ALIGN="right">474719</TD><TD ALIGN="right">  45.58</TD></TR>
-<TR><TD>TABLE/PROCEDURE</TD><TD ALIGN="right">26580966</TD><TD ALIGN="right">60160897</TD><TD ALIGN="right">38836</TD><TD ALIGN="right">  99.79</TD></TR>
-<TR><TD>BODY</TD><TD ALIGN="right">105979</TD><TD ALIGN="right">105971</TD><TD ALIGN="right">386</TD><TD ALIGN="right">  97.93</TD></TR>
-<TR><TD>TRIGGER</TD><TD ALIGN="right">128069</TD><TD ALIGN="right">128069</TD><TD ALIGN="right">0</TD><TD ALIGN="right">  99.47</TD></TR>
-<TR><TD>INDEX</TD><TD ALIGN="right">1649</TD><TD ALIGN="right">1735</TD><TD ALIGN="right">35</TD><TD ALIGN="right">  65.92</TD></TR>
-<TR><TD>CLUSTER</TD><TD ALIGN="right">58426</TD><TD ALIGN="right">67526</TD><TD ALIGN="right">0</TD><TD ALIGN="right">  98.29</TD></TR>
+<TR><TD>SQL AREA</TD><TD ALIGN="right">8957367</TD><TD ALIGN="right">68238146</TD><TD ALIGN="right">174286</TD><TD ALIGN="right">  95.56</TD></TR>
+<TR><TD>TABLE/PROCEDURE</TD><TD ALIGN="right">2243720</TD><TD ALIGN="right">9116894</TD><TD ALIGN="right">22109</TD><TD ALIGN="right">  99.16</TD></TR>
+<TR><TD>BODY</TD><TD ALIGN="right">191527</TD><TD ALIGN="right">194822</TD><TD ALIGN="right">1744</TD><TD ALIGN="right">  99.90</TD></TR>
+<TR><TD>TRIGGER</TD><TD ALIGN="right">472118</TD><TD ALIGN="right">475871</TD><TD ALIGN="right">3316</TD><TD ALIGN="right">  99.81</TD></TR>
+<TR><TD>INDEX</TD><TD ALIGN="right">5219</TD><TD ALIGN="right">5238</TD><TD ALIGN="right">6</TD><TD ALIGN="right">  70.63</TD></TR>
+<TR><TD>CLUSTER</TD><TD ALIGN="right">31123</TD><TD ALIGN="right">28191</TD><TD ALIGN="right">0</TD><TD ALIGN="right">  99.31</TD></TR>
 <TR><TD>OBJECT</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right"> 100.00</TD></TR>
 <TR><TD>PIPE</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>JAVA SOURCE</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right"> 100.00</TD></TR>
+<TR><TD>JAVA SOURCE</TD><TD ALIGN="right">33</TD><TD ALIGN="right">33</TD><TD ALIGN="right">0</TD><TD ALIGN="right">  90.91</TD></TR>
 <TR><TD>JAVA RESOURCE</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>JAVA DATA</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right"> 100.00</TD></TR>
+<TR><TD>JAVA DATA</TD><TD ALIGN="right">1067</TD><TD ALIGN="right">12087</TD><TD ALIGN="right">10</TD><TD ALIGN="right">  98.59</TD></TR>
 <TR><TD COLSPAN="5">&nbsp;</TD></TR>
 <TR><TH COLSPAN="5" CLASS="th_sub">Row Cache</TH></TR> <TR><TD COLSPAN="5">If Ratio = (getmisses/gets)*100 > 15, SHARED_POOL_SIZE may have to be increased:</TD></TR>
 <TR><TD COLSPAN="2" CLASS="td_name">Parameter</TD><TD CLASS="td_name">Gets</TD><TD CLASS="td_name">GetMisses</TD><TD CLASS="td_name">Ratio</TD></TR>
-<TR><TD COLSPAN="2">dc_free_extents</TD><TD ALIGN="right">49055</TD><TD ALIGN="right">14</TD><TD ALIGN="right">   0.03</TD></TR>
-<TR><TD COLSPAN="2">dc_used_extents</TD><TD ALIGN="right">12</TD><TD ALIGN="right">12</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD COLSPAN="2">dc_segments</TD><TD ALIGN="right">17287321</TD><TD ALIGN="right">3232</TD><TD ALIGN="right">   0.02</TD></TR>
-<TR><TD COLSPAN="2">dc_tablespaces</TD><TD ALIGN="right">33074491</TD><TD ALIGN="right">36</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_tablespace_quotas</TD><TD ALIGN="right">280708</TD><TD ALIGN="right">13</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_files</TD><TD ALIGN="right">134271</TD><TD ALIGN="right">78</TD><TD ALIGN="right">   0.06</TD></TR>
-<TR><TD COLSPAN="2">dc_users</TD><TD ALIGN="right">314809659</TD><TD ALIGN="right">79</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_rollback_segments</TD><TD ALIGN="right">1776047</TD><TD ALIGN="right">15</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_objects</TD><TD ALIGN="right">24941669</TD><TD ALIGN="right">18882</TD><TD ALIGN="right">   0.08</TD></TR>
-<TR><TD COLSPAN="2">dc_global_oids</TD><TD ALIGN="right">556</TD><TD ALIGN="right">3</TD><TD ALIGN="right">   0.54</TD></TR>
-<TR><TD COLSPAN="2">dc_constraints</TD><TD ALIGN="right">103</TD><TD ALIGN="right">43</TD><TD ALIGN="right">  41.75</TD></TR>
-<TR><TD COLSPAN="2">dc_object_ids</TD><TD ALIGN="right">337822272</TD><TD ALIGN="right">11515</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_sequences</TD><TD ALIGN="right">7951</TD><TD ALIGN="right">6</TD><TD ALIGN="right">   0.08</TD></TR>
-<TR><TD COLSPAN="2">dc_usernames</TD><TD ALIGN="right">16877897</TD><TD ALIGN="right">39</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_database_links</TD><TD ALIGN="right">1024432092</TD><TD ALIGN="right">90</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_histogram_defs</TD><TD ALIGN="right">19628284</TD><TD ALIGN="right">27393</TD><TD ALIGN="right">   0.14</TD></TR>
-<TR><TD COLSPAN="2">table scns</TD><TD ALIGN="right">724973</TD><TD ALIGN="right">165</TD><TD ALIGN="right">   0.02</TD></TR>
-<TR><TD COLSPAN="2">dc_profiles</TD><TD ALIGN="right">149486</TD><TD ALIGN="right">1</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD COLSPAN="2">dc_user_grants</TD><TD ALIGN="right">4152014</TD><TD ALIGN="right">79</TD><TD ALIGN="right">   0.00</TD></TR>
+<TR><TD COLSPAN="2">dc_free_extents</TD><TD ALIGN="right">236608</TD><TD ALIGN="right">78</TD><TD ALIGN="right">   0.03</TD></TR>
+<TR><TD COLSPAN="2">dc_used_extents</TD><TD ALIGN="right">70</TD><TD ALIGN="right">70</TD><TD ALIGN="right"> 100.00</TD></TR>
+<TR><TD COLSPAN="2">dc_segments</TD><TD ALIGN="right">2268698</TD><TD ALIGN="right">3427</TD><TD ALIGN="right">   0.15</TD></TR>
+<TR><TD COLSPAN="2">dc_tablespaces</TD><TD ALIGN="right">1153177</TD><TD ALIGN="right">15</TD><TD ALIGN="right">   0.00</TD></TR>
+<TR><TD COLSPAN="2">dc_tablespace_quotas</TD><TD ALIGN="right">23155</TD><TD ALIGN="right">20</TD><TD ALIGN="right">   0.09</TD></TR>
+<TR><TD COLSPAN="2">dc_files</TD><TD ALIGN="right">2214</TD><TD ALIGN="right">7</TD><TD ALIGN="right">   0.32</TD></TR>
+<TR><TD COLSPAN="2">dc_users</TD><TD ALIGN="right">1302933</TD><TD ALIGN="right">184</TD><TD ALIGN="right">   0.01</TD></TR>
+<TR><TD COLSPAN="2">dc_rollback_segments</TD><TD ALIGN="right">1123388</TD><TD ALIGN="right">12</TD><TD ALIGN="right">   0.00</TD></TR>
+<TR><TD COLSPAN="2">dc_objects</TD><TD ALIGN="right">1352850</TD><TD ALIGN="right">13700</TD><TD ALIGN="right">   1.01</TD></TR>
+<TR><TD COLSPAN="2">dc_global_oids</TD><TD ALIGN="right">32</TD><TD ALIGN="right">4</TD><TD ALIGN="right">  12.50</TD></TR>
+<TR><TD COLSPAN="2">dc_constraints</TD><TD ALIGN="right">18298</TD><TD ALIGN="right">8390</TD><TD ALIGN="right">  45.85</TD></TR>
+<TR><TD COLSPAN="2">dc_object_ids</TD><TD ALIGN="right">3707062</TD><TD ALIGN="right">11521</TD><TD ALIGN="right">   0.31</TD></TR>
+<TR><TD COLSPAN="2">dc_sequences</TD><TD ALIGN="right">38401</TD><TD ALIGN="right">189</TD><TD ALIGN="right">   0.49</TD></TR>
+<TR><TD COLSPAN="2">dc_usernames</TD><TD ALIGN="right">780636</TD><TD ALIGN="right">72</TD><TD ALIGN="right">   0.01</TD></TR>
+<TR><TD COLSPAN="2">dc_database_links</TD><TD ALIGN="right">124883491</TD><TD ALIGN="right">89</TD><TD ALIGN="right">   0.00</TD></TR>
+<TR><TD COLSPAN="2">dc_histogram_defs</TD><TD ALIGN="right">749292</TD><TD ALIGN="right">23274</TD><TD ALIGN="right">   3.11</TD></TR>
+<TR><TD COLSPAN="2">table scns</TD><TD ALIGN="right">231</TD><TD ALIGN="right">231</TD><TD ALIGN="right"> 100.00</TD></TR>
+<TR><TD COLSPAN="2">dc_profiles</TD><TD ALIGN="right">29692</TD><TD ALIGN="right">1</TD><TD ALIGN="right">   0.00</TD></TR>
+<TR><TD COLSPAN="2">dc_user_grants</TD><TD ALIGN="right">226080</TD><TD ALIGN="right">160</TD><TD ALIGN="right">   0.07</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
 <TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="5"><A NAME="bufferpool">Buffer Pool Statistics</A></TH></TR>
 <TR><TD COLSPAN="5">Ratio = physical_reads/(consistent_gets+db_block_gets) should be > 0.9:
 <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">physical_reads</TH><TH CLASS="th_sub">consistent_gets</TH><TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>
-<TR><TD>DEFAULT</TD><TD ALIGN="right">1468412673</TD><TD ALIGN="right">3194784511</TD><TD ALIGN="right">1265041499</TD><TD ALIGN="right">   0.33</TD></TR>
+<TR><TD>DEFAULT</TD><TD ALIGN="right">3922101</TD><TD ALIGN="right">3213115877</TD><TD ALIGN="right">83921615</TD><TD ALIGN="right">   0.00</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -187,27 +190,34 @@ Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><T
 <TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="3"><A NAME="sysstat">SYSSTAT Info</A></TH></TR>
  <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH><TH CLASS="th_sub">Description</TH></TR>
 <TR><TD WIDTH="300">DiskSorts / MemorySorts</TD><TD ALIGN="right">           0.00</TD><TD>Higher values are an indicator to increase <I>SORT_AREA_SIZE</I></TD></TR>
-<TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">   5,362,363.00</TD><TD>If this value is > 100, the LGWR is too lazy -- so you maywant to decrease <I>DB_BLOCK_MAX_DIRTY_TARGET</I></TD></TR>
-<TR><TD>free buffer inspected / free buffer requested</TD><TD ALIGN="right">           0.00</TD><TD>Increase your buffer cache if this value is too high</TD></TR>
+<TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">     104,053.00</TD><TD>If this value is > 100, the LGWR is too lazy -- so you maywant to decrease <I>DB_BLOCK_MAX_DIRTY_TARGET</I></TD></TR>
+<TR><TD>free buffer inspected / free buffer requested</TD><TD ALIGN="right">           0.01</TD><TD>Increase your buffer cache if this value is too high</TD></TR>
 <TR><TD>redo buffer allocation retries / redo blocks written</TD><TD ALIGN="right">           0.00</TD><TD>should be less than 0.01</TD></TR>
-<TR><TD>redo log space requests</TD><TD ALIGN="right">       5,076.00</TD><TD>how often the log file was full and Oracle had to wait for a new file to become available</TD></TR>
-<TR><TD>table fetch continued row</TD><TD ALIGN="right">         404.00</TD><TD>How many migrated rows did we encounter during this instances life time? If the number is markable, you may have to analyse your tables:
+<TR><TD>redo log space requests</TD><TD ALIGN="right">          95.00</TD><TD>how often the log file was full and Oracle had to wait for a new file to become available</TD></TR>
+<TR><TD>table fetch continued row</TD><TD ALIGN="right">  60,748,067.00</TD><TD>How many migrated rows did we encounter during this instances life time? If the number is markable, you may have to analyse your tables:
 <PRE>ANALYZE TABLE tablename COMPUTE STATISTICS;
 SELECT num_rows,chain_cnt FROM dba_tables WHERE table_name='tablename';</PRE><I>utlchain.sql</I> then may help you to automatically eliminate migration (correct PCTFREE before running that!).</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
 <HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="3"><A NAME="events">Selected Wait Events</A></TH></TR>
- <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH><TH CLASS="th_sub">Description</TH></TR>
-<TR><TD WIDTH="300">v$system_event: db file sequential read</TD><TD ALIGN="right">277356783</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">(Consider increasing the buffer cache when value is high)</FONT></TD></TR>
-<TR><TD>v$system_event: db file scattered read</TD><TD ALIGN="right">52983086</TD><TD>Indicator for I/O problems on full table scans<BR><FONT SIZE="-2">
-(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value is high see the first block of Miscellaneous below)</FONT></TD></TR>
-<TR><TD>v$system_event: latch free</TD><TD ALIGN="right">92279</TD><TD>&nbsp;</TD></TR>
-<TR><TD>v$system_event: LGWR wait for redo copy</TD><TD ALIGN="right">9741</TD><TD>&nbsp;</TD></TR>
-<TR><TD>v$system_event: log file switch (checkpoint incomplete)</TD><TD ALIGN="right">0</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>
-<TR><TD>v$system_event: log file switch completion</TD><TD ALIGN="right">4851</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>
-<TR><TD>v$session_wait: log buffer wait</TD><TD ALIGN="right">0</TD><TD>If this value is too high, log buffers are filling faster than being emtied. You then have to consider to increase the number of logfile groups or to use larger log files.</TD></TR>
+<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events (from v$system_event)</A></TH></TR>
+ <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>
+<TH CLASS="th_sub">Total WaitTime</TH><TH CLASS="th_sub">Avg Waited</TH><TH CLASS="th_sub">Timeouts</TH><TH CLASS="th_sub">Description</TH></TR>
+<TR><TD><DIV STYLE="width:22ex">db file sequential read</DIV></TD><TD ALIGN="right">       323,948</TD><TD ALIGN="right">        32,559</TD><TD ALIGN="right">0</TD><TD ALIGN="right">          0
+</TD><TD>Indicator for I/O problems on index accesses<BR><FONT SIZE="-2">(Consider increasing the buffer cache when value is high)</FONT></TD></TR>
+<TR><TD>db file scattered read</TD><TD ALIGN="right">       542,952</TD><TD ALIGN="right">        44,753</TD><TD ALIGN="right">0</TD><TD ALIGN="right">          0
+</TD><TD>Indicator for I/O problems on full table scans<BR><FONT SIZE="-2">(On increasing <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> if this value is high see the first block of Miscellaneous below)</FONT></TD></TR>
+<TR><TD>latch free</TD><TD ALIGN="right">        25,250</TD><TD ALIGN="right">        25,232</TD><TD ALIGN="right">1</TD><TD ALIGN="right">      9,768
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD>LGWR wait for redo copy</TD><TD ALIGN="right">           993</TD><TD ALIGN="right">            61</TD><TD ALIGN="right">0</TD><TD ALIGN="right">         26
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0
+</TD><TD>Higher values indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>
+<TR><TD>log file switch completion</TD><TD ALIGN="right">            87</TD><TD ALIGN="right">         1,234</TD><TD ALIGN="right">14</TD><TD ALIGN="right">          3
+</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>
+<TR><TD>log buffer wait</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0
+</TD><TD>If this value is too high, log buffers are filling faster than being emptied. You then have to consider to increase the number of logfile groups or to use larger log files.</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -218,8 +228,29 @@ some|more|better|other indices. Use <I>Statspack</I> or <I>Oracle Enterprise Man
 wait events are:<UL STYLE="margin-top:0;margin-bottom:0"><LI>Tune the SQL statements used by your applications and users (most important!)</LI><LI>Re-Analyze the schema to help the optimizer with accurate data e.g. with <I>dbms_stats</I></LI>
 <LI>Stripe objects over multiple disk volumes</LI><LI>Pin frequently used objects</LI><LI>Increase the buffer caches</LI></UL></TD></TR>
 <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Segment Name</TH><TH CLASS="th_sub">Segment Type</TH></TR>
-<TR><TD>PDB</TD><TD ALIGN="right">PDB_KURSDIENST</TD><TD ALIGN="right">TABLE</TD></TR>
-<TR><TD>USER</TD><TD ALIGN="right">SYS_LOB0000007307C00003$$</TD><TD ALIGN="right">LOBSEGMENT</TD></TR>
+</TABLE>
+<BR CLEAR="all">
+
+<HR>
+<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="5"><A NAME="invobj">Invalid Objects</A></TH></TR>
+ <TR><TD COLSPAN="5">The following objects may need your investigation. These are not
+necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>
+<TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Typ</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>
+<TR><TD>DIRECT</TD><TD>INSERT_USER</TD><TD>PROCEDURE</TD><TD>28.05.2003 10:44</TD><TD>28.05.2003 12:27</TD></TR>
+<TR><TD>UTIL</TD><TD>/179f813b_IllegalNomChangeExce</TD><TD>JAVA CLASS</TD><TD>24.03.2003 01:37</TD><TD>24.03.2003 01:37</TD></TR>
+<TR><TD>UTIL</TD><TD>/867432a1_LimitNotSetException</TD><TD>JAVA CLASS</TD><TD>04.08.2003 04:26</TD><TD>04.08.2003 04:26</TD></TR>
+<TR><TD>UTIL</TD><TD>/d69ea820_IllegalOrderChangeEx</TD><TD>JAVA CLASS</TD><TD>04.08.2003 04:26</TD><TD>04.08.2003 04:26</TD></TR>
+<TR><TD>UTIL</TD><TD>PDV_BESTAND</TD><TD>VIEW</TD><TD>05.09.2003 12:54</TD><TD>05.09.2003 12:54</TD></TR>
+<TR><TD>UTIL</TD><TD>PDV_TRANSAKTION</TD><TD>VIEW</TD><TD>05.09.2003 12:54</TD><TD>05.09.2003 12:54</TD></TR>
+<TR><TD>UTIL</TD><TD>PUFFER_DECIDE_AIRL_ENTRY</TD><TD>TRIGGER</TD><TD>05.09.2003 01:05</TD><TD>26.09.2003 07:38</TD></TR>
+<TR><TD>UTIL</TD><TD>PUFFER_DECIDE_ERR_BRL</TD><TD>TRIGGER</TD><TD>05.09.2003 01:05</TD><TD>05.09.2003 01:05</TD></TR>
+<TR><TD>UTIL</TD><TD>TO_DOCSETTLEMENT</TD><TD>PROCEDURE</TD><TD>26.09.2003 07:38</TD><TD>26.09.2003 07:38</TD></TR>
+<TR><TD>UTIL</TD><TD>TO_SETTLEMENT</TD><TD>FUNCTION</TD><TD>26.09.2003 07:38</TD><TD>26.09.2003 07:38</TD></TR>
+<TR><TD>UTIL</TD><TD>UTIL_PUFFER_DECIDE</TD><TD>PACKAGE BODY</TD><TD>26.09.2003 07:38</TD><TD>26.09.2003 07:38</TD></TR>
+<TR><TD>UTIL</TD><TD>Z_MDW</TD><TD>VIEW</TD><TD>05.09.2003 01:05</TD><TD>05.09.2003 01:05</TD></TR>
+<TR><TD>SPECIAL</TD><TD>DECIDE_UMSATZ_BRL</TD><TD>TRIGGER</TD><TD>24.04.2003 03:58</TD><TD>24.04.2003 03:58</TD></TR>
+<TR><TD>TERM</TD><TD>/867432a1_LimitNotSetException</TD><TD>JAVA CLASS</TD><TD>22.05.2003 01:10</TD><TD>06.08.2003 02:16</TD></TR>
+<TR><TD>TERM</TD><TD>/d69ea820_IllegalOrderChangeEx</TD><TD>JAVA CLASS</TD><TD>22.05.2003 01:10</TD><TD>06.08.2003 02:16</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
@@ -228,33 +259,24 @@ wait events are:<UL STYLE="margin-top:0;margin-bottom:0"><LI>Tune the SQL statem
  <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH></TR>
 <TR><TD COLSPAN="2" CLASS="td_name">If we have many full table scans, we may have to optimize <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I>. Beneath the statistic below, we need the block count of the largest table to find the best value.
 A common recommendation is to set <I>DB_FILE_MULTI_BLOCK_READ_COUNT</I> to the highest possible value for maximum performance, which is 32 (256k) in most environments. The absolute maximum of 128 (1M) is mostly only available on raw devices.</TD></TR>
-<TR><TD>table scans (short tables)</TD><TD ALIGN="right">669930</TD></TR>
-<TR><TD>table scans (long tables)</TD><TD ALIGN="right">21217</TD></TR>
-<TR><TD>table scans (rowid ranges)</TD><TD ALIGN="right">9</TD></TR>
+<TR><TD>table scans (short tables)</TD><TD ALIGN="right">17179567</TD></TR>
+<TR><TD>table scans (long tables)</TD><TD ALIGN="right">94919</TD></TR>
+<TR><TD>table scans (rowid ranges)</TD><TD ALIGN="right">56</TD></TR>
 <TR><TD>table scans (cache partitions)</TD><TD ALIGN="right">0</TD></TR>
 <TR><TD>table scans (direct read)</TD><TD ALIGN="right">0</TD></TR>
 <TR><TD COLSPAN="2" CLASS="td_name">If there are tables that will for sure need more extents shortly, we can reduce I/O overhead allocating some extents for them in advance, using
 "ALTER TABLE tablename ALLOCATE EXTENT". Here are some candidates, having less than 10 percent free blocks left:</TD></TR>
-<TR><TD>USER.BC_ORDER</TD><TD ALIGN="right">   1.10%</TD></TR>
-<TR><TD>USER.PLAN_TABLE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>USER.BC_BTRADE</TD><TD ALIGN="right">   1.05%</TD></TR>
-<TR><TD>USER.XO_CTPY</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>USER.BC_DIARY</TD><TD ALIGN="right">   0.34%</TD></TR>
-<TR><TD>USER.XO_IMPORT</TD><TD ALIGN="right">   0.50%</TD></TR>
-<TR><TD>PDB.PDB_KURSDIENST</TD><TD ALIGN="right">   0.48%</TD></TR>
-<TR><TD>PDB.PLAN_TABLE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>USER.LID0100</TD><TD ALIGN="right">   2.54%</TD></TR>
-<TR><TD>USER.TX_MTB</TD><TD ALIGN="right">   0.06%</TD></TR>
-<TR><TD>USER.LID0700</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>USER.MX1_DIARY</TD><TD ALIGN="right">   2.35%</TD></TR>
-<TR><TD>USER.LID1000</TD><TD ALIGN="right">   5.26%</TD></TR>
-<TR><TD>USER.LID0150</TD><TD ALIGN="right">   0.33%</TD></TR>
+<TR><TD>ORAXZ.ORAXZTRANABST</TD><TD ALIGN="right">   0.00%</TD></TR>
+<TR><TD>ORAXZ.ORAXZAUSZUGABST</TD><TD ALIGN="right">   0.00%</TD></TR>
+<TR><TD>CTN.DDNCOF</TD><TD ALIGN="right">   3.75%</TD></TR>
+<TR><TD>CTN.EPOSRF</TD><TD ALIGN="right">   9.38%</TD></TR>
+<TR><TD>CTN.FEHLMF</TD><TD ALIGN="right">   3.75%</TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
 <HR>
 <TABLE ALIGN="center" BORDER="1">
-<TR><TD><FONT SIZE="-2">Created by OraRep v0.1.2 &copy; 2003 by <A HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg</A> &amp; <A HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft</A></FONT></TD></TR>
+<TR><TD><FONT SIZE="-2">Created by OraRep v0.1.3 &copy; 2003 by <A HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg</A> &amp; <A HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft</A></FONT></TD></TR>
 </TABLE>
 <BR CLEAR="all">
 
