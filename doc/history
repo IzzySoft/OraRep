@@ -3,6 +3,14 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
+v0.3.2
+-------------------
++ added LGWR statistics. Switch them on/off with the MK_LGWR parameter in the
+  config file
++ added DBWR statistics. Switch them on/off with the MK_DBWR parameter in the
+  config file.
++ added table stats
+
 v0.3.1 (07.01.2005)
 -------------------
 + script now accepts the command line parameters "-r" to use an alternative

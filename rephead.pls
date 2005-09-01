@@ -36,7 +36,10 @@ DECLARE
   AR_BUFF NUMBER;
   WR_FILEUSED NUMBER;
   AR_FILEUSED NUMBER;
+  WR_RWP NUMBER;
+  AR_RWP NUMBER;
   UTH NUMBER;
+  ELA NUMBER;
   S1 VARCHAR(200);
   S2 VARCHAR(500);
   S3 VARCHAR(200);
@@ -70,12 +73,64 @@ DECLARE
       WHEN NO_DATA_FOUND THEN rval := '&nbsp;';
     END;
 
+  FUNCTION num_cp(small IN NUMBER, big IN NUMBER, level IN STRING) RETURN VARCHAR2 IS
+    level2 VARCHAR2(100);
+    BEGIN
+      IF small > big THEN
+        RETURN ' CLASS="'||level||'"';
+      ELSE
+        RETURN '';
+      END IF;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN '';
+    END;
+
+  FUNCTION alert_gt_warn(val IN NUMBER, alert IN NUMBER,warn IN NUMBER) RETURN VARCHAR2 IS
+    htmlcode VARCHAR2(50);
+    BEGIN
+      htmlcode := num_cp(val,alert,'alert');
+      IF NVL(htmlcode,'x') = 'x' THEN
+        htmlcode := num_cp(val,warn,'warn');
+      END IF;
+      RETURN htmlcode;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN '';
+    END;
+
+  FUNCTION alert_lt_warn(val IN NUMBER, alert IN NUMBER,warn IN NUMBER) RETURN VARCHAR2 IS
+    htmlcode VARCHAR2(30);
+    BEGIN
+      htmlcode := num_cp(warn,val,'warn');
+      IF NVL(htmlcode,'x') = 'x' THEN
+        htmlcode := num_cp(alert,val,'alert');
+      END IF;
+      RETURN htmlcode;
+    EXCEPTION
+      WHEN OTHERS THEN RETURN '';
+    END;
+
+  FUNCTION strpos (str IN VARCHAR2,needle IN VARCHAR2,startpos NUMBER) RETURN NUMBER IS
+    pos NUMBER; strsub VARCHAR2(255);
+    BEGIN
+      strsub := SUBSTR(str,1,255);
+      pos    := INSTR(strsub,needle,startpos);
+      return pos;
+    END;
+
   PROCEDURE print(line IN VARCHAR2) IS
+    pos NUMBER;
     BEGIN
       dbms_output.put_line(line);
     EXCEPTION
       WHEN OTHERS THEN
-        dbms_output.put_line('*!* Problem in print() *!*');
+        IF SQLERRM LIKE '%ORU-10028%' THEN
+          pos := strpos(line,' ',-1);
+	  print(SUBSTR(line,1,pos));
+	  pos := pos +1;
+	  print(SUBSTR(line,pos));
+	ELSE
+          dbms_output.put_line('*!* Problem in print() *!*');
+	END IF;
     END;
 
   PROCEDURE get_dbc_advice IS

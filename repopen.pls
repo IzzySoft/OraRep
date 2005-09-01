@@ -39,11 +39,14 @@ BEGIN
   AR_BUFF     := :AR_BUFF;
   WR_FILEUSED := :WR_FILEUSED;
   AR_FILEUSED := :AR_FILEUSED;
+  WR_RWP      := :WR_RWP;
+  AR_RWP      := :AR_RWP;
   IF MK_ENQ = 1 THEN
     MK_ENQS := have_enqs();
   ELSE
     MK_ENQS := FALSE;
   END IF;
+  SELECT (SYSDATE - startup_time) * 24 * 3600 INTO ELA FROM v$instance;
   SELECT host_name,version,archiver,instance_name INTO S1,S2,S3,S4
     FROM v$instance;
   dbms_output.enable(1000000);

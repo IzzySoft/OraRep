@@ -23,15 +23,15 @@
 export ORACLE_SID=$1
 # login information
 user=sys
-password="pyha#"
+password="nis!"
 
 # -------------------------------------------------[ Files and Directories ]---
 # directory for temporary files
 TMPDIR=/tmp
 # in which directory should the report ($ORACLE_SID.html) be placed
-REPDIR=/var/www/html/oracle/reports
+REPDIR=/tools/oracle/app/product/9.2.0/dba_admin/orarep/reports
 # StyleSheet to use
-CSS=../iceage.css
+CSS=iceage.css
 
 # --------------------------------------------------------------[ Warnings ]---
 # At what treshholds we should issue warnings (yellow background). TPH_* stands
@@ -47,6 +47,8 @@ AR_BUFF=0.9
 # non-autoextensible datafile filled x %
 WR_FILEUSED=85
 AR_FILEUSED=95
+WR_RWP=20
+AR_RWP=30
 
 # -------------------------------------------------------------------[ SQL ]---
 # Top settings: Display Top N Statements
@@ -62,10 +64,16 @@ MK_DBLINK=1
 MK_RSRC=0
 # Include DBA Profiles? [0|1]
 MK_DBAPROF=0
+# Include table statistics? [0|1]
+MK_TABS=1
 # Include TableSpace Quotas? [0|1]
 MK_TSQUOT=1
 # Include DataFile Stats? [0|1]
 MK_FILES=1
+# Include the DBWR statistics? [0|1]
+MK_DBWR=1
+# Include LGWR statistics? [0|1]
+MK_LGWR=1
 # Include Rollback Segment Stats (maybe unnecessary w/ Auto Undo)? [0|1]
 MK_RBS=0
 # Include the "Memory Values" block? [0|1]
