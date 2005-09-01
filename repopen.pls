@@ -14,7 +14,10 @@ BEGIN
       MK_TSQUOT := 0;
     END IF;
   END IF;
+  MK_TABS      := :MK_TABS;
   MK_FILES     := :MK_FILES;
+  MK_DBWR      := :MK_DBWR;
+  MK_LGWR      := :MK_LGWR;
   MK_RBS       := :MK_RBS;
   MK_MEMVAL    := :MK_MEMVAL;
   MK_POOL      := :MK_POOL;
@@ -99,8 +102,17 @@ BEGIN
   ELSE
     L_LINE := '';
   END IF;
+  IF MK_TABS = 1 THEN
+    L_LINE := L_LINE||' [ <A HREF="#tabs">TableStats</A> ]';
+  END IF;
   IF MK_FILES = 1 THEN
     L_LINE := L_LINE||'[ <A HREF="#datafiles">Datafiles</A> ]';
+  END IF;
+  IF MK_DBWR = 1 THEN
+    L_LINE := L_LINE ||'[ <A HREF="#dbwr">DBWR</A> ]';
+  END IF;
+  IF MK_LGWR = 1 THEN
+    L_LINE := L_LINE ||'[ <A HREF="#lgwr">LGWR</A> ]';
   END IF;
   IF MK_RBS = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#rbs">Rollback</A> ]';
