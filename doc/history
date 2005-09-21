@@ -3,7 +3,7 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
-v0.3.2
+v0.3.2 (21.09.2005)
 -------------------
 + added LGWR statistics. Switch them on/off with the MK_LGWR parameter in the
   config file
