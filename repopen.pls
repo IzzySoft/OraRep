@@ -173,7 +173,7 @@ BEGIN
   ELSE
     L_LINE := '';
   END IF;
-  L_LINE := L_LINE||' [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR>'||TABLE_CLOSE;
+  L_LINE := L_LINE||TABLE_CLOSE;
   print(L_LINE);
 
   -- Initial information about this instance

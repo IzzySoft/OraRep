@@ -63,6 +63,10 @@
 	   TO_CHAR(estd_pga_cache_hit_percentage,'9,990.0') pct_hits,
 	   TO_CHAR(estd_overalloc_count,'999,999,999') over
       FROM v$pga_target_advice;
+  CURSOR warea IS
+    SELECT name,value
+      FROM v$sysstat
+     WHERE name LIKE 'workarea executions%';
   FUNCTION have_advice RETURN BOOLEAN IS
     LS NUMBER; LO NUMBER; LT NUMBER; OH NUMBER;
     BEGIN
@@ -106,7 +110,18 @@
        print(L_LINE);
      END LOOP;
      print(TABLE_CLOSE);
+     print(TABLE_OPEN||' <TR><TH COLSPAN="2">PGA Workarea Usage</TH></TR>');
+     L_LINE := ' <TR><TD COLSPAN="2"><DIV ALIGN="center">Target is, if possible, to have only '||
+               'optimal executions (i.e. process everything in memory) or at least eliminate '||
+               'the multipass executions.<BR>Crosscheck with the PGA Target Advices above '||
+               '(especially to minimize OverAlloc).</DIV></TD></TR>';
+     print(L_LINE);
+     print(' <TR><TH CLASS="th_sub">Statistic</TH><TH CLASS="th_sub">Value</TH></TR>');
+     FOR wa IN warea LOOP
+       print('  <TD>'||wa.name||'</TD><TD ALIGN="right">'||wa.value||'</TD></TR>');
+     END LOOP;
+     print(TABLE_CLOSE);
    END IF;
   EXCEPTION
-    WHEN OTHERS THEN NULL;
+    WHEN OTHERS THEN print(TABLE_CLOSE);
   END;
