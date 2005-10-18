@@ -118,7 +118,7 @@
      print(L_LINE);
      print(' <TR><TH CLASS="th_sub">Statistic</TH><TH CLASS="th_sub">Value</TH></TR>');
      FOR wa IN warea LOOP
-       print('  <TD>'||wa.name||'</TD><TD ALIGN="right">'||wa.value||'</TD></TR>');
+       print('  <TD>'||wa.name||'</TD><TD ALIGN="right">'||numformat(wa.value)||'</TD></TR>');
      END LOOP;
      print(TABLE_CLOSE);
    END IF;
