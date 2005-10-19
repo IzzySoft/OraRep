@@ -8,6 +8,8 @@ v0.3.3
 + added PGA WorkArea Usage statistics to the PGA Target Advice
 * moved the table infos from misc block to table block
 ! fixed a possible "division by zero" bug in LGWR stats
+! PGA Target Advice and Shared Pool Advice sometimes have not been created
++ added "related information" to LGWR stats
 
 v0.3.2 (21.09.2005)
 -------------------

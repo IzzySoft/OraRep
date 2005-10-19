@@ -21,3 +21,12 @@
     EXCEPTION
       WHEN OTHERS THEN RETURN 0;
     END;
+
+  FUNCTION parameter(name IN VARCHAR2) RETURN VARCHAR2 IS
+    wert VARCHAR2(200);
+    BEGIN
+      EXECUTE IMMEDIATE 'SELECT value FROM v$parameter WHERE name='''||name||'''' INTO wert;
+      RETURN wert;
+    EXCEPTION
+      WHEN OTHERS THEN wert := ''; RETURN wert;
+    END;
