@@ -212,6 +212,16 @@ DECLARE
       RETURN have_xxx('v$db_cache_advice','name','estd_physical_reads IS NOT NULL AND estd_physical_read_factor IS NOT NULL');
     END;
 
+  FUNCTION have_spadvice RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx('v$shared_pool_advice','estd_lc_size','estd_lc_size IS NOT NULL');
+    END;
+
+  FUNCTION have_ptadvice RETURN BOOLEAN IS
+    BEGIN
+      RETURN have_xxx('v$pga_target_advice','bytes_processed','bytes_processed IS NOT NULL');
+    END;
+
   FUNCTION have_dblinks RETURN BOOLEAN IS
     BEGIN
       RETURN have_xxx ('dba_db_links','db_link','1=1');

@@ -25,7 +25,7 @@
       WHEN OTHERS THEN RETURN FALSE;
     END;
   BEGIN
-   IF have_advice() THEN
+   IF have_spadvice() THEN
      print(TABLE_OPEN||' <TR><TH COLSPAN="7">Shared Pool Advice</TH></TR>');
      L_LINE := ' <TR><TD COLSPAN="7"><DIV ALIGN="center">The following values '||
                'are an estimation how changes to the shared pool size would '||
@@ -83,7 +83,7 @@
       WHEN OTHERS THEN RETURN FALSE;
     END;
   BEGIN
-   IF have_advice() THEN
+   IF have_ptadvice() THEN
      print(TABLE_OPEN||' <TR><TH COLSPAN="6">PGA Target Advice</TH></TR>');
      L_LINE := ' <TR><TD COLSPAN="6"><DIV ALIGN="center">The following values '||
                'are an estimation how changes to the PGA size would '||
