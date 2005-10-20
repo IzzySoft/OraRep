@@ -52,7 +52,7 @@
             '<DIV CLASS="small">(On increasing <CODE STYLE="font-size:125%">';
   print(L_LINE);
   L_LINE := 'DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> if this value '||
-            'is high see the first block of Miscellaneous below)</DIV></TD></TR>';
+            'is high see the table stats above (if enabled))</DIV></TD></TR>';
   print(L_LINE);
   get_wait('undo segment extension',S4,S1,S2,S3);
   L_LINE := ' <TR><TD>undo segment extension</TD><TD ALIGN="right">'||S1||
