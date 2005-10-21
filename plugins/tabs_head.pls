@@ -1,11 +1,18 @@
   PROCEDURE tabs IS
     pcomment VARCHAR2(2000);
 
+    Procedure writestat (statname IN VARCHAR2, comment IN VARCHAR2) IS
+      BEGIN
+        IF comment IS NULL THEN S2 := '&nbsp;';
+          ELSE S2 := comment;
+        END IF;
+        S1 := numformat( dbstat(statname) );
+        print(' <TR><TD>'||statname||'</TD><TD ALIGN="right">'||S1||'</TD><TD>'||S2||'</TD></TR>');
+      EXCEPTION
+        WHEN OTHERS THEN NULL;
+      END;
+
     PROCEDURE tabscan IS
-      CURSOR C_SCAN IS
-        SELECT name,TO_CHAR(value,'9,999,999,990') value
-          FROM v$sysstat
-         WHERE name like '%table scans%';
       BEGIN
         L_LINE := ' <TR><TD COLSPAN="3" CLASS="td_name">If we have many full table '||
                   'scans, we may have to optimize <CODE>DB_FILE_MULTI_BLOCK_READ_COUNT</CODE>. '||
@@ -18,11 +25,11 @@
         L_LINE := 'most environments. The absolute maximum of 128 (1M) is '||
       	        'mostly only available on raw devices.</TD></TR>';
         print(L_LINE);
-        FOR Rec_SCAN IN C_SCAN LOOP
-          L_LINE := ' <TR><TD>'||Rec_SCAN.name||'</TD><TD ALIGN="right">'||
-                    Rec_SCAN.value||'</TD><TD>&nbsp;</TD></TR>';
-          print(L_LINE);
-        END LOOP;
+        writestat('table scans (short tables)','FTS on short tables are no problem, since they are in most times faster than index access.');
+        writestat('table scans (long tables)','High values here may indicate missing indices or bad execution plans.');
+        writestat('table scans (rowid ranges)','');
+        writestat('table scans (cache partitions)','');
+        writestat('table scans (direct read)','');
       EXCEPTION
         WHEN OTHERS THEN NULL;
       END;
