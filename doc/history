@@ -3,7 +3,7 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
-v0.3.3
+v0.3.3 (24.10.2005)
 -------------------
 + added PGA WorkArea Usage statistics to the PGA Target Advice
 * moved the table infos from misc block to table block
