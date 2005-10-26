@@ -5,8 +5,9 @@ History for OraRep (Basis)
 
 v0.3.4
 -------------------
-* made the LGWR stats more compact (to fit on one page). Additional
+* made the DBWR+LGWR stats more compact (to fit on one page). Additional
   comments/hints have been moved to online help
+* added "related information" to DBWR stats
 
 v0.3.3 (24.10.2005)
 -------------------
