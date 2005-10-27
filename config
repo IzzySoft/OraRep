@@ -42,6 +42,22 @@ TPH_NOLOG=5/6
 WPH_NOLOG=5.5
 # Ratios: WR_* is the Warning ratio, AR_* the Alert ratio.
 # Buffer Pool Ratio
+WR_IE_BUFFNW=80
+AR_IE_BUFFNW=60
+WR_IE_REDONW=90
+AR_IE_REDONW=75
+WR_IE_BUFFHIT=50
+AR_IE_BUFFHIT=30
+WR_IE_IMSORT=85
+AR_IE_IMSORT=70
+WR_IE_LIBHIT=80
+AR_IE_LIBHIT=60
+WR_IE_SOFTPRS=80
+AR_IE_SOFTPRS=60
+WR_IE_LAHIT=85
+AR_IE_LAHIT=70
+WR_IE_PRSC2E=80
+AR_IE_PRSC2E=60
 WR_BUFF=0.7
 AR_BUFF=0.9
 # non-autoextensible datafile filled x %
@@ -57,17 +73,19 @@ TOP_N_TABLES=10
 
 # --------------------------------------------------------------[ Features ]---
 # Include User Information segment? [0|1]
-MK_USER=1
+MK_USER=0
 # Include DBLink Information table? [0|1]
-MK_DBLINK=1
+MK_DBLINK=0
 # Include Resource Plan Report? [0|1]
 MK_RSRC=0
 # Include DBA Profiles? [0|1]
 MK_DBAPROF=0
+# Include Instance Efficiency? [0|1]
+MK_INSTEFF=1
 # Include table statistics? [0|1]
 MK_TABS=1
 # Include TableSpace Quotas? [0|1]
-MK_TSQUOT=1
+MK_TSQUOT=0
 # Include DataFile Stats? [0|1]
 MK_FILES=1
 # Include the DBWR statistics? [0|1]
@@ -83,11 +101,11 @@ MK_POOL=1
 # Include the Buffer Ratios? [0|1]
 MK_BUFFRAT=1
 # Include the SysStat Info segment? [0|1]
-MK_SYSSTAT=1
+MK_SYSSTAT=0
 # Include the Selected WaitEvents segment? [0|1]
 MK_WTEVT=1
 # Include FreeListContention (possible affected tables)? [0|1]
-MK_FLC=0
+MK_FLC=1
 # Include Enqueue Waits (Oracle 9i and higher only)? [0|1]
 MK_ENQ=1
 # Include the Invalid Objects segment? [0|1]
@@ -95,5 +113,5 @@ MK_INVOBJ=1
 # Include the TableScan stats? [0|1]
 MK_TSCAN=1
 # Include the list of TOP_N tables that need more extents? [0|1]
-MK_NEXT=1
+MK_NEXT=0
 # ===================================================================[ EOF ]===

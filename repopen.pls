@@ -102,6 +102,9 @@ BEGIN
   ELSE
     L_LINE := '';
   END IF;
+  IF :MK_INSTEFF = 1 THEN
+    L_LINE := L_LINE||' [ <A HREF="#efficiency">Effiencies</A> ]';
+  END IF;
   IF MK_TABS = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#tabs">TableStats</A> ]';
   END IF;
