@@ -58,7 +58,7 @@
   L_LINE := '<TD ALIGN="right"'||S2||'>'||S1||'</TD><TD CLASS="text">A too low ratio indicates '||
 	    'too many disk sorts appearing. One possible ';
   print(L_LINE);
-  L_LINE := 'solution could be increasing the sort area/SGA size.</TD></TR>';
+  L_LINE := 'solution could be increasing the sort area/PGA size.</TD></TR>';
   print(L_LINE);
   SELECT 100*sum(pinhits)/sum(pins) INTO I1 FROM v$librarycache;
   S2 := alert_lt_warn(I1,:AR_IE_LIBHIT,:WR_IE_LIBHIT);
@@ -83,9 +83,15 @@
             'SQL by using bind variables or force cursor sharing. But before '||
             'drawing any conclusions, compare the soft parse ';
   print(L_LINE);
-  L_LINE := 'ratio against the actual hard and soft parse rates shown in the '||
-            '<A HREF="#loads">Loads Profile</A>. Furthermore, investigate the '||
-            'number of <I>Parse CPU to Parse Elapsed</I> below.</TD></TR>';
+  L_LINE := 'ratio against the actual hard and soft parse rates shown in the ';
+  IF :MK_LOADPROF = 1 THEN
+    L_LINE := L_LINE||'<A HREF="#loads">Loads Profile</A>. ';
+  ELSE
+    L_LINE := L_LINE||'Loads Profile (after enabling this in your <code>config</code> '||
+              'file by setting <code>MK_LOADPROF=1</code>). ';
+  END IF;
+  L_LINE := L_LINE||'Furthermore, investigate the number of <I>Parse CPU to Parse '||
+            'Elapsed</I> below.</TD></TR>';
   print(L_LINE);
   L_LINE := ' <TR><TD>Execute to Parse&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'parseexec'||CHR(39)||
             ')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" ALIGN="top" ALT="Help"></A></TD>';

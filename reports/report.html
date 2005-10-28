@@ -1,322 +1,529 @@
-<HTML><HEAD>
- <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-15"/>
- <TITLE>Report for ORADB</TITLE>
-<LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
- <SCRIPT LANGUAGE="JavaScript">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15"><title>Report for oradb</title>
+ 
+<link rel="stylesheet" type="text/css" href="report_files/iceage.html">
+ <script type="text/javascript" language="JavaScript">
    function popup(page) {
      url = "help/" + page + ".html";
 pos = (screen.width/2)-400;
      helpwin = eval("window.open(url,'help','toolbar=no,location=no,titlebar=no,directories=no,status=yes,copyhistory=no,scrollbars=yes,width=600,height=400,top=0,left="+pos+"')");
 }
- </SCRIPT>
-</HEAD><BODY>
-<H2>Report for ORADB</H2>
+  version="0.3.3";
+ </script></head>
+<body>
+<h2>Report for oradb</h2>
 
-<TABLE ALIGN="center" BORDER="1"><TR><TD><DIV CLASS="small">[ <A HREF="#users">Users</A> ]
-[ <A HREF="#ts_quotas">TS Quotas</A> ] [ <A HREF="#datafiles">Datafiles</A> ]
-[ <A HREF="#poolsize">Pool Sizes</A> ] [ <A HREF="#sharedpool">Shared Pool</A> ] [ <A HREF="#bufferpool">Buffer Pool</A> ] [ <A HREF="#sysstat">SysStat</A> ]
-[ <A HREF="#events">Events</A> ] [ <A HREF="#buffwait">Buffer Waits</A> ] [ <A HREF="#enqwaits">Enqueue Waits</A> ]
-[ <A HREF="#invobj">Invalid Objects</A> ] [ <A HREF="#misc">Misc</A> ]</DIV></TD></TR></TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"><tbody><tr><td><div class="small" align="center">
+[ <a href="#tabs">TableStats</a> ][ <a href="#datafiles">Datafiles</a> ][ <a href="#dbwr">DBWR</a> ][ <a href="#lgwr">LGWR</a> ]
+[ <a href="#poolsize">Pool Sizes</a> ] [ <a href="#sharedpool">Shared Pool</a> ] [ <a href="#bufferpool">Buffer Pool</a> ] [ <a href="#advices">Advices</a> ] [ <a href="#sysstat">SysStat</a> ]
+[ <a href="#events">Events</a> ] [ <a href="#buffwait">Buffer Waits</a> ] [ <a href="#freelist">FreeList Contention</a> ] [ <a href="#waitobj">Wait Objects</a> ] [ <a href="#enqwaits">Enqueue Waits</a> ]
+[ <a href="#invobj">Invalid Objects</a> ]</div></td></tr></tbody></table>
+<br clear="all">
 
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="2">Common Instance Information</TH></TR>
- <TR><TD class="td_name">Hostname:</TD><TD>buzz</TD></TR>
- <TR><TD class="td_name">Instance:</TD><TD>ORADB</TD></TR>
-<TR><TD class="td_name">Version:</TD><TD>9.0.1.0.0</TD></TR>
- <TR><TD class="td_name">Archiver:</TD><TD>STARTED</TD></TR>
-<TR><TD class="td_name">ArchivedLogSize:</TD><TD> MB</TD></TR>
-<TR><TD class="td_name">FileSize (Data+Log)</TD><TD>       1,052.00 MB</TD></TR>
- <TR><TD class="td_name">Startup / Uptime</TD><TD>11.03.2004 07:57 /     4.80 d</TD></TR>
-<TR><TD class="td_name">Report generated:</TD><TD>16.03.2004 03:05</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"><tbody><tr><th colspan="2">Common Instance Information</th></tr>
+ <tr><td class="td_name">Hostname:</td><td>buzz</td></tr>
+ <tr><td class="td_name">Instance:</td><td>oradb</td></tr>
+<tr><td class="td_name">Version:</td><td>9.2.0.5.0</td></tr>
+ <tr><td class="td_name">Archiver:</td><td>STOPPED</td></tr>
+<tr><td class="td_name">ArchivedLogSize:</td><td> MB</td></tr>
+<tr><td class="td_name">FileSize (Data+Log)</td><td>       2,270.00 MB</td></tr>
+ <tr><td class="td_name">Startup / Uptime</td><td>18.10.2005 13:58 /     2.93 d</td></tr>
+<tr><td class="td_name">Report generated:</td><td>21.10.2005 12:20</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="9"><A NAME="users">User Information</A>&nbsp;<A HREF="JavaScript:popup('userinfo')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" VALIGN="middle"></A></TH></TR>
-<TR><TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Account Status</TH><TH CLASS="th_sub">Lock Date</TH><TH CLASS="th_sub">
-Expiry Date</TH><TH CLASS="th_sub">Default TS</TH><TH CLASS="th_sub">Temporary TS</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Profile</TH><TH CLASS="th_sub">Init.ResourceGroup</TH></TR>
-<TR><TD>SYS</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>07.08.2002
-</TD><TD>DEFAULT</TD><TD>SYS_GROUP</TD></TR>
-<TR><TD>SYSTEM</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>07.08.2002
-</TD><TD>DEFAULT</TD><TD>SYS_GROUP</TD></TR>
-<TR><TD>OUTLN</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>07.08.2002
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-<TR><TD>DBSNMP</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>07.08.2002
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-<TR><TD>USER01</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>28.03.2003
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-<TR><TD>USER02</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>28.03.2003
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-<TR><TD>ORACLE</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>SYSTEM</TD><TD>TEMP</TD><TD>30.10.2002
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-<TR><TD>DIRECT</TD><TD>OPEN</TD><TD>-</TD><TD>-</TD><TD>USER</TD><TD>TEMP</TD><TD>04.06.2003
-</TD><TD>DEFAULT</TD><TD>DEFAULT_CONSUMER_GROUP</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="3"><a name="tabs"></a>Table Statistics</th></tr> <tr><th class="th_sub">Statistic</th><th class="th_sub">Value</th><th class="th_sub">Comment</th></tr>
+<tr><td style="width: 22em;">table scan blocks gotten / table scan rows gotten</td><td align="right">             0.03</td><td align="justify">This ratio (blocks scanned per scanned row) should get close to 0 with acceptable table scan blocks gotten if
+you are not using LONG objects frequently. If it is high, you probably should:<ul><li>Check missing index(es) on statements doing Full Table Scan(FTS).</li><li>If
+Statements have to do FTS, reorganize tables used in FTS to reset High
+Water Mark(HWM).
+Because, in FTS, Oracle scans table from bottom of table to top of
+table(HWM) even if there are just a few rows in table. This makes
+problems on frequently inserted/deleted tables since <code>INSERT</code> increases HWM, but <code>DELETE</code> does not
+decrease HWM. After reorganization, the number of scanned blocks will be reduced.</li></ul></td></tr>
+<tr><td style="width: 22em;">table fetch continued row / table fetch by rowid</td><td align="right">             0.00</td><td align="justify">The chained-fetch-ratio indicates the average chained/migrated rows in multiple blocks, which are accessed by a
+single ROWID. This ratio should be as low as possible to access a row in a single block. If it is high,<ul><li>find the chained/migrated rows</li><li>increase <code>PCTFREE</code>, decrease <code>PCTUSED</code> storage parameters of tables which have
+many chained/migrated rows frequently used</li><li>reorganize these tables (e.g. <code>ALTER TABLE..MOVE</code>, or <code>EXP</code> / <code>IMP</code>)</li></ul></td></tr>
+<tr><td colspan="3" class="td_name">If we have many full table scans, we may have to optimize <code>DB_FILE_MULTI_BLOCK_READ_COUNT</code>. Beneath the statistic below, we need the block count of the largest
+table to find the best value. A common recommendation is to set <code>DB_FILE_MULTI_BLOCK_READ_COUNT</code> to the highest possible value for maximum performance, which is 32 (256k) in
+most environments. The absolute maximum of 128 (1M) is mostly only available on raw devices.</td></tr>
+<tr><td>table scans (short tables)</td><td align="right">     1,176,572</td><td>&nbsp;</td></tr>
+<tr><td>table scans (long tables)</td><td align="right">           486</td><td>&nbsp;</td></tr>
+<tr><td>table scans (rowid ranges)</td><td align="right">             0</td><td>&nbsp;</td></tr>
+<tr><td>table scans (cache partitions)</td><td align="right">             0</td><td>&nbsp;</td></tr>
+<tr><td>table scans (direct read)</td><td align="right">             0</td><td>&nbsp;</td></tr>
+</tbody></table>
+<br clear="all">
 
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="2">Admins</TH></TR>
- <TR><TH CLASS="th_sub">User</TH><TH CLASS="th_sub">Admin Option</TH></TR>
-<TR><TD>SYS</TD><TD ALIGN="center">YES</TD></TR>
-<TR><TD>SYSTEM</TD><TD ALIGN="center">YES</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="10"><a name="datafiles">Data Files</a></th></tr>
+<tr><td colspan="10" align="center">Alerts and warnings (highlighted table cells) indicate a write enabled
+non-autoextensible data file filled &gt; 85% / 95%</td></tr>
+ <tr><th class="th_sub">Tablespace</th><th class="th_sub">Datafile</th><th class="th_sub">Status</th><th class="th_sub">
+Enabled</th><th class="th_sub">Size</th><th class="th_sub">Free</th><th class="th_sub">Used</th><th class="th_sub">Phy.Reads</th><th class="th_sub">Phy.Writes</th>
+<th class="th_sub">Avg.I/O Time</th></tr>
+<tr><td><code>DATA</code></td><td>/database/oradb/data/data_1.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+500.0 M</td><td align="right"> 143.3 M</td><td align="right">  71.35
+%</td><td align="right">       127,357</td><td align="right">           736</td><td align="right">0.000</td></tr>
+<tr><td><code>INDEX1</code></td><td>/database/oradb/index/index_1.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+300.0 M</td><td align="right"> 255.0 M</td><td align="right">  15.00
+%</td><td align="right">         5,175</td><td align="right">           835</td><td align="right">0.000</td></tr>
+<tr><td><code>MONITORING</code></td><td>/database/oradb/data/monitoring_1.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+10.0 M</td><td align="right">   6.4 M</td><td align="right">  36.17
+%</td><td align="right">         1,167</td><td align="right">           867</td><td align="right">0.000</td></tr>
+<tr><td><code>SYSTEM</code></td><td>/database/oradb/data/system_1.dbf</td><td>SYSTEM</td><td>READ WRITE</td><td align="right">
+250.0 M</td><td align="right">  76.3 M</td><td align="right">  69.50
+%</td><td align="right">         2,305</td><td align="right">         1,135</td><td align="right">0.000</td></tr>
+<tr><td><code>TEMP</code></td><td>/database/oradb/temp/temp_1.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+300.0 M</td><td align="right"> 276.6 M</td><td align="right">   7.79
+%</td><td align="right">         3,111</td><td align="right">         2,528</td><td align="right">0.000</td></tr>
+<tr><td><code>TOOLS</code></td><td>/database/oradb/data/tools_1.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+500.0 M</td><td align="right"> 201.2 M</td><td align="right">  59.76
+%</td><td align="right">         6,959</td><td align="right">            17</td><td align="right">0.000</td></tr>
+<tr><td><code>UNDO_TS</code></td><td>/database/oradb/rbs/undo_ts01.dbf</td><td>ONLINE</td><td>READ WRITE</td><td align="right">
+350.0 M</td><td align="right"> 341.5 M</td><td align="right">   2.43
+%</td><td align="right">            41</td><td align="right">         4,954</td><td align="right">0.000</td></tr>
+</tbody></table>
+<br clear="all">
 
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="6">DB Links</TH></TR>
- <TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">DB Link</TH>
-<TH CLASS="th_sub">Username</TH><TH CLASS="th_sub">Host</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Status</TH></TR>
-<TR><TD>PUBLIC</TD><TD>NOK.LOCAL.NET</TD><TD>INLN</TD><TD>NOK</TD><TD>
-16.08.2002</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>P1.LOCAL.NET</TD><TD>INLN</TD><TD>P1</TD><TD>
-28.11.2003</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>ETC.LOCAL.NET</TD><TD>INLN</TD><TD>ETC</TD><TD>
-03.03.2003</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>ST.LOCAL.NET</TD><TD>INLN</TD><TD>ST</TD><TD>
-30.10.2002</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>LAN.LOCAL.NET</TD><TD>INLN</TD><TD>LAN</TD><TD>
-30.09.2002</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>DWH.LOCAL.NET</TD><TD>INLN</TD><TD>DWH</TD><TD>
-14.08.2003</TD><TD ALIGN="center">ACTIVE</TD></TR>
-<TR><TD>PUBLIC</TD><TD>XOP.LOCAL.NET</TD><TD>INLN</TD><TD>XOP</TD><TD>
-02.01.2003</TD><TD ALIGN="center">ACTIVE</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="3"><a name="dbwr"></a>Database Writer Statistics&nbsp;<a href="javascript:popup('dbwr')"><img src="report_files/help.html" alt="Help" align="top" border="0" height="16"></a></th></tr>
+<tr><th class="th_sub">Statistic</th><th class="th_sub">Value</th><th class="th_sub">Comment</th></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR checkpoint buffers written / hour</td><td align="right">             1.46</td><td align="justify">Number of buffers written per hour for checkpoints</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR transaction table writes / hour</td><td align="right">             0.03</td><td align="justify">Number of rollback segment headers written per hour by DBWR. This statistic indicates how many "hot" buffers
+were written, causing a user process to wait while the write completed.</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR undo block writes / hour</td><td align="right">             1.13</td><td align="justify">Number of rollback segment blocks written per hour by DBWR</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR revisited being-written buffer / hour</td><td align="right">             0.00</td><td align="justify">Number
+of times per hour that DBWR tried to save a buffer for writing and
+found that it was already in
+the write batch. This statistic measures the amount of "useless" work
+that DBWR had to do in trying to fill the batch. (If the same buffer
+from different sources is considered for adding to the write batch,
+then all but the first attempt will be
+"useless" because the buffer is already marked as being written.)</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR buffers scanned / DBWR lru scans</td><td align="right">             0.00</td><td align="justify">Average number of buffers scanned per scan</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR summed scan depth / DBWR lru scans</td><td align="right">             0.00</td><td align="justify">Average scan depth</td></tr>
+<tr><td class="td_name" style="width: 22em;">free buffer inspected / free buffer requested</td><td align="right">             0.00</td><td align="justify">If this value is to high, you may need to increase your buffer cache.</td></tr>
+<tr><td class="td_name" style="width: 22em;">dirty buffers inspected / DBWR buffers scanned</td><td align="right">             0.00</td><td align="justify">This ratio should be as low as possible. If this value is high, it indicates DBWR is not writing
+dirty buffers efficiently. High ratio may cause write complete wait wait event.</td></tr>
+<tr><td class="td_name" style="width: 22em;">pinned buffers inspected / DBWR buffers scanned</td><td align="right">             0.00</td><td align="justify">This
+ratio should be as low as possible. If this value is high, it indicates
+high amount of
+pinned(busy) buffers encountered during free buffer search. This may
+cause free buffer waits wait event by reducing the possibility of
+finding free buffer in the LRU list, and then may cause DBWR to perform
+large batch write to make clean buffers
+available at the tail of LRU list. This may also increase physical IO
+if aged out blocks are needed to be re-accessed.<br>A possible solution is to increase the <code>DB_BLOCK_BUFFERS</code> (Oracle 8) / <code>DB_CACHE_SIZE</code> (Oracle 9+).</td></tr>
+<tr><td class="td_name" style="width: 22em;">DBWR free buffers found / DBWR make free requests</td><td align="right">             0.00</td><td align="justify">This ratio shows the average reusable buffers, and should be as high as possible. If it is low,
+it indicates lack of free space to use. In this case, check the followings:<ul><li>If dirty buffers inspected is high, it indicates DBWR is not writing dirty buffers efficiently.</li><li>If pinned buffers inspected is high, increase
+<code>DB_BLOCK_BUFFERS</code> / <code>DB_CACHE_SIZE</code>.</li></ul></td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="4"><A NAME="ts_quotas">TableSpace Quotas</A></TH></TR>
-<TR><TD COLSPAN="4" ALIGN="center">Highlighted rows mark tablespaces that do not exist. If (re-)created, these quotas would be (re-)established</TD></TR>
-<TR><TH CLASS="th_sub">TableSpace</TH><TH CLASS="th_sub">User</TH><TH CLASS="th_sub">In Use</TH><TH CLASS="th_sub">Quota</TH></TR>
-<TR><TD>USER</TD><TD>DIRECT</TD><TD ALIGN="right">       1 M</TD><TD ALIGN="right">Unlimited</TD></TR>
-<TR><TD>USER</TD><TD>USER01</TD><TD ALIGN="right">     195 M</TD><TD ALIGN="right">Unlimited</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="3"><a name="lgwr"></a>Log Writer Statistics</th></tr> <tr><th class="th_sub">Statistic</th><th class="th_sub">Value</th><th class="th_sub">Comment</th></tr>
+<tr><td class="td_name" style="width: 21em;">redo log space requests</td><td align="right" nowrap="nowrap">            31</td><td align="justify">The active logfile had been full, and Oracle had waited for disk space to be allocated for the redolog entries by
+performing log switches. High values indicate high amount of log switches.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo log space requests / h</td><td align="right" nowrap="nowrap">     0.44</td><td align="justify">This number should be as low as possible. When encountering high values here, the reason could be e.g. one of
+these:<ul><li>too small log files</li><li>not enough redo log groups</li><li>too many checkpoints / log file switches (also indicated by high redo wastage, see below)</li></ul></td></tr>
+<tr><td class="td_name" style="width: 21em;">redo log space wait time</td><td align="right" nowrap="nowrap">            98</td><td align="justify">Total wait time waiting for completion of redo log space requests in 1/10 ms. High values cause <i>log file
+switch...</i> related wait events. If there are many processes waiting for log switch completion, it is possible to see <i>log buffer space wait</i> event after log switch is completed. Since redo generation is disabled during log switch, there can be
+high volume of redo generation after log switch. This may cause <i>log buffer space</i> wait event.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo log space wait time / redo log space requests</td><td align="right" nowrap="nowrap">     0.32</td><td align="justify">ms/request. If this ratio is high, check the followings:<ul><li>Increase the size of redolog
+files and/or add new redolog groups</li><li>Ensure that log switches occurring not more frequent than around all 20-30 minutes</li></ul></td></tr>
+<tr><td class="td_name" style="width: 22em;">redo wastage percentage</td><td class="warn" align="right">    27.57%</td><td align="justify">Percentage of redo bytes written "unnecessarily" (<i>redo wastage</i>
+describes the log buffer blocks had been
+needed to be flushed out to disk before they were completely full,
+which does not mean a problem: high values just indicate high LGWR
+activity). Naturally, this should be very low; if it exceeds 20..30%
+plus you have many log writer wait events, you
+should check for unnecessary checkpoints/log switches.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo synch writes</td><td align="right" nowrap="nowrap">       108,794</td><td align="justify">Changes to redolog buffer had been flushed out to disk immediately such as <code>COMMIT</code> /
+<code>ROLLBACK</code>.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo synch time</td><td align="right" nowrap="nowrap">     1,001,282</td><td align="justify">Elapsed time of all redo synch writes in 1/10 ms. High values cause <i>log file sync</i> wait event.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo synch time / redo synch writes</td><td align="right" nowrap="nowrap">   920.35</td><td align="justify">Milliseconds per write. If this ratio is high, check the followings:<ul><li>Do not set <code>LOG_BUFFER</code>
+to value higher than 1Mb. High <i>LOG_BUFFER</i> parameter may cause <i>log file sync</i> wait event. This impacts <code>COMMIT</code> / <code>ROLLBACK</code> response time, and possibly DBWR performance.</li><li>Reduce <code>COMMIT</code> /
+<code>ROLLBACK</code> frequency.</li><li>If there are other redolog related wait events, check them. They may indirectly cause <i>log file sync</i> wait event.</li></ul></td></tr>
+<tr><td class="td_name" style="width: 21em;">redo buffer allocation retries / h</td><td align="right" nowrap="nowrap">     0.53</td><td align="justify">Number of retries per hour necessary to allocate space in the redo buffer. Retries are needed either because the
+redo writer has fallen behind or because an event such as a log switch is occurring.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo buffer allocation retries / redo blocks written</td><td align="right" nowrap="nowrap">             0.00</td><td align="justify">should be less than 0.01 - larger values indicate that the LGWR is not keeping up. If
+this happens, tuning the values for <code>LOG_CHECKPOINT_INTERVAL</code> and <code>LOG_CHECKPOINT_TIMEOUT</code> (or, with Oracle 9i, <code>FAST_START_MTTR_TARGET</code>) can help to improve the situation.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo blocks written / redo writes</td><td align="right" nowrap="nowrap">             3.07</td><td align="justify">Number of blocks per write</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo emergence</td><td align="right" nowrap="nowrap">  29.1 K/min</td><td align="justify">How much redo information is written on average during the snapshot interval given.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo time used</td><td align="right" nowrap="nowrap">             0.03%</td><td align="justify">Rate of time spent for writing redo information during the snapshot interval given. This value should be close to
+0%.</td></tr>
+<tr><td class="td_name" style="width: 21em;">redo size</td><td align="right" nowrap="nowrap"> 120.1 M</td><td align="justify">Total amount of redo generated</td></tr>
+<tr><td colspan="3"><br><table align="center" border="1">  <tbody><tr><th class="th_sub" colspan="3">Related Information</th></tr>
+  <tr><td><table align="center" border="1">
+  <tbody><tr><th class="th_sub2">Parameter</th><th class="th_sub2">Value</th></tr>
+<tr><td>log_checkpoint_interval</td><td align="right">             0</td></tr>
+<tr><td>log_checkpoint_timeout</td><td align="right">             0</td></tr>
+<tr><td>log_checkpoint_mttr_target</td><td align="right">&nbsp;</td></tr>
+<tr><td>log_buffer</td><td align="right"> 512.0 K</td></tr>
+</tbody></table></td><td><table align="center" border="1">  <tbody><tr><th class="th_sub2">LogGroup</th><th class="th_sub2">Members</th><th class="th_sub2">Size</th></tr>
+<tr><td align="right">1</td><td align="right">2</td><td align="right">  10.0 M</td></tr>
+<tr><td align="right">2</td><td align="right">2</td><td align="right">  10.0 M</td></tr>
+<tr><td align="right">3</td><td align="right">2</td><td align="right">  10.0 M</td></tr>
+</tbody></table></td><td><table align="center" border="1">  <tbody><tr><th class="th_sub2">WaitEvent</th><th class="th_sub2">Waits</th><th class="th_sub2">WaitTime</th><th class="th_sub2">AvgWaitTime</th><th class="th_sub2">Timeouts</th></tr>
+<tr><td>LGWR wait for redo copy</td><td align="right">           234</td><td align="right">1</td><td align="right">0.004</td><td align="right">             0</td></tr>
+<tr><td>log file switch (checkpoint incomplete)</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td></tr>
+<tr><td>log file switch (archiving needed)</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td></tr>
+<tr><td>log file switch completion</td><td align="right">            31</td><td align="right">2:37</td><td align="right">3.129</td><td align="right">             0</td></tr>
+<tr><td>log file parallel write</td><td align="right">       114,047</td><td align="right">3:43:24</td><td align="right">0.086</td><td align="right">       113,984</td></tr>
+<tr><td>log file single write</td><td align="right">            76</td><td align="right">12</td><td align="right">0.158</td><td align="right">             0</td></tr>
+<tr><td>log buffer wait</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td></tr>
+<tr><td>log buffer space</td><td align="right">             9</td><td align="right">4:01</td><td align="right">27.778</td><td align="right">             1</td></tr>
+</tbody></table></td></tr>
+</tbody></table></td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="10"><A NAME="datafiles">Data Files</A></TH></TR>
-<TR><TD ALIGN="center" COLSPAN="10">Alerts and warnings (highlighted table cells) indicate a write enabled
-non-autoextensible data file filled &gt; 85% / 95%</TD></TR>
- <TR><TH CLASS="th_sub">Tablespace</TH><TH CLASS="th_sub">Datafile</TH><TH CLASS="th_sub">Status</TH><TH CLASS="th_sub">
-Enabled</TH><TH CLASS="th_sub">Size (kB)</TH><TH CLASS="th_sub">Free (kB)</TH><TH CLASS="th_sub">Used (%)</TH><TH CLASS="th_sub">Phys.Reads</TH><TH CLASS="th_sub">Phys.Writes</TH>
-<TH CLASS="th_sub">Avg.I/O Time</TH></TR>
-<TR><TD>USER</TD><TD>/vol1/data/oradb/user.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">
-201,728.00</TD><TD ALIGN="right">      1,792.00</TD><TD ALIGN="right">  99.11
-</TD><TD ALIGN="right">         1,495</TD><TD ALIGN="right">           512</TD><TD ALIGN="right">             0</TD></TR>
-<TR><TD>SYSTEM</TD><TD>/vol1/data/oradb/system01.dbf</TD><TD>SYSTEM</TD><TD>READ WRITE</TD><TD ALIGN="right">
-332,800.00</TD><TD ALIGN="right">    129,752.00</TD><TD ALIGN="right">  61.01
-</TD><TD ALIGN="right">         1,478</TD><TD ALIGN="right">           318</TD><TD ALIGN="right"> 1,345,264,383</TD></TR>
-<TR><TD>TEMP</TD><TD>/vol1/data/oradb/temp01.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">
-40,960.00</TD><TD ALIGN="right">    129,752.00</TD><TD ALIGN="right">-216.78
-</TD><TD ALIGN="right">         1,478</TD><TD ALIGN="right">           318</TD><TD ALIGN="right"> 1,345,264,383</TD></TR>
-<TR><TD>UNDOTBS</TD><TD>/vol1/data/oradb/undotbs01.dbf</TD><TD>ONLINE</TD><TD>READ WRITE</TD><TD ALIGN="right">
-235,520.00</TD><TD ALIGN="right">    233,536.00</TD><TD ALIGN="right">   0.84
-</TD><TD ALIGN="right">            25</TD><TD ALIGN="right">         3,939</TD><TD ALIGN="right">-1,049,633,089</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="2"><a name="poolsize">Pool Sizes</a></th></tr>
+ <tr><th class="th_sub">Pool</th><th class="th_sub">Space</th></tr>
+<tr><td>Shared_Pool_Size</td><td align="right">          48.00 M</td></tr>
+ <tr><td>Shared_Pool_Reserved_Size</td><td align="right">           2.38 M</td></tr>
+ <tr><td>Large_Pool_Size</td><td align="right">           0.00 K</td></tr>
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="2"><A NAME="poolsize">Pool Sizes</A></TH></TR>
- <TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Space</TH></TR>
-<TR><TD>Shared_Pool_Size</TD><TD ALIGN="right">      53,248.00 kB</TD></TR>
- <TR><TD>Shared_Pool_Reserved_Size</TD><TD ALIGN="right">       2,662.40 kB</TD></TR>
- <TR><TD>Large_Pool_Size</TD><TD ALIGN="right">&nbsp;</TD></TR>
+<tr><td>Java_Pool_Size</td><td align="right">          32.00 M</td></tr>
+ <tr><td>Sort_Area_Size</td><td align="right">           0.06 M</td></tr>
+ <tr><td>Sort_Area_Retained_Size</td><td align="right">           0.00 K</td></tr>
 
-<TR><TD>Java_Pool_Size</TD><TD ALIGN="right">      12,288.00 kB</TD></TR>
- <TR><TD>Sort_Area_Size</TD><TD ALIGN="right">          64.00 kB</TD></TR>
- <TR><TD>Sort_Area_Retained_Size</TD><TD ALIGN="right">           0.00 kB</TD></TR>
+<tr><th class="th_sub">Pool</th><th class="th_sub">Free Space</th></tr>
+<tr><td>shared pool</td><td align="right">   5.7 M</td></tr>
+<tr><td>java pool</td><td align="right">  32.0 M</td></tr>
+</tbody></table>
+<br clear="all">
 
-<TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">Free Space</TH></TR>
-<TR><TD>shared pool</TD><TD ALIGN="right">     45,097.92 kB</TD></TR>
-<TR><TD>large pool</TD><TD ALIGN="right">  4,189,714.16 kB</TD></TR>
-<TR><TD>java pool</TD><TD ALIGN="right">      8,860.00 kB</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"><tbody><tr><th colspan="6"><a name="sharedpool">Shared Pool Information</a></th></tr>
+ <tr><th colspan="6" class="th_sub">Library Cache</th></tr>
+<tr><td colspan="6">The following cases are indicators that <code>SHARED_POOL_SIZE</code> may have to be increased:
+<br><ul><li>RPP (100*reloads/pins) &gt; 1</li><li>gethitratio &lt; 90%</li></ul></td></tr> <tr><td class="td_name">NameSpace</td><td class="td_name">Gets</td>
+<td class="td_name">Pins</td><td class="td_name">Reloads</td><td class="td_name">RPP</td><td class="td_name">GetHitRatio</td></tr>
+<tr><td>SQL AREA</td><td align="right">       146,524</td><td align="right">     2,546,594</td><td align="right">         3,016</td><td align="right">   0.12</td><td align="right">  98.17%</td></tr>
+<tr><td>TABLE/PROCEDURE</td><td align="right">        77,420</td><td align="right">     1,216,667</td><td align="right">           311</td><td align="right">   0.03</td><td align="right">  98.21%</td></tr>
+<tr><td>BODY</td><td align="right">         5,072</td><td align="right">         5,082</td><td align="right">             8</td><td align="right">   0.16</td><td align="right">  98.88%</td></tr>
+<tr><td>TRIGGER</td><td align="right">           203</td><td align="right">           235</td><td align="right">            16</td><td align="right">   6.81</td><td align="right">  89.66%</td></tr>
+<tr><td>INDEX</td><td align="right">           886</td><td align="right">           953</td><td align="right">             0</td><td align="right">   0.00</td><td align="right">  84.09%</td></tr>
+<tr><td>CLUSTER</td><td align="right">         2,776</td><td align="right">         1,500</td><td align="right">             0</td><td align="right">   0.00</td><td align="right">  99.60%</td></tr>
+<tr><td>OBJECT</td><td align="right">             0</td><td align="right">             0</td><td align="right">             0</td><td align="right">   0.00</td><td align="right"> 100.00%</td></tr>
+<tr><td>PIPE</td><td align="right">             0</td><td align="right">             0</td><td align="right">             0</td><td align="right">   0.00</td><td align="right"> 100.00%</td></tr>
+<tr><td>JAVA SOURCE</td><td align="right">             0</td><td align="right">             0</td><td align="right">             0</td><td align="right">   0.00</td><td align="right"> 100.00%</td></tr>
+<tr><td>JAVA RESOURCE</td><td align="right">             0</td><td align="right">             0</td><td align="right">             0</td><td align="right">   0.00</td><td align="right"> 100.00%</td></tr>
+<tr><td>JAVA DATA</td><td align="right">             0</td><td align="right">             0</td><td align="right">             0</td><td align="right">   0.00</td><td align="right"> 100.00%</td></tr>
+<tr><td colspan="6">&nbsp;</td></tr>
+<tr><th colspan="6" class="th_sub">Row Cache</th></tr> <tr><td colspan="6">If Ratio = (getmisses/gets)*100 &gt; 15, <code>SHARED_POOL_SIZE</code> may have to be increased:</td></tr>
+<tr><td colspan="3" class="td_name">Parameter</td><td class="td_name">Gets</td><td class="td_name">GetMisses</td><td class="td_name">Ratio</td></tr>
+<tr><td colspan="3">dc_free_extents</td><td align="right">         1,835</td><td align="right">           182</td><td align="right">   9.92%</td></tr>
+<tr><td colspan="3">dc_used_extents</td><td align="right">           180</td><td align="right">           180</td><td align="right"> 100.00%</td></tr>
+<tr><td colspan="3">dc_segments</td><td align="right">        23,857</td><td align="right">           653</td><td align="right">   2.74%</td></tr>
+<tr><td colspan="3">dc_tablespaces</td><td align="right">       691,921</td><td align="right">             8</td><td align="right">   0.00%</td></tr>
+<tr><td colspan="3">dc_tablespace_quotas</td><td align="right">           124</td><td align="right">             1</td><td align="right">   0.81%</td></tr>
+<tr><td colspan="3">dc_files</td><td align="right">         5,480</td><td align="right">             3</td><td align="right">   0.05%</td></tr>
+<tr><td colspan="3">dc_users</td><td align="right">       741,970</td><td align="right">            34</td><td align="right">   0.00%</td></tr>
+<tr><td colspan="3">dc_rollback_segments</td><td align="right">        24,673</td><td align="right">            19</td><td align="right">   0.08%</td></tr>
+<tr><td colspan="3">dc_objects</td><td align="right">        25,592</td><td align="right">         1,217</td><td align="right">   4.76%</td></tr>
+<tr><td colspan="3">dc_global_oids</td><td align="right">            35</td><td align="right">            10</td><td align="right">  28.57%</td></tr>
+<tr><td colspan="3">dc_object_ids</td><td align="right">        63,597</td><td align="right">         1,064</td><td align="right">   1.67%</td></tr>
+<tr><td colspan="3">dc_sequences</td><td align="right">           185</td><td align="right">            24</td><td align="right">  12.97%</td></tr>
+<tr><td colspan="3">dc_usernames</td><td align="right">        15,225</td><td align="right">            19</td><td align="right">   0.12%</td></tr>
+<tr><td colspan="3">dc_database_links</td><td align="right">           212</td><td align="right">             2</td><td align="right">   0.94%</td></tr>
+<tr><td colspan="3">dc_histogram_defs</td><td align="right">        32,594</td><td align="right">         2,620</td><td align="right">   8.04%</td></tr>
+<tr><td colspan="3">dc_profiles</td><td align="right">         2,630</td><td align="right">             2</td><td align="right">   0.08%</td></tr>
+<tr><td colspan="3">dc_user_grants</td><td align="right">        18,238</td><td align="right">            32</td><td align="right">   0.18%</td></tr>
+</tbody></table>
+<br clear="all">
 
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="6"><A NAME="sharedpool">Shared Pool Information</A></TH></TR>
- <TR><TH COLSPAN="6" CLASS="th_sub">Library Cache</TH></TR>
-<TR><TD COLSPAN="6">The following cases are indicators that <CODE>SHARED_POOL_SIZE</CODE> may have to be increased:
-<BR><UL><LI>RPP (100*reloads/pins) &gt; 1</LI><LI>gethitratio &lt; 90%</LI></UL></TD><TR> <TR><TD CLASS="td_name">NameSpace</TD><TD CLASS="td_name">Gets</TD>
-<TD CLASS="td_name">Pins</TD><TD CLASS="td_name">Reloads</TD><TD CLASS="td_name">RPP</TD><TD CLASS="td_name">GetHitRatio (%)</TD></TR>
-<TR><TD>SQL AREA</TD><TD ALIGN="right">        25,930</TD><TD ALIGN="right">       247,521</TD><TD ALIGN="right">            21</TD><TD ALIGN="right">   0.01</TD><TD ALIGN="right">  98.94</TD></TR>
-<TR><TD>TABLE/PROCEDURE</TD><TD ALIGN="right">         8,881</TD><TD ALIGN="right">        39,731</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">  90.35</TD></TR>
-<TR><TD>BODY</TD><TD ALIGN="right">            63</TD><TD ALIGN="right">            60</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">  90.48</TD></TR>
-<TR><TD>TRIGGER</TD><TD ALIGN="right">            68</TD><TD ALIGN="right">            68</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">  89.71</TD></TR>
-<TR><TD>INDEX</TD><TD ALIGN="right">            31</TD><TD ALIGN="right">            31</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">   0.00</TD></TR>
-<TR><TD>CLUSTER</TD><TD ALIGN="right">           323</TD><TD ALIGN="right">           268</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">  98.14</TD></TR>
-<TR><TD>OBJECT</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>PIPE</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>JAVA SOURCE</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>JAVA RESOURCE</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right"> 100.00</TD></TR>
-<TR><TD>JAVA DATA</TD><TD ALIGN="right">            16</TD><TD ALIGN="right">         1,622</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">  93.75</TD></TR>
-<TR><TD COLSPAN="6">&nbsp;</TD></TR>
-<TR><TH COLSPAN="6" CLASS="th_sub">Row Cache</TH></TR> <TR><TD COLSPAN="6">If Ratio = (getmisses/gets)*100 > 15, <CODE>SHARED_POOL_SIZE</CODE> may have to be increased:</TD></TR>
-<TR><TD COLSPAN="3" CLASS="td_name">Parameter</TD><TD CLASS="td_name">Gets</TD><TD CLASS="td_name">GetMisses</TD><TD CLASS="td_name">Ratio</TD></TR>
-<TR><TD COLSPAN="3">dc_free_extents</TD><TD ALIGN="right">        10,768</TD><TD ALIGN="right">             8</TD><TD ALIGN="right">   0.07</TD></TR>
-<TR><TD COLSPAN="3">dc_segments</TD><TD ALIGN="right">           320</TD><TD ALIGN="right">            77</TD><TD ALIGN="right">  24.06</TD></TR>
-<TR><TD COLSPAN="3">dc_tablespaces</TD><TD ALIGN="right">         2,295</TD><TD ALIGN="right">             4</TD><TD ALIGN="right">   0.17</TD></TR>
-<TR><TD COLSPAN="3">dc_files</TD><TD ALIGN="right">            86</TD><TD ALIGN="right">             2</TD><TD ALIGN="right">   2.33</TD></TR>
-<TR><TD COLSPAN="3">dc_users</TD><TD ALIGN="right">         9,533</TD><TD ALIGN="right">            28</TD><TD ALIGN="right">   0.29</TD></TR>
-<TR><TD COLSPAN="3">dc_rollback_segments</TD><TD ALIGN="right">        30,341</TD><TD ALIGN="right">            12</TD><TD ALIGN="right">   0.04</TD></TR>
-<TR><TD COLSPAN="3">dc_objects</TD><TD ALIGN="right">         2,522</TD><TD ALIGN="right">           764</TD><TD ALIGN="right">  30.29</TD></TR>
-<TR><TD COLSPAN="3">dc_object_ids</TD><TD ALIGN="right">         1,963</TD><TD ALIGN="right">           126</TD><TD ALIGN="right">   6.42</TD></TR>
-<TR><TD COLSPAN="3">dc_sequences</TD><TD ALIGN="right">            50</TD><TD ALIGN="right">             1</TD><TD ALIGN="right">   2.00</TD></TR>
-<TR><TD COLSPAN="3">dc_usernames</TD><TD ALIGN="right">         2,460</TD><TD ALIGN="right">             8</TD><TD ALIGN="right">   0.33</TD></TR>
-<TR><TD COLSPAN="3">dc_database_links</TD><TD ALIGN="right">         8,592</TD><TD ALIGN="right">            19</TD><TD ALIGN="right">   0.22</TD></TR>
-<TR><TD COLSPAN="3">dc_histogram_defs</TD><TD ALIGN="right">         1,373</TD><TD ALIGN="right">           355</TD><TD ALIGN="right">  25.86</TD></TR>
-<TR><TD COLSPAN="3">dc_profiles</TD><TD ALIGN="right">           989</TD><TD ALIGN="right">             1</TD><TD ALIGN="right">   0.10</TD></TR>
-<TR><TD COLSPAN="3">dc_user_grants</TD><TD ALIGN="right">         4,267</TD><TD ALIGN="right">            19</TD><TD ALIGN="right">   0.45</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"><tbody><tr><th colspan="5"><a name="bufferpool">Buffer Pool Statistics</a></th></tr>
+<tr><td colspan="5">Ratio = physical_reads/(consistent_gets+db_block_gets) should be &lt; 0.9:
+</td></tr><tr><th class="th_sub">Pool</th><th class="th_sub">physical_reads</th><th class="th_sub">consistent_gets</th><th class="th_sub">db_block_gets</th><th class="th_sub">Ratio</th></tr>
+<tr><td>DEFAULT</td><td align="right">       628,008</td><td align="right">    10,648,657</td><td align="right">       663,299</td><td align="right">   0.06</td></tr>
+</tbody></table>
+<br clear="all">
 
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="5"><A NAME="bufferpool">Buffer Pool Statistics</A></TH></TR>
-<TR><TD COLSPAN="5">Ratio = physical_reads/(consistent_gets+db_block_gets) should be &lt; 0.9:
-<TR><TH CLASS="th_sub">Pool</TH><TH CLASS="th_sub">physical_reads</TH><TH CLASS="th_sub">consistent_gets</TH><TH CLASS="th_sub">db_block_gets</TH><TH CLASS="th_sub">Ratio</TH></TR>
-<TR><TD>DEFAULT</TD><TD ALIGN="right">         3,518</TD><TD ALIGN="right">     7,164,974</TD><TD ALIGN="right">       119,668</TD><TD ALIGN="right">   0.00</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"> <tbody><tr><th colspan="5"><a name="advices">DB Cache Advice</a></th></tr>
+<tr><td colspan="5"><div align="justify">The following values are an estimation how changing the size of a given buffer would affect the amount of physical reads.</div></td>
+</tr><tr><th class="th_sub">Pool</th><th class="th_sub">Size</th><th class="th_sub">Buffers</th><th class="th_sub">Estd.PhyRd Factor</th><th class="th_sub">Estd.PhyRds</th></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      16 M</td><td align="right">       1,985</td>
+<td align="right">   638.6%</td><td align="right">       4,638,174</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      32 M</td><td align="right">       3,970</td>
+<td align="right">   420.9%</td><td align="right">       3,271,005</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      48 M</td><td align="right">       5,955</td>
+<td align="right">   136.6%</td><td align="right">       1,485,823</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      64 M</td><td align="right">       7,940</td>
+<td align="right">    63.9%</td><td align="right">       1,029,463</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      80 M</td><td align="right">       9,925</td>
+<td align="right">    17.8%</td><td align="right">         739,869</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">      96 M</td><td align="right">      11,910</td>
+<td align="right">    12.3%</td><td align="right">         705,342</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     112 M</td><td align="right">      13,895</td>
+<td align="right">     6.0%</td><td align="right">         665,366</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     128 M</td><td align="right">      15,880</td>
+<td align="right">     1.7%</td><td align="right">         638,550</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     144 M</td><td align="right">      17,865</td>
+<td align="right">     0.7%</td><td align="right">         632,678</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     160 M</td><td align="right">      19,850</td>
+<td align="right">     0.0%</td><td align="right">         628,008</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     176 M</td><td align="right">      21,835</td>
+<td align="right">    -0.3%</td><td align="right">         626,381</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     192 M</td><td align="right">      23,820</td>
+<td align="right">    -0.8%</td><td align="right">         622,701</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     208 M</td><td align="right">      25,805</td>
+<td align="right">    -1.3%</td><td align="right">         619,659</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     224 M</td><td align="right">      27,790</td>
+<td align="right">    -2.0%</td><td align="right">         615,485</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     240 M</td><td align="right">      29,775</td>
+<td align="right">    -3.3%</td><td align="right">         607,419</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     256 M</td><td align="right">      31,760</td>
+<td align="right">    -8.5%</td><td align="right">         574,377</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     272 M</td><td align="right">      33,745</td>
+<td align="right">   -15.0%</td><td align="right">         533,906</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     288 M</td><td align="right">      35,730</td>
+<td align="right">   -21.2%</td><td align="right">         494,850</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     304 M</td><td align="right">      37,715</td>
+<td align="right">   -35.2%</td><td align="right">         406,691</td></tr>
+<tr><td class="td_name">DEFAULT</td><td align="right">     320 M</td><td align="right">      39,700</td>
+<td align="right">   -54.0%</td><td align="right">         288,816</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="3"><A NAME="sysstat">SYSSTAT Info</A></TH></TR>
- <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH><TH CLASS="th_sub">Description</TH></TR>
-<TR><TD WIDTH="300">Percent DiskSorts (of DiskSorts + MemSorts)</TD><TD ALIGN="right">   0.00</TD><TD>Should be less than 5% -
-higher values are an indicator to increase <CODE>SORT_AREA_SIZE</CODE>, but you of course have to consider the amount of physical memory available on your machine.</TD></TR>
-<TR><TD>summed dirty queue length / write requests</TD><TD ALIGN="right">&nbsp;</TD><TD>If this value is &gt; 100, the LGWR is too lazy -- so you may want to decrease <CODE>DB_BLOCK_MAX_DIRTY_TARGET</CODE></TD></TR>
-<TR><TD>free buffer inspected / free buffer requested</TD><TD ALIGN="right">           0.00</TD><TD>Increase your buffer cache if this value is too high</TD></TR>
-<TR><TD>redo buffer allocation retries / redo blocks written</TD><TD ALIGN="right">           0.00</TD><TD>should be less than 0.01 - larger values indicate
-that the LGWR is not keeping up. If this happens, tuning the values for <CODE>LOG_CHECKPOINT_INTERVAL</CODE> and <CODE>LOG_CHECKPOINT_TIMEOUT</CODE> (or, with Oracle 9i,
-<CODE>FAST_START_MTTR_TARGET</CODE>) can help to improve the situation.</TD></TR>
-<TR><TD>redo log space requests</TD><TD ALIGN="right">           0.00</TD><TD>how often the log file was full and Oracle had to wait for a new file to become available</TD></TR>
-<TR><TD>table fetch continued row</TD><TD ALIGN="right">         311.00</TD><TD>How many <A HREF="JavaScript:popup('rowmigration')">migrated rows</A> did we encounter during this instances life time?</TD></TR>
-<TR><TD>Chained-Fetch-Ratio</TD><TD ALIGN="right">       0.01%</TD><TD>Percentage of fetched "continued rows" per "rowid" fetch. If this value is very low, do not care about the previous value ;)</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"> <tbody><tr><th colspan="7">Shared Pool Advice</th></tr>
+<tr><td colspan="7"><div align="center">The following values are an estimation how changes to the shared pool size would affect the Library Cache (LC).</div></td></tr>
+<tr><th class="th_sub">Size</th><th class="th_sub">SizeFactor</th><th class="th_sub">LC Size</th><th class="th_sub">Objects</th><th class="th_sub">LC Time Saved</th>
+<th class="th_sub">TimeFactor</th><th class="th_sub">Object Hits</th></tr>
+<tr><td align="right">  32.0 M</td><td align="right">   -33.3%</td><td align="right">  34.0 M</td><td align="right">     3,859</td>
+<td align="right">1:32:49</td><td align="right">    -0.3%</td><td align="right">         370,018</td></tr>
+<tr><td align="right">  48.0 M</td><td align="right">     0.0%</td><td align="right">  49.0 M</td><td align="right">     5,931</td>
+<td align="right">1:32:55</td><td align="right">     0.0%</td><td align="right">         371,407</td></tr>
+<tr><td align="right">  64.0 M</td><td align="right">    33.3%</td><td align="right">  65.0 M</td><td align="right">     7,671</td>
+<td align="right">1:32:16</td><td align="right">     1.1%</td><td align="right">         373,378</td></tr>
+<tr><td align="right">  80.0 M</td><td align="right">    66.7%</td><td align="right">  80.0 M</td><td align="right">     9,513</td>
+<td align="right">1:32:22</td><td align="right">     1.4%</td><td align="right">         374,475</td></tr>
+<tr><td align="right">  96.0 M</td><td align="right">   100.0%</td><td align="right">  97.0 M</td><td align="right">    11,528</td>
+<td align="right">1:32:22</td><td align="right">     1.4%</td><td align="right">         374,626</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="6"><A NAME="events">Selected Wait Events (from v$system_event)</A></TH></TR>
- <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Totals</TH>
-<TH CLASS="th_sub">Total WaitTime (s)</TH><TH CLASS="th_sub">Avg Waited (ms)</TH><TH CLASS="th_sub">Timeouts</TH><TH CLASS="th_sub">Description</TH></TR>
-<TR><TD><DIV STYLE="width:22ex">free buffer waits</DIV></TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0
-</TD><TD><A HREF="JavaScript:popup('freebuffers')">This wait event</A> occurs when the database attemts to locate a clean block buffer but cannot
-because there are too many outstanding dirty blocks waiting to be written.</TD></TR>
-<TR><TD><DIV STYLE="width:22ex">buffer busy waits</DIV></TD><TD ALIGN="right">             1</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">         0.0</TD><TD ALIGN="right">             0
-</TD><TD><A HREF="JavaScript:popup('busybuffers')"><CODE>buffer busy waits</CODE></A> indicate
-contention for a buffer in the SGA. You may need to increase the <A HREF="JavaScript:popup('initrans')"><CODE>INITRANS</CODE></A> parameter for a specific table
-or index if the event is identified as belonging to either a table or index.</TD></TR>
-<TR><TD>db file sequential read</TD><TD ALIGN="right">         3,131</TD><TD ALIGN="right">         1,610</TD><TD ALIGN="right">       514.2</TD><TD ALIGN="right">             0
-</TD><TD>Indicator for <A HREF="JavaScript:popup('waitobj')">I/O problems</A> on index accesses<BR><DIV CLASS="small">(Consider increasing the buffer cache when value is high)</DIV></TD></TR>
-<TR><TD>db file scattered read</TD><TD ALIGN="right">            99</TD><TD ALIGN="right">           130</TD><TD ALIGN="right">     1,313.1</TD><TD ALIGN="right">             0
-</TD><TD>Indicator for <A HREF="JavaScript:popup('waitobj')">I/O problems</A> on full table scans<BR><DIV CLASS="small">(On increasing <CODE STYLE="font-size:125%">
-DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> if this value is high see the first block of Miscellaneous below)</DIV></TD></TR>
-<TR><TD>undo segment extension</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0
-</TD><TD>High wait times <A HREF="JavaScript:popup('undoseg')">here</A> could indicate a problem with the extent size, the value of MINEXTENTS, or possibly IO related problems.</TD></TR>
-<TR><TD>enqueue</TD><TD ALIGN="right">             4</TD><TD ALIGN="right">             3</TD><TD ALIGN="right">       750.0</TD><TD ALIGN="right">             0
-</TD><TD><A HREF="JavaScript:popup('enqueue')">This type</A> of event may be an indication that something is either wrong with the code
-or possibly the physical design.</TD></TR>
-<TR><TD>latch free</TD><TD ALIGN="right">           444</TD><TD ALIGN="right">           654</TD><TD ALIGN="right">     1,473.0</TD><TD ALIGN="right">           277
-</TD><TD><A HREF="JavaScript:popup('latchfree')">Latch free</A> waits can occur for a variety of reasons including library cache issues,
-OS process intervention, and so on.</TD></TR>
-<TR><TD>LGWR wait for redo copy</TD><TD ALIGN="right">             2</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">         0.0</TD><TD ALIGN="right">             0
-</TD><TD>This only needs your attention when many timeouts occur. A large amount of waits/wait times does not necessarily indicate a problem - normally it just says
-that LGWR waited for incomplete copies into the Redo buffers that it intends to write.</TD></TR>
-<TR><TD>log file switch (checkpoint incomplete)</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0</TD><TD ROWSPAN="2">
-Higher values for one of <A HREF="JavaScript:popup('logfileswitch')">these events</A> indicate that either your ReDo logs are too small or there are not enough log file groups</TD></TR>
-<TR><TD>log file switch (archiving needed)</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0</TD></TR>
-<TR><TD>log file switch completion</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0
-</TD><TD>You may consider increasing the number of logfile groups.</TD></TR>
-<TR><TD>log buffer wait</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0
-</TD><TD>If this value is too high, log buffers are filling faster than being emptied. You then have to consider to increase the number of logfile groups or to use larger log files.</TD></TR>
-<TR><TD>log buffer space</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0</TD><TD ALIGN="right">0.0</TD><TD ALIGN="right">0
-</TD><TD><A HREF="JavaScript:popup('logbufferspace')">This event</A> frequently occurs when the log buffers are filling faster than LGWR can write them to disk.
-The two obvious solutions are to either increase the amount of log buffers or to change your Redo log layout and/or IO strategy.</TD></TR>
-<TR><TD>log file parallel write</TD><TD ALIGN="right">         6,129</TD><TD ALIGN="right">         7,316</TD><TD ALIGN="right">     1,193.7</TD><TD ALIGN="right">             0
-</TD><TD ROWSPAN="2">Indicator for Redo log layout and/or IO strategy<BR>As the wait times on these events become higher, you will notice additional Wait Events such as
-<CODE>log buffer space</CODE>, <CODE>log file switch (archiving needed)</CODE>, etc.</TD></TR>
-<TR><TD>log file single write</TD><TD ALIGN="right">             7</TD><TD ALIGN="right">             0</TD><TD ALIGN="right">         0.0</TD><TD ALIGN="right">             0</TD></TR>
-<TR><TD>SQL*Net message to client</TD><TD ALIGN="right">       119,536</TD><TD ALIGN="right">            40</TD><TD ALIGN="right">         0.3</TD><TD ALIGN="right">             0
-</TD><TD ROWSPAN="2">These wait events occur when the Database unexpectedly looses Net8 connectivity with a remote client or Database.
-Frequent occurences of these events could indicate a networking issue.</TD></TR>
-<TR><TD>SQL*Net message to dblink</TD><TD ALIGN="right">        16,707</TD><TD ALIGN="right">             5</TD><TD ALIGN="right">         0.3</TD><TD ALIGN="right">             0</TD></TR>
-</TABLE>
-<BR CLEAR="all">
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="4"><A NAME="buffwait">Buffer Wait Ratios</A></TH></TR>
- <TR><TH CLASS="th_sub">Class/Name</TH><TH CLASS="th_sub">Count</TH>
-<TH CLASS="th_sub">Time</TH><TH CLASS="th_sub">Ratio</TH></TR>
-<TR><TH CLASS="th_sub2" COLSPAN="4">Buffer Busy Waits</TH></TR>
-<TR><TD>undo header</TD><TD ALIGN="right">               1</TD><TD ALIGN="right">               0</TD><TD ALIGN="right">           0.00</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"> <tbody><tr><th colspan="6">PGA Target Advice</th></tr>
+<tr><td colspan="6"><div align="center">The following values are an estimation how changes to the PGA size would affect the performance.<br>
+A nonzero value for <i>OverAlloc</i> means that <i>Size</i> for <code>PGA_TARGET_FOR_ESTIMATE</code> is not large enough to run the work area workload.</div></td></tr>
+<tr><th class="th_sub">Size</th><th class="th_sub">SizeFactor</th><th class="th_sub">BytesProcessed</th><th class="th_sub">XtraBytesRW</th>
+<th class="th_sub">CacheHits</th><th class="th_sub">OverAlloc</th></tr>
+<tr><td align="right">  12.0 M</td><td align="right">   -75.0%</td><td align="right">   1.7 G</td><td align="right"> 554.9 M
+</td><td align="right">    76.0%</td><td align="right">          46</td></tr>
+<tr><td align="right">  24.0 M</td><td align="right">   -50.0%</td><td align="right">   1.7 G</td><td align="right"> 381.1 M
+</td><td align="right">    82.0%</td><td align="right">           1</td></tr>
+<tr><td align="right">  36.0 M</td><td align="right">   -25.0%</td><td align="right">   1.7 G</td><td align="right"> 197.8 M
+</td><td align="right">    90.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  48.0 M</td><td align="right">     0.0%</td><td align="right">   1.7 G</td><td align="right">  81.1 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  57.6 M</td><td align="right">    20.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  67.2 M</td><td align="right">    40.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  76.8 M</td><td align="right">    60.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  86.4 M</td><td align="right">    80.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right">  96.0 M</td><td align="right">   100.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right"> 144.0 M</td><td align="right">   200.0%</td><td align="right">   1.7 G</td><td align="right">  79.7 M
+</td><td align="right">    96.0%</td><td align="right">           0</td></tr>
+<tr><td align="right"> 192.0 M</td><td align="right">   300.0%</td><td align="right">   1.7 G</td><td align="right">  47.2 M
+</td><td align="right">    97.0%</td><td align="right">           0</td></tr>
+<tr><td align="right"> 288.0 M</td><td align="right">   500.0%</td><td align="right">   1.7 G</td><td align="right">   0.0 K
+</td><td align="right">   100.0%</td><td align="right">           0</td></tr>
+<tr><td align="right"> 384.0 M</td><td align="right">   700.0%</td><td align="right">   1.7 G</td><td align="right">   0.0 K
+</td><td align="right">   100.0%</td><td align="right">           0</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="8"><A NAME="enqwaits">Enqueue Waits</A>&nbsp;<A HREF="JavaScript:popup('enqwaits')"><IMG SRC="help/help.gif" BORDER="0" HEIGTH="12" VALIGN="middle"></A></TH></TR>
-<TR><TD COLSPAN="8"><DIV ALIGN="center">The following queues caused waits during the recent uptime of this instance.<BR>Ordered by cumulative wait time (desc)
-</DIV></TD></TR>
-<TR><TH CLASS="th_sub">Queue</TH><TH CLASS="th_sub">Total Requests</TH><TH CLASS="th_sub">Total Waits</TH><TH CLASS="th_sub">PctWaits</TH>
-<TH CLASS="th_sub">Succ.Requests</TH><TH CLASS="th_sub">Failed Req.</TH><TH CLASS="th_sub">PctFailed</TH><TH CLASS="th_sub">Cum.WaitTime</TH></TR>
-<TR><TD>SQ</TD><TD ALIGN="right">              54</TD><TD ALIGN="right">           4</TD><TD ALIGN="right">   7.41
-</TD><TD ALIGN="right">              54</TD><TD ALIGN="right">               0</TD><TD ALIGN="right">   0.00</TD><TD ALIGN="right">              33</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<table align="center" border="1"> <tbody><tr><th colspan="2">PGA Workarea Usage</th></tr>
+<tr><td colspan="2"><div align="center">Target is, if possible, to have
+only optimal executions (i.e. process everything in memory) or at least
+eliminate the multipass executions.<br>Crosscheck with the PGA Target Advices above (especially to minimize
+OverAlloc).</div></td></tr>
+<tr><th class="th_sub">Statistic</th><th class="th_sub">Value</th></tr>
+<tr><td>workarea executions - optimal</td><td align="right">        79,042</td></tr>
+<tr><td>workarea executions - onepass</td><td align="right">            46</td></tr>
+<tr><td>workarea executions - multipass</td><td align="right">             0</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="5"><A NAME="invobj">Invalid Objects</A></TH></TR>
- <TR><TD COLSPAN="5">The following objects may need your investigation. These are not
-necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</TH></TR>
-<TR><TH CLASS="th_sub">Owner</TH><TH CLASS="th_sub">Object</TH><TH CLASS="th_sub">Typ</TH><TH CLASS="th_sub">Created</TH><TH CLASS="th_sub">Last DDL</TH></TR>
-<TR><TD>USER01</TD><TD>/179f813b_IllegalExce</TD><TD>JAVA CLASS</TD><TD>23.12.2003 05:22</TD><TD>23.12.2003 05:22</TD></TR>
-<TR><TD>USER01</TD><TD>/867432a1_LimitNotSetException</TD><TD>JAVA CLASS</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:21</TD></TR>
-<TR><TD>USER01</TD><TD>/d69ea820_IllegalChangeEx</TD><TD>JAVA CLASS</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:21</TD></TR>
-<TR><TD>USER01</TD><TD>PTRANS0</TD><TD>VIEW</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:23</TD></TR>
-<TR><TD>USER01</TD><TD>PTRANS</TD><TD>VIEW</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:23</TD></TR>
-<TR><TD>USER01</TD><TD>GETOP0</TD><TD>FUNCTION</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:23</TD></TR>
-<TR><TD>USER01</TD><TD>PUFFER_DEMO</TD><TD>TRIGGER</TD><TD>23.12.2003 05:22</TD><TD>24.02.2004 03:22</TD></TR>
-<TR><TD>USER01</TD><TD>Z_GD_TMP</TD><TD>VIEW</TD><TD>23.12.2003 05:22</TD><TD>09.03.2004 02:23</TD></TR>
-<TR><TD>USER01</TD><TD>TO_DOC</TD><TD>PROCEDURE</TD><TD>09.03.2004 03:45</TD><TD>09.03.2004 03:45</TD></TR>
-<TR><TD>SYS</TD><TD>ALL_REPGROUPED_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>ALL_REPPARAMETER_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>DBA_REPGROUPED_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>DBA_REPPARAMETER_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>DBMS_REPCAT_RGT_CUST</TD><TD>PACKAGE BODY</TD><TD>07.08.2002 01:34</TD><TD>07.08.2002 01:34</TD></TR>
-<TR><TD>SYS</TD><TD>DBMS_REPCAT_UTL4</TD><TD>PACKAGE BODY</TD><TD>07.08.2002 01:33</TD><TD>07.08.2002 01:33</TD></TR>
-<TR><TD>SYS</TD><TD>USER_REPGROUPED_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>USER_REPPARAMETER_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>_ALL_REPCOLUMN_GROUP</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>_ALL_REPCONFLICT</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>_ALL_REPGROUPED_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>_ALL_REPPARAMETER_COLUMN</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-<TR><TD>SYS</TD><TD>_ALL_REPRESOLUTION</TD><TD>VIEW</TD><TD>07.08.2002 01:30</TD><TD>07.08.2002 01:30</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="3"><a name="sysstat">SYSSTAT Info</a></th></tr>
+ <tr><th class="th_sub">Name</th><th class="th_sub">Value</th><th class="th_sub">Description</th></tr>
+<tr><td width="300">Percent DiskSorts (of DiskSorts + MemSorts)</td><td align="right">   0.01</td><td>Should be less than 5% -
+higher values are an indicator to increase <code>SORT_AREA_SIZE</code>, but you of course have to consider the amount of physical memory available on your machine.</td></tr>
+<tr><td>summed dirty queue length / write requests</td><td align="right">&nbsp;</td><td>If this value is &gt; 100, the LGWR is too lazy -- so you may want to decrease <code>DB_BLOCK_MAX_DIRTY_TARGET</code></td></tr>
+<tr><td>free buffer inspected / free buffer requested</td><td align="right">           0.00</td><td>Increase your buffer cache if this value is too high</td></tr>
+<tr><td>redo buffer allocation retries / redo blocks written</td><td align="right">           0.00</td><td>should be less than 0.01 - larger values indicate
+that the LGWR is not keeping up. If this happens, tuning the values for <code>LOG_CHECKPOINT_INTERVAL</code> and <code>LOG_CHECKPOINT_TIMEOUT</code> (or, with Oracle 9i,
+<code>FAST_START_MTTR_TARGET</code>) can help to improve the situation.</td></tr>
+<tr><td>redo log space requests</td><td align="right">          31.00</td><td>how often the log file was full and Oracle had to wait for a new file to become available</td></tr>
+<tr><td>table fetch continued row</td><td align="right">         896.00</td><td>How many <a href="javascript:popup('rowmigration')">migrated rows</a> did we encounter during this instances life time?</td></tr>
+<tr><td>Chained-Fetch-Ratio</td><td align="right">       0.03%</td><td>Percentage of fetched "continued rows" per "rowid" fetch. If this value is very low, do not care about the previous value ;)</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1"><TR><TH COLSPAN="2"><A NAME="misc">Miscellaneous</A></TH></TR>
- <TR><TH CLASS="th_sub">Name</TH><TH CLASS="th_sub">Value</TH></TR>
-<TR><TD COLSPAN="2" CLASS="td_name">If we have many full table scans, we may have to optimize <CODE>DB_FILE_MULTI_BLOCK_READ_COUNT</CODE>. Beneath the statistic below, we need the block count of the largest
-table to find the best value. A common recommendation is to set <CODE>DB_FILE_MULTI_BLOCK_READ_COUNT</CODE> to the highest possible value for maximum performance, which is 32 (256k) in
-most environments. The absolute maximum of 128 (1M) is mostly only available on raw devices.</TD></TR>
-<TR><TD>table scans (short tables)</TD><TD ALIGN="right">        10,934</TD></TR>
-<TR><TD>table scans (long tables)</TD><TD ALIGN="right">           249</TD></TR>
-<TR><TD>table scans (rowid ranges)</TD><TD ALIGN="right">             0</TD></TR>
-<TR><TD>table scans (cache partitions)</TD><TD ALIGN="right">             0</TD></TR>
-<TR><TD>table scans (direct read)</TD><TD ALIGN="right">             0</TD></TR>
-<TR><TD COLSPAN="2" CLASS="td_name">If there are tables that will for sure need more extents shortly, we can reduce I/O overhead allocating some extents for them in advance, using
-<CODE>"ALTER TABLE tablename ALLOCATE EXTENT"</CODE>. Here are the max. Top 10 candidates, having less than 10 percent free blocks left:</TD></TR>
-<TR><TD>SYSTEM.VDK_OBJECT</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_REP_CONTROL</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_SEGMENT</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_SESSION</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_SERVICE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_TAB_PARTITIONS</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_TABLE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_TABLESPACE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>SYSTEM.VDK_USER_RULE</TD><TD ALIGN="right">   0.00%</TD></TR>
-<TR><TD>USER01.CREATE$JAVA$LOB$TABLE</TD><TD ALIGN="right">   0.00%</TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="6"><a name="events">Selected Wait Events (from v$system_event)</a></th></tr>
+ <tr><th class="th_sub">Name</th><th class="th_sub">Totals</th>
+<th class="th_sub">Total WaitTime</th><th class="th_sub">Avg Waited</th><th class="th_sub">Timeouts</th><th class="th_sub">Description</th></tr>
+<tr><td><div style="width: 22ex;">free buffer waits</div></td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0
+</td><td><a href="javascript:popup('freebuffers')">This wait event</a> occurs when the database attemts to locate a clean block buffer but cannot
+because there are too many outstanding dirty blocks waiting to be written.</td></tr>
+<tr><td><div style="width: 22ex;">buffer busy waits</div></td><td align="right">           792</td><td align="right">1:39</td><td align="right">0.049</td><td align="right">             0
+</td><td><a href="javascript:popup('busybuffers')"><code>buffer busy waits</code></a> indicate
+contention for a buffer in the SGA. You may need to increase the <a href="javascript:popup('initrans')"><code>INITRANS</code></a> parameter for a specific table
+or index if the event is identified as belonging to either a table or index.</td></tr>
+<tr><td>db file sequential read</td><td align="right">        24,040</td><td align="right">1:18:37</td><td align="right">0.194</td><td align="right">             0
+</td><td>Indicator for <a href="javascript:popup('waitobj')">I/O problems</a> on index accesses<br><div class="small">(Consider increasing the buffer cache when value is high)</div></td></tr>
+<tr><td>db file scattered read</td><td align="right">       100,980</td><td align="right">1:03:10</td><td align="right">0.038</td><td align="right">             0
+</td><td>Indicator for <a href="javascript:popup('waitobj')">I/O problems</a> on full table scans<br><div class="small">(On increasing <code style="font-size: 125%;">
+DB_FILE_MULTI_BLOCK_READ_COUNT</code> if this value is high see the table stats above (if enabled))</div></td></tr>
+<tr><td>undo segment extension</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0
+</td><td>High wait times <a href="javascript:popup('undoseg')">here</a> could indicate a problem with the extent size, the value of MINEXTENTS, or possibly IO related problems.</td></tr>
+<tr><td>enqueue</td><td align="right">            40</td><td align="right">10:15</td><td align="right">15.375</td><td align="right">             2
+</td><td><a href="javascript:popup('enqueue')">This type</a> of event may be an indication that something is either wrong with the code
+or possibly the physical design.</td></tr>
+<tr><td>latch free</td><td align="right">            52</td><td align="right">25</td><td align="right">0.481</td><td align="right">            36
+</td><td><a href="javascript:popup('latchfree')">Latch free</a> waits can occur for a variety of reasons including library cache issues,
+OS process intervention, and so on.</td></tr>
+<tr><td>LGWR wait for redo copy</td><td align="right">           234</td><td align="right">1</td><td align="right">0.004</td><td align="right">             0
+</td><td>This only needs your attention when many timeouts occur. A
+large amount of waits/wait times does not necessarily indicate a
+problem - normally it just says
+that LGWR waited for incomplete copies into the Redo buffers that it
+intends to write.</td></tr>
+<tr><td>log file switch (checkpoint incomplete)</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td><td rowspan="2">
+Higher values for one of <a href="javascript:popup('logfileswitch')">these events</a> indicate that either your ReDo logs are too small or there are not enough log file groups</td></tr>
+<tr><td>log file switch (archiving needed)</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td></tr>
+<tr><td>log file switch completion</td><td align="right">            31</td><td align="right">2:37</td><td align="right">3.129</td><td align="right">             0
+</td><td>You may consider increasing the number of logfile groups.</td></tr>
+<tr><td>log buffer wait</td><td align="right">             0</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0
+</td><td>If this value is too high, log buffers are filling faster than
+being emptied. You then have to consider to increase the number of
+logfile groups or to use larger log files.</td></tr>
+<tr><td>log buffer space</td><td align="right">             9</td><td align="right">4:01</td><td align="right">27.778</td><td align="right">             1
+</td><td><a href="javascript:popup('logbufferspace')">This event</a> frequently occurs when the log buffers are filling faster than LGWR can write them to disk.
+The two obvious solutions are to either increase the amount of log buffers or to change your Redo log layout and/or IO strategy.</td></tr>
+<tr><td>log file parallel write</td><td align="right">       114,047</td><td align="right">3:43:24</td><td align="right">0.086</td><td align="right">       113,984
+</td><td rowspan="2">Indicator for Redo log layout and/or IO strategy<br>As the wait times on these events become higher, you will notice additional Wait Events such as
+<code>log buffer space</code>, <code>log file switch (archiving needed)</code>, etc.</td></tr>
+<tr><td>log file single write</td><td align="right">            76</td><td align="right">12</td><td align="right">0.158</td><td align="right">             0</td></tr>
+<tr><td>SQL*Net message to client</td><td align="right">     1,942,122</td><td align="right">5:14</td><td align="right">0.000</td><td align="right">             0
+</td><td rowspan="2">These wait events occur when the Database unexpectedly looses Net8 connectivity with a remote client or Database.
+Frequent occurences of these events could indicate a networking issue.</td></tr>
+<tr><td>SQL*Net message to dblink</td><td align="right">           105</td><td align="right">0</td><td align="right">0.000</td><td align="right">             0</td></tr>
+</tbody></table>
+<br clear="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="4"><a name="buffwait">Buffer Wait Ratios</a></th></tr>
+ <tr><th class="th_sub">Class/Name</th><th class="th_sub">Count</th>
+<th class="th_sub">Time</th><th class="th_sub">Ratio</th></tr>
+<tr><th class="th_sub2" colspan="4">Buffer Busy Waits</th></tr>
+<tr><td>data block</td><td align="right">             692</td><td align="right">              29</td><td align="right">       2,386.21</td></tr>
+<tr><td>undo header</td><td align="right">              93</td><td align="right">               0</td><td align="right">           0.00</td></tr>
+<tr><td>segment header</td><td align="right">               4</td><td align="right">               1</td><td align="right">         400.00</td></tr>
+<tr><td>undo block</td><td align="right">               3</td><td align="right">               0</td><td align="right">           0.00</td></tr>
+</tbody></table>
+<br clear="all">
 
-<HR>
-<TABLE ALIGN="center" BORDER="1">
-<TR><TD><DIV CLASS="small">Created by OraRep v0.2.8 &copy; 2003-2004 by <A HREF="http://www.qumran.org/homes/izzy/" TARGET="_blank">Itzchak Rehberg</A> &amp; <A HREF="http://www.izzysoft.de" TARGET="_blank">IzzySoft</A></DIV></TD></TR>
-</TABLE>
-<BR CLEAR="all">
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="8"><a name="freelist">FreeList Contention</a>&nbsp;<a href="javascript:popup('flc')"><img src="report_files/help.html" alt="Help" style="margin-right: 5px;" align="top" border="0" height="16"></a></th></tr>
+<tr><th class="th_sub">Owner</th><th class="th_sub">Table</th><th class="th_sub">AvgRowLen</th><th class="th_sub">
+PctUsed</th><th class="th_sub">PctFree</th><th class="th_sub">FreeLists</th><th class="th_sub">AvgFreeSpace</th><th class="th_sub">BlockSize</th></tr>
+<tr><td colspan="8" align="center">No affected tables found.</td></tr>
+</tbody></table>
+<br clear="all">
 
-</BODY></HTML>
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="3"><a name="waitobj">Objects causing Wait Events</a>&nbsp;<a href="javascript:popup('waitobj')"><img src="report_files/help.html" alt="Help" style="margin-right: 5px;" align="top" border="0" height="16"></a></th></tr>
+<tr><td colspan="3">On the following segments we noticed one of the events <code>buffer busy waits</code>, <code>db file sequential read</code>, <code>db file scattered read</code>
+or <code>free buffer waits</code> at the time the report was generated.</td></tr>
+</tbody></table>
+<br clear="all">
 
+<table align="center" border="1"><tbody><tr><th colspan="5"><a name="IO">Top 10 IO Objects</a>
+<a href="javascript:popup('waitobj')"><img src="report_files/help.html" alt="Help" style="margin-right: 5px;" align="top" border="0" height="16"></a></th></tr>
+<tr><th class="th_sub">Object</th><th class="th_sub">Type</th><th class="th_sub">TableSpace</th><th class="th_sub">Wait Type</th><th class="th_sub">Waits</th></tr>
+<tr><td class="td_name">ONION.INF</td><td>TABLE</td><td>DATA</td><td>physical reads</td><td align="right">        374,577</td></tr>
+<tr><td class="td_name">ONION.PWA</td><td>TABLE</td><td>DATA</td><td>physical reads</td><td align="right">        152,197</td></tr>
+<tr><td class="td_name">ONION.SYS_LOB0000012058C00002$$</td><td>LOB</td><td>DATA</td><td>physical reads</td><td align="right">         70,860</td></tr>
+<tr><td class="td_name">ONION.SYS_LOB0000012058C00002$$</td><td>LOB</td><td>DATA</td><td>physical reads direct</td><td align="right">         70,856</td></tr>
+<tr><td class="td_name">ONION.BEA</td><td>TABLE</td><td>DATA</td><td>physical reads</td><td align="right">         12,761</td></tr>
+<tr><td class="td_name">ONION.BED</td><td>TABLE</td><td>DATA</td><td>physical reads</td><td align="right">         10,011</td></tr>
+<tr><td class="td_name">ONION.INF_BACKUP</td><td>TABLE</td><td>DATA</td><td>physical reads</td><td align="right">          9,755</td></tr>
+<tr><td class="td_name">PERFSTAT.STATS$SQL_SUMMARY</td><td>TABLE</td><td>TOOLS</td><td>physical reads</td><td align="right">          9,650</td></tr>
+<tr><td class="td_name">PERFSTAT.STATS$LATCH</td><td>TABLE</td><td>TOOLS</td><td>physical reads</td><td align="right">          7,222</td></tr>
+<tr><td class="td_name">PERFSTAT.STATS$SYSSTAT</td><td>TABLE</td><td>TOOLS</td><td>physical reads</td><td align="right">          6,222</td></tr>
+</tbody></table>
+<br clear="all">
+
+<table align="center" border="1"><tbody><tr><th colspan="5"><a name="BufferBusy">Top 10 BufferBusy Objects</a>
+<a href="javascript:popup('busybuffers')"><img src="report_files/help.html" alt="Help" style="margin-right: 5px;" align="top" border="0" height="16"></a></th></tr>
+<tr><th class="th_sub">Object</th><th class="th_sub">Type</th><th class="th_sub">TableSpace</th><th class="th_sub">Wait Type</th><th class="th_sub">Waits</th></tr>
+<tr><td class="td_name">ONION.PRO</td><td>TABLE</td><td>DATA</td><td>buffer busy waits</td><td align="right">            635</td></tr>
+<tr><td class="td_name">ONION.SLG</td><td>TABLE</td><td>DATA</td><td>buffer busy waits</td><td align="right">              6</td></tr>
+<tr><td class="td_name">ONION.AUF</td><td>TABLE</td><td>DATA</td><td>buffer busy waits</td><td align="right">              3</td></tr>
+<tr><td class="td_name">ONION.PWA</td><td>TABLE</td><td>DATA</td><td>buffer busy waits</td><td align="right">              3</td></tr>
+<tr><td class="td_name">ONION.XPKPRO_H</td><td>INDEX</td><td>INDEX1</td><td>buffer busy waits</td><td align="right">              3</td></tr>
+<tr><td class="td_name">ONION.XPKPWA</td><td>INDEX</td><td>INDEX1</td><td>buffer busy waits</td><td align="right">              3</td></tr>
+<tr><td class="td_name">ONION.XPKSLG</td><td>INDEX</td><td>INDEX1</td><td>buffer busy waits</td><td align="right">              2</td></tr>
+<tr><td class="td_name">ONION.PRO_H</td><td>TABLE</td><td>DATA</td><td>buffer busy waits</td><td align="right">              2</td></tr>
+<tr><td class="td_name">ONION.XPKSTS</td><td>INDEX</td><td>INDEX1</td><td>buffer busy waits</td><td align="right">              1</td></tr>
+<tr><td class="td_name">ONION.XPKSKW</td><td>INDEX</td><td>INDEX1</td><td>buffer busy waits</td><td align="right">              1</td></tr>
+</tbody></table>
+<br clear="all">
+
+<table align="center" border="1"><tbody><tr><th colspan="5"><a name="RowLock">Top 10 RowLock Objects</a>
+<a href="javascript:popup('rowlocks')"><img src="report_files/help.html" alt="Help" style="margin-right: 5px;" align="top" border="0" height="16"></a></th></tr>
+<tr><th class="th_sub">Object</th><th class="th_sub">Type</th><th class="th_sub">TableSpace</th><th class="th_sub">Wait Type</th><th class="th_sub">Waits</th></tr>
+<tr><td class="td_name">ONION.XPKZTL</td><td>INDEX</td><td>INDEX1</td><td>row lock waits</td><td align="right">              6</td></tr>
+<tr><td class="td_name">ONION.XPKAUF</td><td>INDEX</td><td>INDEX1</td><td>row lock waits</td><td align="right">              3</td></tr>
+<tr><td class="td_name">ONION.XPKPRO_H</td><td>INDEX</td><td>INDEX1</td><td>row lock waits</td><td align="right">              2</td></tr>
+<tr><td class="td_name">ONION.XPKPRO</td><td>INDEX</td><td>INDEX1</td><td>row lock waits</td><td align="right">              2</td></tr>
+<tr><td class="td_name">ONION.XPKBAB</td><td>INDEX</td><td>INDEX1</td><td>row lock waits</td><td align="right">              1</td></tr>
+</tbody></table>
+<br clear="all">
+
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="8"><a name="enqwaits">Enqueue Waits</a>&nbsp;<a href="javascript:popup('enqwaits')"><img src="report_files/help.html" alt="Help" align="top" border="0" height="16"></a></th></tr>
+<tr><td colspan="8"><div align="center">The following queues caused waits during the recent uptime of this instance.<br>Ordered by cumulative wait time (desc)
+</div></td></tr>
+<tr><th class="th_sub">Queue</th><th class="th_sub">Total Requests</th><th class="th_sub">Total Waits</th><th class="th_sub">PctWaits</th>
+<th class="th_sub">Succ.Requests</th><th class="th_sub">Failed Req.</th><th class="th_sub">PctFailed</th><th class="th_sub">Cum.WaitTime</th></tr>
+<tr><td>TM</td><td align="right">         895,594</td><td align="right">          33</td><td align="right">   0.00
+</td><td align="right">         895,593</td><td align="right">               0</td><td align="right">   0.00</td><td align="right">3.361</td></tr>
+<tr><td>TX</td><td align="right">         111,897</td><td align="right">           2</td><td align="right">   0.00
+</td><td align="right">         111,897</td><td align="right">               0</td><td align="right">   0.00</td><td align="right">3.328</td></tr>
+<tr><td>SQ</td><td align="right">             188</td><td align="right">           3</td><td align="right">   1.60
+</td><td align="right">             188</td><td align="right">               0</td><td align="right">   0.00</td><td align="right">0.007</td></tr>
+</tbody></table>
+<br clear="all">
+
+<hr>
+<table align="center" border="1"><tbody><tr><th colspan="5"><a name="invobj">Invalid Objects</a></th></tr>
+ <tr><td colspan="5">The following objects may need your investigation. These are not
+necessarily problem indicators (e.g. an invalid view may automatically re-compile), but could be:</td></tr>
+<tr><th class="th_sub">Owner</th><th class="th_sub">Object</th><th class="th_sub">Type</th><th class="th_sub">Created</th><th class="th_sub">Last DDL</th></tr>
+<tr><td>SYS</td><td>DBMS_PCLXUTIL</td><td>PACKAGE BODY</td><td>15.05.2003 05:30</td><td>29.10.2004 02:32</td></tr>
+<tr><td>SYS</td><td>DBMS_PRVTAQIP</td><td>PACKAGE BODY</td><td>15.05.2003 05:31</td><td>29.10.2004 02:32</td></tr>
+<tr><td>SYS</td><td>DBMS_SNAPSHOT</td><td>PACKAGE BODY</td><td>15.05.2003 05:31</td><td>29.10.2004 02:32</td></tr>
+<tr><td>SYS</td><td>UTL_RECOMP</td><td>PACKAGE BODY</td><td>06.07.2004 03:30</td><td>03.11.2004 02:03</td></tr>
+</tbody></table>
+<br clear="all">
+<hr>
+<table align="center" border="1">
+<tbody><tr><td><img src="report_files/w3c.html" alt="w3c" style="margin-right: 3px;" align="middle" height="14" width="14"><span class="small">
+Created by OraRep v0.3.3 © 2003-2005 by <a href="http://www.qumran.org/homes/izzy/" target="_blank">Itzchak Rehberg</a> &amp; <a href="http://www.izzysoft.de/" target="_blank">IzzySoft</a></span>
+<img src="report_files/islogo.html" alt="IzzySoft" style="margin-left: 3px;" align="middle" height="14" width="14"></td></tr>
+</tbody></table>
+<br clear="all">
+
+</body></html>

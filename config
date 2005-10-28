@@ -82,6 +82,8 @@ MK_RSRC=0
 MK_DBAPROF=0
 # Include Instance Efficiency? [0|1]
 MK_INSTEFF=1
+# Include Load Profile? [0|1]
+MK_LOADPROF=1
 # Include table statistics? [0|1]
 MK_TABS=1
 # Include TableSpace Quotas? [0|1]

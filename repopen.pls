@@ -103,7 +103,10 @@ BEGIN
     L_LINE := '';
   END IF;
   IF :MK_INSTEFF = 1 THEN
-    L_LINE := L_LINE||' [ <A HREF="#efficiency">Effiencies</A> ]';
+    L_LINE := L_LINE||' [ <A HREF="#efficiency">Effiency</A> ]';
+  END IF;
+  IF :MK_LOADPROF = 1 THEN
+    L_LINE := L_LINE||' [ <A HREF="#loads">LoadProfile</A> ]';
   END IF;
   IF MK_TABS = 1 THEN
     L_LINE := L_LINE||' [ <A HREF="#tabs">TableStats</A> ]';
