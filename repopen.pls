@@ -165,6 +165,9 @@ BEGIN
   IF MK_ENQS THEN
     L_LINE := L_LINE||' [ <A HREF="#enqwaits">Enqueue Waits</A> ]';
   END IF;
+  IF :MK_USS + :MK_USSTAT > 0 THEN
+    L_LINE := L_LINE||' [ <A HREF="#undo">UndoStats</A> ]';
+  END IF;
   IF LENGTH(L_LINE) > 0 THEN
     print(L_LINE);
   END IF;

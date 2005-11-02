@@ -110,6 +110,9 @@ MK_WTEVT=1
 MK_FLC=1
 # Include Enqueue Waits (Oracle 9i and higher only)? [0|1]
 MK_ENQ=1
+# Include Undo Segment Statistics (Oracle 9i+)? [0|1]
+MK_USS=1
+MK_USSTAT=0
 # Include the Invalid Objects segment? [0|1]
 MK_INVOBJ=1
 # Include the TableScan stats? [0|1]
