@@ -10,6 +10,8 @@ v0.3.4
 * added "related information" to DBWR stats
 + added instance efficiency stats (adapted from OSPRep)
 + added load profile (adapted from OSPRep)
++ added undo statistics (adapted from OSPRep)
++ added resource limits (adapted from OSPRep)
 
 v0.3.3 (24.10.2005)
 -------------------

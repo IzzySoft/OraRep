@@ -60,6 +60,8 @@ WR_IE_PRSC2E=80
 AR_IE_PRSC2E=60
 WR_BUFF=0.7
 AR_BUFF=0.9
+WR_RLIM=80
+AR_RLIM=90
 # non-autoextensible datafile filled x %
 WR_FILEUSED=85
 AR_FILEUSED=95
@@ -119,4 +121,6 @@ MK_INVOBJ=1
 MK_TSCAN=1
 # Include the list of TOP_N tables that need more extents? [0|1]
 MK_NEXT=0
+# Include Resource Limit Stats? [0|1]
+MK_RLIMS=1
 # ===================================================================[ EOF ]===
