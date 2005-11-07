@@ -14,7 +14,7 @@
        GROUP BY undotsn;
     BEGIN
       L_LINE := TABLE_OPEN||'<TR><TH COLSPAN="8">Undo Segment Summary'||
-                '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'undoseg'||CHR(39)||
+                '&nbsp;<A HREF="JavaScript:popup('||CHR(39)||'undostat'||CHR(39)||
 	        ')"><IMG SRC="help/help.gif" BORDER="0" HEIGHT="16" '||
 	        'ALIGN="top" ALT="Help"></A></TH></TR>';
       print(L_LINE);
