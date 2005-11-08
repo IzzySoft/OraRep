@@ -1,7 +1,7 @@
   -- Resource Limits
   PROCEDURE rlims IS
-    limit VARCHAR2(10);
-    inita VARCHAR2(10);
+    limit VARCHAR2(20);
+    inita VARCHAR2(20);
     CURSOR cr IS
      SELECT resource_name rname,
             current_utilization curu,
