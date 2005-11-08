@@ -3,7 +3,7 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
-v0.3.4
+v0.3.4 (08.11.2005)
 -------------------
 * made the DBWR+LGWR stats more compact (to fit on one page). Additional
   comments/hints have been moved to online help
