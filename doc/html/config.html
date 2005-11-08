@@ -132,6 +132,13 @@
            resources. The report lists available profiles with their settings
            concerning resources and limits in this block. If you don't use
            profiles, or do not want to report on them, you may disable it here.</td></tr>
+   <tr><td class="td_name"><code>MK_INSTEFF</code></td>
+       <td class="text">The "Instance Efficiency Percentages" provide an overview
+           of some important ratios, such as "Buffer HitRatio", "Library HiRatio"
+           and "In-Memory Sort" and should normally be included with the report.</td></tr>
+   <tr><td class="td_name"><code>MK_LOADPROF</code></td>
+       <td class="text">The LoadProfile shows some throughput information on a per
+           second and per transaction base.</td></tr>
    <tr><td class="td_name"><code>MK_TABS</code></td>
        <td class="text">Generate basic table statistics</td></tr>
    <tr><td class="td_name"><code>MK_FILES</code></td>
@@ -181,6 +188,12 @@
        <td class="text">The "Enqueue Waits" block may be useful for closer
            investigation if other results indicate problems concerning enqueues,
            but may not be needed for the daily reports in most cases.</td></tr>
+   <tr><td class="td_name"><code>MK_USS</code></td>
+       <td class="text" ROWSPAN="2">Except for special occasions, the "Undo Segment Statistics"
+           (<code>MK_USSTAT</code>) will not be needed (especially when using
+           automatic undo management). The "Undo Segment Summary" table can also
+           be turned off, if not needed, with the <code>MK_USS=0</code> statement.</td></tr>
+   <tr><td class="td_name"><code>MK_USSTAT</code></td></tr>
    <tr><td class="td_name"><code>MK_INVOBJ</code></td>
        <td class="text">Database objects, such as Views, Stored Procedures,
            Packages etc.pp., can become invalid under certain conditions. While
@@ -197,6 +210,43 @@
            tables that have less than 10% free blocks left and will need a new
            extent shortly (if there are any). Disable this by setting this variable
            to 0.</td></tr>
+   <tr><td class="td_name"><code>MK_RLIMS</code></td>
+       <td class="text">With the <code>MK_RLIMS</code> statement you can switch the
+           Resource Limits Report on (1) or off (0). If switched off, of course no
+           resource limits reports will be generated at all. If set to 1, this
+           report segment will be built only if you have resource limits enabled.</td></tr>
+   <tr><td class="td_name" align="center" COLSPAN="2">Go4Colors</td></tr>
+   <tr><td colspan="2">
+     <table align="center" border="0">
+      <tr><th class="th_sub2">Parameter</th><th class="th_sub2">Key</th>
+          <th class="th_sub2">Warning</th><th class="th_sub2">Alert</th></tr>
+      <tr><td class="td_name" colspan="4" align="center">Instance Efficiency</td></tr>
+      <tr><td class="td_name">Buffer NoWait</td><td>*_IE_BUFFNW</td><td class="warn">&lt; 80</td><td class="alert">&lt; 60</td></tr>
+      <tr><td class="td_name">Redo NoWait</td><td>*_IE_REDONW</td><td class="warn">&lt; 90</td><td class="alert">&lt; 75</td></tr>
+      <tr><td class="td_name">Buffer Hit</td><td>*_IE_BUFFHIT</td><td class="warn">&lt; 50</td><td class="alert">&lt; 30</td></tr>
+      <tr><td class="td_name">In-Memory Sort</td><td>*_IE_IMSORT</td><td class="warn">&lt; 85</td><td class="alert">&lt; 70</td></tr>
+      <tr><td class="td_name">Library Hit</td><td>*_IE_LIBHIT</td><td class="warn">&lt; 80</td><td class="alert">&lt; 60</td></tr>
+      <tr><td class="td_name">Soft Parse</td><td>*_IE_SOFTPRS</td><td class="warn">&lt; 80</td><td class="alert">&lt; 60</td></tr>
+      <tr><td class="td_name">Parse CPU to ELA</td><td>*_IE_PRSC2E</td><td class="warn">&lt; 80</td><td class="alert">&lt; 60</td></tr>
+      <tr><td class="td_name">Latch Hit</td><td>*_IE_LAHIT</td><td class="warn">&lt; 85</td><td class="alert">&lt; 70</td></tr>
+      <tr><td class="td_name">Resource Limits</td><td>*_RLIM</td><td class="warn">&lt; 80</td><td class="alert">&lt; 90</td></tr>
+      <tr><td class="td_name">Redo Wastage Percentage</td><td>*_RWP</td><td class="warn">&lt; 20</td><td class="alert">&lt; 30</td></tr>
+      <tr><td class="td_name" colspan="4" align="center">TOP_N_SQL</td></tr>
+      <tr><td class="td_name">FTS in execution plan</td><td>AR_EP_FTS</td><td class="warn"></td><td class="alert">Cost &gt; 1.000</td></tr>
+      <tr><td class="td_name">Seconds per Execution</td><td>*_ET</td><td class="warn">&gt; 3600</td><td class="alert">&gt; 7200</td></tr>
+      <tr><td class="td_name" colspan="4" align="center">Datafiles Statistic</td></tr>
+      <tr><td class="td_name">Size Change in %/7d</td><td>*_DF_CHNG</td><td class="warn">&gt; 50</td><td class="alert">&gt; 100</td></tr>
+      <tr><td class="td_name" colspan="4" align="center">TableSpace &amp; File IO Summary</td></tr>
+      <tr><td class="td_name">Avg Blks/Rd<br><font size="-2">measured
+              by</font><br><code><font size="-1">DB_FILE_MULTIBLOCK_READ_COUNT</font></code></td>
+          <td>*_TS_BLKRD</td><td class="warn">&gt; 80%</td><td class="alert">&gt; 100%</td></tr>
+      <tr><td class="td_name">AvgRd (ms)</td><td>*_TS_RD</td><td class="warn">&gt; 50</td><td class="alert">&gt; 80</td></tr>
+      <tr><td class="td_name" colspan="4" align="center">Library Cache</td></tr>
+      <tr><td class="td_name">PctMiss</td><td>*_LC_MISS</td><td class="warn">&gt; 15</td><td class="alert">&gt; 40</td></tr>
+      <tr><td class="td_name">Reloads/GetRequests</td><td>*_LC_RLPRQ</td><td class="warn">&gt; 10</td><td class="alert">&gt; 30</td></tr>
+      <tr><td class="td_name">Invalidations/GetRequests</td><td>*_LC_INVPRQ</td><td class="warn">&gt; 10</td><td class="alert">&gt; 20</td></tr>
+     </table>
+       </td></tr>
   </table>
  </td></tr>
 </table>
