@@ -2,7 +2,8 @@
 # $Id$
 
 DESTDIR=
-BINDIR=$(DESTDIR)/opt/orarep
+prefix=/opt
+BINDIR=$(DESTDIR)$(prefix)/orarep
 INSTALL=
 
 install: installdirs
