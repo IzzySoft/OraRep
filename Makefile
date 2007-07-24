@@ -2,7 +2,7 @@
 # $Id$
 
 DESTDIR=
-prefix=/opt
+prefix=/usr/local
 BINDIR=$(DESTDIR)$(prefix)/orarep
 INSTALL=
 
