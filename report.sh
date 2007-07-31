@@ -48,6 +48,8 @@ BINDIR=${0%/*}
 PLUGINDIR=$BINDIR/plugins
 CONFIG=$BINDIR/config
 ARGS=$*
+# Read in default config first - overwrite with special config later
+. $CONFIG $ARGS
 
 # ------------------------------------------[ process command line options ]---
 while [ -n "$1" ] ; do
@@ -89,13 +91,14 @@ if [ -n "$startdir" ]; then
   cd $startdir
 fi
 
-# --------------------------------[ Get the Oracle version of the DataBase ]---
+# ------------------------------------------------------[ Setup SQL header ]---
 cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$ORACLE_CONNECT
+ALTER SESSION SET NLS_NUMERIC_CHARACTERS='.,';
 Set TERMOUT OFF
 Set SCAN OFF
-Set SERVEROUTPUT On Size 1000000
-Set LINESIZE 300
+Set SERVEROUTPUT On
+Set LINESIZE 500
 Set TRIMSPOOL On 
 Set FEEDBACK OFF
 Set Echo Off
@@ -103,8 +106,20 @@ Set PAGESIZE 0
 SPOOL $TMPOUT
 ENDSQL
 
+# --------------------------------[ Get the Oracle version of the DataBase ]---
 cat $SQLSET $BINDIR/getver.sql | $ORACLE_HOME/bin/sqlplus -s /NOLOG >/dev/null
 DBVER=`cat $TMPOUT`
+
+SQLPLUSRELEASE=`echo "prompt &_SQLPLUS_RELEASE" | $ORACLE_HOME/bin/sqlplus -s $user/$password@$ORACLE_CONNECT`
+
+# Serveroutput: 10g+ supports unlimited
+if [ ${SQLPLUSRELEASE:0:2} -lt 20 ]; then
+  SERVOUT="Size Unlimited"
+else
+  SERVOUT="Size 1000000"
+fi
+
+# ------------------------------[ Setup the script depending on DB version ]---
 if [ $DBVER -gt 91 ]; then
   WAITHEAD=$PLUGINDIR/92wait_head.pls
   WAITBODY=$PLUGINDIR/92wait_body.pls
@@ -238,13 +253,15 @@ cat >$SQLSET<<ENDSQL
 CONNECT $user/$password@$ORACLE_CONNECT
 Set TERMOUT OFF
 Set SCAN OFF
-Set SERVEROUTPUT On Size 1000000
+Set SERVEROUTPUT On $SERVOUT
 Set LINESIZE 300
 Set TRIMSPOOL On 
 Set FEEDBACK OFF
 Set Echo Off
 variable CSS VARCHAR2(255);
 variable SCRIPTVER VARCHAR2(20);
+variable SERVERVER VARCHAR2(10);
+variable SQLPLUSVER VARCHAR2(20);
 variable TOP_N_WAITS NUMBER;
 variable TOP_N_TABLES NUMBER;
 variable MK_USER NUMBER;
@@ -301,6 +318,8 @@ variable AR_RLIM NUMBER;
 BEGIN
   :CSS         := '$CSS';
   :SCRIPTVER   := '$version';
+  :SERVERVER   := '$DBVER';
+  :SQLPLUSVER  := '$SQLPLUSRELEASE';
   :TOP_N_WAITS := $TOP_N_WAITS;
   :TOP_N_TABLES := $TOP_N_TABLES;
   :MK_USER     := $MK_USER;

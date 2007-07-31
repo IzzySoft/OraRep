@@ -3,6 +3,13 @@ $Id$
 History for OraRep (Basis)
 ==========================
 
+v0.3.5
+-------------------
+* connecting a 10g DB using a 9i client leads to dbms_output.put_line
+  truncating its output after the 254th character (10g doesn't issue
+  an error message any longer until you reach the limit of 32k chars).
+  Applied a work-around to fix this.
+
 v0.3.4 (08.11.2005)
 -------------------
 * made the DBWR+LGWR stats more compact (to fit on one page). Additional

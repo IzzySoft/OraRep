@@ -123,7 +123,15 @@ DECLARE
   PROCEDURE print(line IN VARCHAR2) IS
     pos NUMBER;
     BEGIN
-      dbms_output.put_line(line);
+      -- <255 char || (sqlplus > v10 && db > v10): _SQLPLUS_RELEASE: '101020000' 10g, '902000800' 9.2
+      IF (LENGTH(line) < 255) OR ((substr(:SQLPLUSVER,1,2) < 20) AND (:SERVERVER > 92)) THEN
+        dbms_output.put_line(line);
+      ELSE
+	pos := strpos(line,' ',-1);
+	print(SUBSTR(line,1,pos));
+	pos := pos +1;
+	print(SUBSTR(line,pos));
+      END IF;
     EXCEPTION
       WHEN OTHERS THEN
         IF SQLERRM LIKE '%ORU-10028%' THEN
