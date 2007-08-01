@@ -9,6 +9,7 @@ v0.3.5
   truncating its output after the 254th character (10g doesn't issue
   an error message any longer until you reach the limit of 32k chars).
   Applied a work-around to fix this.
++ added some more hints to the table stats (adapted from OSPRep)
 
 v0.3.4 (08.11.2005)
 -------------------
