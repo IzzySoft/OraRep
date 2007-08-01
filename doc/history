@@ -10,6 +10,10 @@ v0.3.5
   an error message any longer until you reach the limit of 32k chars).
   Applied a work-around to fix this.
 + added some more hints to the table stats (adapted from OSPRep)
++ added Makefile for (un)installation with the make utility. After
+  verifying the WEBROOT (and prefix) setting, you may simply invoke
+  "make install" (resp. "make uninstall") from inside the top-level
+  directory of the unpacked tarball (where the Makefile resides).
 
 v0.3.4 (08.11.2005)
 -------------------
