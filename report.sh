@@ -19,12 +19,11 @@
 # If you look for the configuration options, this is the wrong place - they
 # are kept in the file "config" in the same directory as this script resides.
 #
-version='0.3.4'
-if [ -z "$1" ]; then
+function syntax {
   SCRIPT=${0##*/}
   echo
   echo ============================================================================
-  echo "OraRep v$version                (c) 2003 by Itzchak Rehberg (devel@izzysoft.de)"
+  echo "OraRep v$version           (c) 2003-2007 by Itzchak Rehberg (devel@izzysoft.de)"
   echo ----------------------------------------------------------------------------
   echo This script is intended to generate a HTML report for a given instance. Look
   echo inside the script header for closer details, and check for the configuration
@@ -42,14 +41,18 @@ if [ -z "$1" ]; then
   echo ============================================================================
   echo
   exit 1
-fi
+}
 # =================================================[ Configuration Section ]===
 BINDIR=${0%/*}
 PLUGINDIR=$BINDIR/plugins
 CONFIG=$BINDIR/config
 ARGS=$*
 # Read in default config first - overwrite with special config later
+. ${BINDIR}/version
 . $CONFIG $ARGS
+
+# ----------------------------------------------------------[ syntax check ]---
+[ -z "$1" ] && syntax
 
 # ------------------------------------------[ process command line options ]---
 while [ -n "$1" ] ; do
