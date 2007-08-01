@@ -98,7 +98,7 @@
   print(L_LINE);
   I1 := dbstat('parse count (hard)') / dbstat('execute count');
   L_LINE := '<TD ALIGN="right">'||decformat(100*(1-I1))||
-	    '</TD><TD CLASS="text">A low value here indicates that there is no '||
+	    '</TD><TD CLASS="text">A low value here (&lt; 50%) indicates that there is no '||
             'much re-usable SQL (see <I>Soft Parse</I> for possible actions). ';
   print(L_LINE);
   L_LINE := 'It may also point to a too small shared pool, or frequent logons/logoffs. ';
