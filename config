@@ -23,13 +23,13 @@
 export ORACLE_SID=$1
 # login information
 user=sys
-password="nis!"
+password="change_on_install"
 
 # -------------------------------------------------[ Files and Directories ]---
 # directory for temporary files
 TMPDIR=/tmp
 # in which directory should the report ($ORACLE_SID.html) be placed
-REPDIR=/tools/oracle/app/product/9.2.0/dba_admin/orarep/reports
+REPDIR=/var/www/orarep
 # StyleSheet to use
 CSS=iceage.css
 
