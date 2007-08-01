@@ -14,10 +14,12 @@
 . ../config
 
 HCSS=`echo $CSS|sed 's/\.\./\\\.\\\./g'|sed 's/\//\\\\\//g'`
+CYEAR="2003-2007"
 SEDC="s/{css}/$HCSS/g"
+SED2="s/{copy}/$CYEAR/g"
 for i in *.tpl; do
   TARGET=$REPDIR/help/${i%%.*}.html
-  sed $SEDC $i >$TARGET
+  sed $SEDC $i | sed $SED2 >$TARGET
   chmod o+r $TARGET
 done
 cp help.gif $REPDIR/help/
@@ -25,4 +27,4 @@ chmod o+r $REPDIR/help/help.gif
 cp w3c.jpg $REPDIR
 cp islogo.gif $REPDIR
 cp iceage.css $REPDIR
-chmod o+r w3c.jpg islogo.gif iceage.css
+chmod o+r $REPDIR/w3c.jpg $REPDIR/islogo.gif $REPDIR/iceage.css
