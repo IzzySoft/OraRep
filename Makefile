@@ -3,7 +3,7 @@
 
 DESTDIR=
 prefix=/usr/local
-BINDIR=$(DESTDIR)$(prefix)/orarep
+BINDIR=$(DESTDIR)$(prefix)/share/orarep
 datadir=$(BINDIR)/reports
 INSTALL=
 
