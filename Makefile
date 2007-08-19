@@ -21,6 +21,6 @@ installdirs:
 
 uninstall:
 	rm -rf $(BINDIR)
-	linkstat=`stat $(LINKTO)|grep $(LINKTO)|grep $(datadir)`
-	if [ -n "$linkstat" ]; then rm -f $(LINKTO); fi
+	linkstat=`readlink $(LINKTO)`
+	if [ "$linkstat" = "$(datadir)" ]; then rm -f $(LINKTO); fi
 
